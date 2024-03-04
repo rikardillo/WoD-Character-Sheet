@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import AttributeGroup from "./AttributeGroup";
+import data from "../data/data.js";
 
 const StyledAttributes = styled.section`
   display: flex;
+  gap: 1rem;
   width: 80vw;
   justify-content: space-between;
   background-color: black;
@@ -13,9 +15,7 @@ const StyledAttributes = styled.section`
 export default function Attributes() {
   return (
     <StyledAttributes>
-      <AttributeGroup />
-      <AttributeGroup />
-      <AttributeGroup />
+      <AttributeGroup data={data} />
     </StyledAttributes>
   );
 }

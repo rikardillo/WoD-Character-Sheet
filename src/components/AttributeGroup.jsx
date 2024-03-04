@@ -1,18 +1,28 @@
 import styled from "styled-components";
 import Attribute from "./Attribute";
 
-export default function AttributeGroup({title, placeholder}) {
+
+export default function AttributeGroup({ data }) {
   return (
     <StyledAttributeGroup>
-      <Attribute title={title} placeholder={placeholder} />
-      <Attribute title={title} placeholder={placeholder} />
-      <Attribute title={title} placeholder={placeholder} />
+      {data.map((item, index) => (
+        <Attribute
+          key={index}
+          title={item.title}
+          placeholder={item.placeholder}
+          entry={item.entry}
+        />
+      ))}
     </StyledAttributeGroup>
   );
 }
 
 const StyledAttributeGroup = styled.div`
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-auto-flow: column;
   flex-direction: column;
-  gap: .4rem;
+  gap: 0.4rem;
 `;
