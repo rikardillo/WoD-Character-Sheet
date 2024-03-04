@@ -4,17 +4,22 @@ import styled from 'styled-components';
 const DotContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: .2rem;
 `;
 
 const Dot = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
   background-color: ${({ filled }) => (filled ? 'white' : 'transparent')};
   border: 2px solid white;
-  margin: 0 5px;
   cursor: pointer;
   transition: all .3s;
+  
+  &:hover {
+    background-color: ${({ filled }) => (!filled ? '#ffffff57' : 'transparent')};
+
+  }
 `;
 
 const DotRating = ({ initialRating = 0, onChange }) => {

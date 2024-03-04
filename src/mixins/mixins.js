@@ -1,0 +1,10 @@
+export const mixinFlex = (
+  flexDirection = "row",
+  justifyContent = "center",
+  alignItems = "center"
+) => `
+ display: flex;
+ flex-direction: ${flexDirection};
+ justify-content: ${justifyContent};
+ align-items: ${alignItems};
+`;
