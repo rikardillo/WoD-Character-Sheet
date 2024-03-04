@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import AttributeGroup from "./AttributeGroup";
+import InfoGroup from "./InfoGroup.jsx";
 import data from "../data/data.js";
 
-const StyledAttributes = styled.section`
+const StyledInfo = styled.section`
   display: flex;
   gap: 1rem;
   width: 80vw;
@@ -12,10 +12,10 @@ const StyledAttributes = styled.section`
   border-radius: 0.4rem;
 `;
 
-export default function Attributes() {
+export default function InfoSection() {
   return (
-    <StyledAttributes>
-      <AttributeGroup data={data} />
-    </StyledAttributes>
+    <StyledInfo>
+      <InfoGroup data={data} />
+    </StyledInfo>
   );
 }

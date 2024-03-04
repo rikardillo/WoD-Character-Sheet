@@ -1,23 +1,22 @@
 import styled from "styled-components";
-import Attribute from "./Attribute";
+import InfoEntry from "./InfoEntry";
 
-
-export default function AttributeGroup({ data }) {
+export default function InfoGroup({ data }) {
   return (
-    <StyledAttributeGroup>
+    <StyledInfoGroup>
       {data.map((item, index) => (
-        <Attribute
+        <InfoEntry
           key={index}
           title={item.title}
           placeholder={item.placeholder}
           entry={item.entry}
         />
       ))}
-    </StyledAttributeGroup>
+    </StyledInfoGroup>
   );
 }
 
-const StyledAttributeGroup = styled.div`
+const StyledInfoGroup = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
