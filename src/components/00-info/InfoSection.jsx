@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import InfoGroup from "./InfoGroup.jsx";
-import data from "../data/data.js";
+import data from "../../data/data.js";
 
 const StyledInfo = styled.section`
   display: flex;
   gap: 1rem;
-  width: 80vw;
+  width: 100%;
   justify-content: space-between;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
   padding: 2rem;
   border-radius: 0.4rem;
 `;

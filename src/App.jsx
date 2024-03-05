@@ -8,6 +8,7 @@ import * as m from "./mixins/mixins";
 const MainContainer = styled.div`
   ${m.mixinFlex("column")}
   width: 100%;
+  max-width: 900px;
   gap: 1rem;
 `;
 

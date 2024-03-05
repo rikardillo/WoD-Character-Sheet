@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Attribute from "./Attribute";
 
 const StyledAttributes = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
