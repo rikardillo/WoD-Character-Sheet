@@ -22,5 +22,5 @@ const StyledInfoGroup = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-auto-flow: column;
-  gap: 0.4rem;
+  gap: 0.8rem;
 `;

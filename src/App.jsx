@@ -4,12 +4,13 @@ import logoWoD from "./assets/Logo - WoD.svg";
 import InfoSection from "./components/00-info/InfoSection";
 import AttributesSection from "./components/01-attributes/AttributesSection";
 import * as m from "./mixins/mixins";
+import SkillSection from "./components/02-skills/SkillSection";
 
 const MainContainer = styled.div`
   ${m.mixinFlex("column")}
   width: 100%;
   max-width: 900px;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <img src={logoWoD} alt="" />
       <InfoSection />
       <AttributesSection />
+      <SkillSection />
     </MainContainer>
   );
 }

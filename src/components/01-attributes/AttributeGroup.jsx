@@ -12,7 +12,7 @@ const StyledAttributes = styled.div`
   gap: 0.4rem;
 `;
 
-export default function AttributesSection({ data }) {
+export default function AttributesGroup({ data }) {
   return (
     <StyledAttributes>
       {data.map((item, index) => (

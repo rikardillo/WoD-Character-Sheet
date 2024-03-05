@@ -9,7 +9,7 @@ const StyledInfo = styled.section`
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(6px);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 0.4rem;
 `;
 

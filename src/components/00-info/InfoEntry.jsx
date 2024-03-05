@@ -23,7 +23,7 @@ const InfoEntry = ({ title = "name", entry = "name" }) => {
     <StyledContainer>
       <StyledTitle>{title}</StyledTitle>
       {isEditing ? (
-        <input
+        <StyledInput
           type="text"
           value={editedEntry}
           onChange={handleChange}
@@ -44,37 +44,44 @@ const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-
-  input {
-    width: 100%;
-    color: black;
-    font-size: 1rem;
-    background-color: aliceblue;
-    border: 0px;
-    border-radius: 0.4rem;
-    padding: 0.2rem;
-    text-align: center;
-    box-sizing: border-box;
-  }
 `;
 
 const StyledTitle = styled.div`
-  text-align: left;
-  width: 4rem;
+  text-align: right;
+  width: 20%;
   text-transform: uppercase;
-  font-size: 0.5rem;
+  font-size: 0.4rem;
+`;
+
+const StyledInput = styled.input`
+  font-family: 'Inknut-Antiqua';
+  width: 80%%;
+  height: 100%;
+  color: black;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.1;
+  margin: 0;
+  text-align: center;
+  box-sizing: border-box;
 `;
 
 const StyledEntry = styled.div`
   color: white;
-  width: 100%;
+  width: 80%;
   height: 100%;
   text-transform: capitalize;
   font-size: 1rem;
-  /* background-color: darkgrey; */
-  border: 0.5px solid lightgray;
   border-radius: 4px;
+  padding: 0.1rem;
   cursor: pointer;
+  transition: all 0.4s;
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+
+  &:hover {
+    border: 0.5px solid rgba(255, 255, 255, 0.4);
+  }
 `;
 
 export default InfoEntry;

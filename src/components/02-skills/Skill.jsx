@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import DotRating from "../DotRating";
 
-const StyledAttribute = styled.div`
+const StyledSkill = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,11 +21,11 @@ const StyledAttribute = styled.div`
   }
 `;
 
-export default function Attribute({ title, rating }) {
+export default function Skill({ title, rating }) {
   return (
-    <StyledAttribute>
+    <StyledSkill>
       <span>{title}</span>
       <DotRating initialRating={rating} />
-    </StyledAttribute>
+    </StyledSkill>
   );
 }

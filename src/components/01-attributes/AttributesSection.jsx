@@ -9,7 +9,7 @@ const AttSection = styled.div`
   gap: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(6px);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 0.4rem;
 `;
 
@@ -17,7 +17,7 @@ const AttContainer = styled.div`
   ${mixinFlex("row", "center", "center")};
   width: 100%;
   height: 120px;
-  gap: 1rem;
+  gap: .5rem;
 `;
 
 const AttTitleContainer = styled.div`
@@ -27,15 +27,15 @@ const AttTitleContainer = styled.div`
   p {
     ${mixinFlex("row", "center", "center")};
     width: 100%;
-    font-size: 0.5rem;
+    font-size: 0.4rem;
     text-transform: uppercase;
   }
 `;
 
-export default function AttributesSection({ data }) {
+export default function AttributesSection() {
   return (
     <AttSection>
-      <h2>Attributes</h2>
+      <h4>Attributes</h4>
       <AttContainer>
         <AttTitleContainer>
           <p>Power</p>
