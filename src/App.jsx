@@ -28,7 +28,7 @@ const Container = styled.div`
 function App() {
   return (
     <MainContainer>
-      {/* <img src={logoWoD} alt="" />
+      <img src={logoWoD} alt="" />
       <InfoSection />
       <Container>
         <AttributesSection />
@@ -37,7 +37,7 @@ function App() {
       <Container>
         <SkillSection />
         <Combat />
-      </Container> */}
+      </Container>
       <Weappons />
     </MainContainer>
   );

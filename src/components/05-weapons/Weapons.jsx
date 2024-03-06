@@ -1,42 +1,51 @@
 import styled from "styled-components";
-import Input from "../inputs/Input";
+
 import { mixinFlex, container } from "../../mixins/mixins";
+import WeaponsEntry from "./WeaponsEntry";
 
 // STYLES
 
 const ContainerWeapons = styled.div`
-  /* font-size: .6rem; */
+  ${container};
   text-transform: uppercase;
-  display: grid;
-  grid-auto-flow: row;
-  grid-template-columns: 2fr repeat(4, 1fr);
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: .2rem;
+  width: 50%;
+  gap: 0.6rem;
+
+  h3 {
+    text-align: center;
+    width: 100%;
+  }
 `;
 
-const InputWeapon = styled.div`
+const WeaponsTitles = styled.div`
   ${mixinFlex};
+  width: 100%;
+  font-size: 0.4rem;
   height: 2rem;
-`;
+  gap: 0.2rem;
 
+  div {
+    width: 100%;
+  }
+`;
 
 // COMPONENT
 
 export default function Weappons() {
   return (
     <>
-      <h3>Weapons</h3>
       <ContainerWeapons>
-        <div>Weapon/Attack</div>
-        <div>Dice Mod.</div>
-        <div>Range</div>
-        <div>Clip</div>
-        <div>Size</div>
-
-        <InputWeapon>
-          <Input />
-        </InputWeapon>
-        
+        <h3>Weapons</h3>
+        <WeaponsTitles>
+          <div>
+            <p>Weapon/Attack</p>
+          </div>
+          <div>Dice Mod.</div>
+          <div>Range</div>
+          <div>Clip</div>
+          <div>Size</div>
+        </WeaponsTitles>
+        <WeaponsEntry />
       </ContainerWeapons>
     </>
   );

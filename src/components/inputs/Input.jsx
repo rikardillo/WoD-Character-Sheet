@@ -14,8 +14,9 @@ const StyledContainer = styled.div`
 `;
 
 const StyledInput = styled.input`
+  display: inline-block;
   font-family: "Inknut-Antiqua";
-  width: 14rem;
+  width: 100%;
   height: 2rem;
   color: #fff;
   background-color: transparent;
@@ -25,12 +26,14 @@ const StyledInput = styled.input`
   text-align: center;
   box-sizing: border-box;
   outline: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0;
   margin: 0;
 
   &:focus,
   &:active {
-    width: 14rem;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
     font-size: 0.8rem;
     font-family: inherit;
     box-sizing: border-box;
@@ -76,7 +79,7 @@ const Input = ({ entry = "" }) => {
 
   return (
     <StyledContainer>
-      {!isEditing ? (
+      {isEditing ? (
         <StyledInput
           type="text"
           value={editedEntry}
