@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import HealthGroup from "./HealthGroup";
-import { mixinFlex } from "../../mixins/mixins";
+import { mixinFlex,hoverHighlight } from "../../mixins/mixins";
 
 const HealthContainer = styled.div`
   ${mixinFlex}
+  ${hoverHighlight}
+  max-width: 170px;
   flex-direction: column;
   gap: .4rem;
   background-color: rgba(0, 0, 0, 0.7);

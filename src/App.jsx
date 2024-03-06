@@ -6,6 +6,9 @@ import AttributesSection from "./components/01-attributes/AttributesSection";
 import * as m from "./mixins/mixins";
 import SkillSection from "./components/02-skills/SkillSection";
 import HealthSection from "./components/03-healthWillpower/HealthSection";
+import Combat from "./components/04-combat/Combat";
+
+// STYLES
 
 const MainContainer = styled.div`
   ${m.mixinFlex("column")}
@@ -14,14 +17,26 @@ const MainContainer = styled.div`
   gap: 0.5rem;
 `;
 
+const Container = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+// COMPONENT
+
 function App() {
   return (
     <MainContainer>
       <img src={logoWoD} alt="" />
       <InfoSection />
-      <AttributesSection />
-      <SkillSection />
-      <HealthSection />
+      <Container>
+        <AttributesSection />
+        <HealthSection />
+      </Container>
+      <Container>
+        <SkillSection />
+        <Combat />
+      </Container>
     </MainContainer>
   );
 }

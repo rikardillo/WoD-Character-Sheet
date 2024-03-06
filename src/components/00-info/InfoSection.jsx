@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import InfoGroup from "./InfoGroup.jsx";
 import data from "../../data/data.js";
+import { hoverHighlight } from "../../mixins/mixins.js";
 
 const StyledInfo = styled.section`
+  ${hoverHighlight};
   display: flex;
   gap: 1rem;
   width: 100%;

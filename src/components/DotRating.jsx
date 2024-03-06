@@ -1,8 +1,13 @@
+//IMPORTS
+
 import React, { useState } from "react";
 import styled from "styled-components";
 
+// STYLES
+
 const DotContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.2rem;
 `;
@@ -23,7 +28,9 @@ const Dot = styled.div`
   }
 `;
 
-const DotRating = ({ initialRating = 0, onChange }) => {
+// COMPONENT
+
+const DotRating = ({ initialRating = 0, maxRating, onChange}) => {
   const [rating, setRating] = useState(initialRating);
 
   const handleClick = (index) => {
@@ -39,7 +46,7 @@ const DotRating = ({ initialRating = 0, onChange }) => {
 
   return (
     <DotContainer>
-      {[...Array(5)].map((_, index) => (
+      {[...Array(maxRating)].map((_, index) => (
         <Dot
           key={index}
           filled={index < rating}

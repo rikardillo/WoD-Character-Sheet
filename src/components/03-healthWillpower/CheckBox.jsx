@@ -1,19 +1,23 @@
+// IMPORTS
+
 import { useState } from "react";
 import styled from "styled-components";
 import { mixinFlex } from "../../mixins/mixins";
+
+// STYLES
 
 const Box = styled.div`
   ${mixinFlex};
   position: relative;
   height: 1rem;
   width: 1rem;
-  border: 2px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.4s;
   border-radius: 4px;
   cursor: pointer;
 
   &:hover {
-    border: 2px solid red;
+    border: 1px solid red;
 
     div {
       background-color: red;
@@ -45,12 +49,14 @@ const AgravatedDmg = styled(Damage)`
   transform: rotate(90deg);
 `;
 
+// COMPONENT
+
 export default function CheckBox() {
   const [clickCount, setClickCount] = useState(0);
 
   const handleClick = () => {
     if (clickCount === 3) {
-      setClickCount(0); // Reset the click count after showing Agravated Damage
+      setClickCount(0);
     } else {
       setClickCount((prevCount) => prevCount + 1);
     }

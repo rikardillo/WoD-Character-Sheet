@@ -1,43 +1,9 @@
+//IMPORTS
+
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const InfoEntry = ({ title = "name", entry = "name" }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedEntry, setEditedEntry] = useState(entry);
-
-  const handleDoubleClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleChange = (e) => {
-    setEditedEntry(e.target.value);
-  };
-
-  const handleBlur = () => {
-    setIsEditing(false);
-  };
-
-  let input = "";
-
-  return (
-    <StyledContainer>
-      <StyledTitle>{title}</StyledTitle>
-      {isEditing ? (
-        <StyledInput
-          type="text"
-          value={editedEntry}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          autoFocus
-        />
-      ) : (
-        <StyledEntry onDoubleClick={handleDoubleClick}>
-          {editedEntry}
-        </StyledEntry>
-      )}
-    </StyledContainer>
-  );
-};
+// STYLES
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -83,5 +49,43 @@ const StyledEntry = styled.div`
     border: 0.5px solid rgba(255, 255, 255, 0.4);
   }
 `;
+
+//COMPONENT
+
+const InfoEntry = ({ title = "name", entry = "name" }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedEntry, setEditedEntry] = useState(entry);
+
+  const handleDoubleClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleChange = (e) => {
+    setEditedEntry(e.target.value);
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false);
+  };
+  
+  return (
+    <StyledContainer>
+      <StyledTitle>{title}</StyledTitle>
+      {isEditing ? (
+        <StyledInput
+          type="text"
+          value={editedEntry}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          autoFocus
+        />
+      ) : (
+        <StyledEntry onDoubleClick={handleDoubleClick}>
+          {editedEntry}
+        </StyledEntry>
+      )}
+    </StyledContainer>
+  );
+};
 
 export default InfoEntry;

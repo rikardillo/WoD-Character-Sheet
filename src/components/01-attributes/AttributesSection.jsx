@@ -1,10 +1,11 @@
 import AttributeGroup from "./AttributeGroup";
 import att from "../../data/attributes";
 import styled from "styled-components";
-import { mixinFlex } from "../../mixins/mixins";
+import { mixinFlex, hoverHighlight } from "../../mixins/mixins";
 
 const AttSection = styled.div`
   ${mixinFlex("column")}
+  ${hoverHighlight}
   width: 100%;
   gap: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
@@ -16,7 +17,6 @@ const AttSection = styled.div`
 const AttContainer = styled.div`
   ${mixinFlex("row", "center", "center")};
   width: 100%;
-  height: 120px;
   gap: .5rem;
 `;
 

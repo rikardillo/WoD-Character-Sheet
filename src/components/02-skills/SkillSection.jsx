@@ -1,10 +1,11 @@
 import SkillGroup from "./SkillGroup";
 import skills from "../../data/skills";
 import styled from "styled-components";
-import { mixinFlex } from "../../mixins/mixins";
+import { mixinFlex, hoverHighlight } from "../../mixins/mixins";
 
 const SkillSectionContainer = styled.div`
   ${mixinFlex("column")}
+  ${hoverHighlight}
   width: 100%;
   gap: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
@@ -17,7 +18,7 @@ const SkillContainer = styled.div`
   ${mixinFlex("row", "center", "center")};
   width: 100%;
   /* height: 120px; */
-  gap: .5rem;
+  gap: 0.5rem;
 `;
 
 const SkillTitleContainer = styled.div`

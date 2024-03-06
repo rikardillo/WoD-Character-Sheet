@@ -25,7 +25,7 @@ export default function Skill({ title, rating }) {
   return (
     <StyledSkill>
       <span>{title}</span>
-      <DotRating initialRating={rating} />
+      <DotRating initialRating={rating} maxRating={5}/>
     </StyledSkill>
   );
 }

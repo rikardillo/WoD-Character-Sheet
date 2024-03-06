@@ -12,8 +12,6 @@ const StyledAttributes = styled.div`
   gap: 0.4rem;
 `;
 
-
-
 export default function AttributesGroup({ data }) {
   return (
     <StyledAttributes>
