@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
+import { mixinFlex } from "../../mixins/mixins";
 
 // STYLES
 
@@ -12,35 +13,40 @@ const StyledContainer = styled.div`
   gap: 0.5rem;
 `;
 
-const StyledTitle = styled.div`
-  text-align: right;
-  width: 20%;
-  text-transform: uppercase;
-  font-size: 0.4rem;
-`;
-
 const StyledInput = styled.input`
-  font-family: 'Inknut-Antiqua';
-  width: 80%;
-  height: 100%;
-  color: black;
+  font-family: "Inknut-Antiqua";
+  width: 14rem;
+  height: 2rem;
+  color: #fff;
+  background-color: transparent;
   font-size: 1rem;
   border: none;
-  border-radius: 0.4rem;
-  padding: 0.1;
-  margin: 0;
+  border-radius: 4px;
   text-align: center;
   box-sizing: border-box;
+  outline: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0;
+  margin: 0;
+
+  &:focus,
+  &:active {
+    width: 14rem;
+    font-size: 0.8rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    outline: 0.5 solid rgba(255, 255, 255, 0.4);
+    outline-offset: -0.5px;
+  }
 `;
 
 const StyledEntry = styled.div`
+  ${mixinFlex()}
   color: white;
-  width: 80%;
-  height: 100%;
+  width: 100%;
+  height: 2rem;
   text-transform: capitalize;
-  font-size: 1rem;
+  font-size: inherit;
   border-radius: 4px;
-  padding: 0.1rem;
   cursor: pointer;
   transition: all 0.4s;
   border: 0.5px solid rgba(255, 255, 255, 0.1);
@@ -52,7 +58,7 @@ const StyledEntry = styled.div`
 
 //COMPONENT
 
-const InfoEntry = ({ title = "name", entry = "name" }) => {
+const Input = ({ entry = "" }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedEntry, setEditedEntry] = useState(entry);
 
@@ -67,11 +73,10 @@ const InfoEntry = ({ title = "name", entry = "name" }) => {
   const handleBlur = () => {
     setIsEditing(false);
   };
-  
+
   return (
     <StyledContainer>
-      <StyledTitle>{title}</StyledTitle>
-      {isEditing ? (
+      {!isEditing ? (
         <StyledInput
           type="text"
           value={editedEntry}
@@ -88,4 +93,4 @@ const InfoEntry = ({ title = "name", entry = "name" }) => {
   );
 };
 
-export default InfoEntry;
+export default Input;

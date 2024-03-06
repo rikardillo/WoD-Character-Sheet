@@ -7,6 +7,7 @@ import * as m from "./mixins/mixins";
 import SkillSection from "./components/02-skills/SkillSection";
 import HealthSection from "./components/03-healthWillpower/HealthSection";
 import Combat from "./components/04-combat/Combat";
+import Weappons from "./components/05-weapons/Weapons";
 
 // STYLES
 
@@ -27,7 +28,7 @@ const Container = styled.div`
 function App() {
   return (
     <MainContainer>
-      <img src={logoWoD} alt="" />
+      {/* <img src={logoWoD} alt="" />
       <InfoSection />
       <Container>
         <AttributesSection />
@@ -36,7 +37,8 @@ function App() {
       <Container>
         <SkillSection />
         <Combat />
-      </Container>
+      </Container> */}
+      <Weappons />
     </MainContainer>
   );
 }

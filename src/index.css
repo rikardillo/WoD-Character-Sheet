@@ -9,6 +9,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  box-sizing: border-box;
 }
 :root {
   font-family: "Inknut Antiqua", system-ui, Avenir, Helvetica, Arial, sans-serif;
