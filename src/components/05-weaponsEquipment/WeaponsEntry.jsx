@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Input from "../inputs/Input";
 import { mixinFlex } from "../../mixins/mixins";
 
+// STYLES
+
 const WeaponsEntry = styled.div`
   ${mixinFlex};
   width: 100%;
@@ -9,7 +11,7 @@ const WeaponsEntry = styled.div`
   height: 2rem;
   gap: 0.2rem;
 
-  
+
 `;
 
 // COMPONENT

@@ -1,24 +1,22 @@
 import styled from "styled-components";
-
 import { mixinFlex, container } from "../../mixins/mixins";
 import WeaponsEntry from "./WeaponsEntry";
 
 // STYLES
 
 const ContainerWeapons = styled.div`
-  ${container};
-  text-transform: uppercase;
-  width: 50%;
+  width: 100%;
   gap: 0.6rem;
-
-  h3 {
+  
+  h4 {
     text-align: center;
     width: 100%;
   }
-`;
+  `;
 
 const WeaponsTitles = styled.div`
   ${mixinFlex};
+  text-transform: uppercase;
   width: 100%;
   font-size: 0.4rem;
   height: 2rem;
@@ -31,11 +29,11 @@ const WeaponsTitles = styled.div`
 
 // COMPONENT
 
-export default function Weappons() {
+export default function Weapons() {
   return (
     <>
       <ContainerWeapons>
-        <h3>Weapons</h3>
+        <h4>Weapons</h4>
         <WeaponsTitles>
           <div>
             <p>Weapon/Attack</p>
@@ -45,6 +43,8 @@ export default function Weappons() {
           <div>Clip</div>
           <div>Size</div>
         </WeaponsTitles>
+        <WeaponsEntry />
+        <WeaponsEntry />
         <WeaponsEntry />
       </ContainerWeapons>
     </>

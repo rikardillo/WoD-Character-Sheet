@@ -7,19 +7,23 @@ import * as m from "./mixins/mixins";
 import SkillSection from "./components/02-skills/SkillSection";
 import HealthSection from "./components/03-healthWillpower/HealthSection";
 import Combat from "./components/04-combat/Combat";
-import Weappons from "./components/05-weapons/Weapons";
+import Weapons from "./components/05-weaponsEquipment/Weapons";
+import Equipment from "./components/05-weaponsEquipment/Equipment";
+import WeaponEquipmentSection from "./components/05-weaponsEquipment/WeaponEquipmentSection";
+import MeritsFlawsSection from "./components/07-meritsFlaws/MeritsFlawsSection"
+import Morality from "./components/08-morality/Morality";
 
 // STYLES
 
 const MainContainer = styled.div`
   ${m.mixinFlex("column")}
-  width: 100%;
-  max-width: 900px;
+  max-width: 1200px;
   gap: 0.5rem;
 `;
 
 const Container = styled.div`
   display: flex;
+  width: 100%;
   gap: 0.5rem;
 `;
 
@@ -37,8 +41,12 @@ function App() {
       <Container>
         <SkillSection />
         <Combat />
+        <Morality />
       </Container>
-      <Weappons />
+      <Container>
+        <WeaponEquipmentSection />
+        <MeritsFlawsSection />
+      </Container>
     </MainContainer>
   );
 }

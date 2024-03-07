@@ -26,3 +26,10 @@ export const container = `
   padding: 1rem;
   border-radius: 0.4rem;
 `;
+
+
+export const sectionContainer = `
+  ${mixinFlex("column", "center", "center")};
+  ${container};
+  width: 50%;
+`;
