@@ -5,7 +5,6 @@ import { mixinFlex } from "../../mixins/mixins";
 import att from "../../data/attributes";
 import Willpower from "./Willpower";
 
-
 const attributes = { ...att };
 const stamina = attributes[5].rating;
 
@@ -17,9 +16,8 @@ const HealthContainer = styled.div`
 `;
 
 const Container = styled.div`
-  ${mixinFlex ('column', 'center')};
+  ${mixinFlex("column", "center")};
   gap: 2rem;
-
 `;
 
 // COMPONENT
@@ -44,7 +42,7 @@ const HealthGroup = ({ initialRating = 0, onChange }) => {
         {[...Array(stamina + 5)].map((_, index) => (
           <CheckBox
             key={index}
-            filled={index < rating}
+            filled={`${index < rating}`}
             onClick={() => handleClick(index)}
           />
         ))}
