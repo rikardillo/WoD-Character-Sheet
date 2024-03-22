@@ -1,5 +1,5 @@
-import AttributeGroup from "./AttributeGroup";
-import att from "../../data/attributes";
+import DotRating from "../DotRating";
+import data from "../../data/attributes";
 import styled from "styled-components";
 import { mixinFlex, hoverHighlight } from "../../mixins/mixins";
 
@@ -17,7 +17,7 @@ const AttSection = styled.div`
 const AttContainer = styled.div`
   ${mixinFlex("row", "center", "center")};
   width: 100%;
-  gap: .5rem;
+  gap: 0.5rem;
 `;
 
 const AttTitleContainer = styled.div`
@@ -25,9 +25,37 @@ const AttTitleContainer = styled.div`
   height: 100%;
 
   p {
-    ${mixinFlex("row", "center", "center")};
+    ${mixinFlex("row", "flex-end", "center")};
     width: 100%;
     font-size: 0.4rem;
+    text-transform: uppercase;
+    text-align: right;
+  }
+`;
+
+const StyledAttributes = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+`;
+
+const StyledAttribute = styled.div`
+  ${mixinFlex("row", "space-between", "center")};
+  ${hoverHighlight};
+  gap: 0.2rem;
+  padding: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.2rem;
+  cursor: pointer;
+  transition: all 0.4s;
+
+  span {
+    font-size: 0.5rem;
     text-transform: uppercase;
   }
 `;
@@ -42,7 +70,14 @@ export default function AttributesSection() {
           <p>Finesse</p>
           <p>Resistance</p>
         </AttTitleContainer>
-        <AttributeGroup data={att} />
+        <StyledAttributes>
+          {data.map((item, index) => (
+            <StyledAttribute key={index}>
+              <span>{item.title}</span>
+              <DotRating initialRating={item.rating} maxRating={5} />
+            </StyledAttribute>
+          ))}
+        </StyledAttributes>
       </AttContainer>
     </AttSection>
   );

@@ -22,8 +22,6 @@
 :root {
   padding: 0;
 
-  width: 100vh;
-  height: 100vw;
 
   font-family: "Inknut Antiqua", system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;

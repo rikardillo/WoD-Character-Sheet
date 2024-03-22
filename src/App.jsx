@@ -43,6 +43,8 @@ function App() {
       />
       <Content>
         <InfoSection />
+        <AttributesSection />
+        
       </Content>
     </MainContainer>
   );
