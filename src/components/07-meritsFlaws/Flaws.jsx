@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import Input from "../inputs/Input";
-import { mixinFlex, hoverHighlight, container } from "../../mixins/mixins";
+import { mixinFlex } from "../../mixins/mixins";
 
 
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  ${mixinFlex('column')}
+  width: 90%;
   gap: 0.5rem;
+  height: 100%;
 `;
 
 export default function Flaws() {

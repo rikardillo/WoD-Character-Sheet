@@ -6,11 +6,12 @@ import { mixinFlex } from "../../mixins/mixins";
 const MeritContainer = styled.div`
   display: flex;
   gap: 1rem;
+  height: 100%;
 `;
 
 const RatingContainer = styled.div`
   ${mixinFlex};
-  width: 5rem;
+  width: 7rem;
 `;
 
 export default function MeritEntry() {

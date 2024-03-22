@@ -1,3 +1,4 @@
+import Input from "../inputs/Input";
 import styled from "styled-components";
 import { mixinFlex, container, hoverHighlight } from "../../mixins/mixins";
 import data from "../../data/attributes";
@@ -41,7 +42,7 @@ const CombatStatContainer = styled.div`
 const CombatStat = function ({ value, title }) {
   return (
     <CombatStatContainer>
-      <h3>{value}</h3>
+      <Input />
       <p>{title}</p>
     </CombatStatContainer>
   );

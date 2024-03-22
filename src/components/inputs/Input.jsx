@@ -83,7 +83,7 @@ const Input = ({ entry = "" }) => {
   };
 
   return (
-    <StyledContainer className="container">
+    <StyledContainer className="input-container">
       {isEditing ? (
         <StyledInput
           className="input"

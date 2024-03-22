@@ -32,6 +32,7 @@ const Content = styled.div`
   gap: 0.5rem;
   overflow: scroll;
   scroll-behavior: smooth;
+  scrollbar-width: none;
   border-radius: 10px;
 `;
 
@@ -63,6 +64,7 @@ function App() {
         </CombatContainer>
         <Morality />
         <Equipment />
+        <MeritsFlawsSection />
       </Content>
     </MainContainer>
   );
