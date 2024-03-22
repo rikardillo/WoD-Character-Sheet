@@ -7,7 +7,7 @@ import { mixinFlex } from "../../mixins/mixins";
 const WeaponsEntry = styled.div`
   ${mixinFlex};
   width: 100%;
-  font-size: 0.4rem;
+  /* font-size: 0.4rem; */
   height: 2rem;
   gap: 0.2rem;
 

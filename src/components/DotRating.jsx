@@ -30,7 +30,7 @@ const Dot = styled.div`
 
 // COMPONENT
 
-const DotRating = ({ initialRating = 0, maxRating, onChange}) => {
+const DotRating = ({ initialRating = 0, maxRating}) => {
   const [rating, setRating] = useState(initialRating);
 
   const handleClick = (index) => {
@@ -41,7 +41,6 @@ const DotRating = ({ initialRating = 0, maxRating, onChange}) => {
     }
 
     setRating(newRating);
-    onChange(newRating);
   };
 
   return (

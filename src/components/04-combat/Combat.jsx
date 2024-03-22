@@ -1,22 +1,36 @@
+import Input from "../inputs/Input";
 import styled from "styled-components";
-import { mixinFlex, container,hoverHighlight } from "../../mixins/mixins";
+import { mixinFlex, container, hoverHighlight } from "../../mixins/mixins";
+import data from "../../data/attributes";
+
+const att = { ...data };
+
+console.log(data);
+console.log(att);
 
 // STYLES
 
 const ContainerMain = styled.div`
-  ${mixinFlex("column","space-between")};
+  ${mixinFlex("column", "space-between")};
   ${container}
-  gap: .4rem;
+  width: 10rem;
+  height: 10rem;
+  flex-grow: 1;
+  gap: 0.4rem;
 `;
 const ContainerContent = styled.div`
-  ${mixinFlex("column","space-between")};
-  height: 85%;
-  gap: .8rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+  gap: 0.8rem;
 `;
 
 const CombatStatContainer = styled.div`
   ${mixinFlex("column")};
-  
+
   p {
     font-size: 0.4rem;
     text-transform: uppercase;
@@ -28,7 +42,7 @@ const CombatStatContainer = styled.div`
 const CombatStat = function ({ value, title }) {
   return (
     <CombatStatContainer>
-      <h3>{value}</h3>
+      <Input />
       <p>{title}</p>
     </CombatStatContainer>
   );

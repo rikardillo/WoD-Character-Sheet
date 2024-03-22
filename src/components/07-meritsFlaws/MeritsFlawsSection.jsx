@@ -4,9 +4,9 @@ import Merits from "./Merits";
 import { mixinFlex, container } from "../../mixins/mixins";
 
 const SectionContainer = styled.div`
-  ${mixinFlex("column", "center", "center")};
+  ${mixinFlex("row", "center", "center")};
   ${container};
-  width: 50%;
+  width: 49%;
 `;
 
 export default function MeritsFlawsSection() {
