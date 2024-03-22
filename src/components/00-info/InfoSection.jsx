@@ -15,9 +15,8 @@ const StyledInfoGroup = styled.div`
 
 const StyledEntry = styled.div`
   ${mixinFlex}
-  display: flex;
   height: 100%;
-  gap: 14px;
+  gap: .4rem;
   padding: 2px;
 `;
 const StyledTitle = styled.div`

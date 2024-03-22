@@ -3,6 +3,8 @@ import data from "../../data/attributes";
 import styled from "styled-components";
 import { mixinFlex, hoverHighlight } from "../../mixins/mixins";
 
+// STYLES
+
 const AttSection = styled.div`
   ${mixinFlex("column")}
   ${hoverHighlight}
@@ -59,6 +61,8 @@ const StyledAttribute = styled.div`
     text-transform: uppercase;
   }
 `;
+
+// COMPONENT
 
 export default function AttributesSection() {
   return (

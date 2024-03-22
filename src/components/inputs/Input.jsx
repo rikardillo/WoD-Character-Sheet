@@ -7,7 +7,7 @@ import { mixinFlex } from "../../mixins/mixins";
 // STYLES
 
 const StyledContainer = styled.div`
-  min-height: 2.5rem;
+  min-height: 1.8rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -28,20 +28,21 @@ const StyledInput = styled.input`
   text-align: center;
   box-sizing: border-box;
   outline: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 0;
 
   &:focus,
   &:active {
-    margin: 0;
-    padding: 0;
     display: inline-block;
+    font-family: "Inknut-Antiqua";
     width: 100%;
     height: 100%;
+    color: #fff;
+    background-color: transparent;
     font-size: 1rem;
-    font-family: "Inknut-Antiqua";
+    border: none;
+    border-radius: 4px;
+    text-align: center;
     box-sizing: border-box;
-    outline: 0.5 solid rgba(255, 255, 255, 0.4);
-    outline-offset: -0.5px;
+    outline: 1 solid rgba(255, 255, 255, 0.4);
   }
 `;
 
@@ -82,9 +83,10 @@ const Input = ({ entry = "" }) => {
   };
 
   return (
-    <StyledContainer>
+    <StyledContainer className="container">
       {isEditing ? (
         <StyledInput
+          className="input"
           type="text"
           value={editedEntry}
           onChange={handleChange}
