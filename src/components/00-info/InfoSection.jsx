@@ -1,24 +1,50 @@
 import styled from "styled-components";
-import InfoGroup from "./InfoGroup.jsx";
 import data from "../../data/data.js";
-import { hoverHighlight } from "../../mixins/mixins.js";
+import { hoverHighlight, mixinFlex } from "../../mixins/mixins.js";
+import Input from "../inputs/Input.jsx";
+import Container from "../Utils/Container.jsx";
 
-const StyledInfo = styled.section`
-  ${hoverHighlight};
-  display: flex;
-  gap: 1rem;
+
+const StyledInfoGroup = styled.div`
   width: 100%;
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(6px);
-  padding: 1rem;
-  border-radius: 0.4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-auto-flow: column;
+`;
+
+const StyledEntry = styled.div`
+  ${mixinFlex}
+  display: flex;
+  height: 100%;
+  gap: 14px;
+  padding: 2px;
+`;
+const StyledTitle = styled.div`
+  ${mixinFlex('', 'flex-end','center')}
+  width: 30%;
+  height: 100%;
+  font-size: 8px;
+  text-align: right;
+  text-transform: uppercase;
+  line-height: 1.4;
 `;
 
 export default function InfoSection() {
   return (
-    <StyledInfo>
-      <InfoGroup data={data} />
-    </StyledInfo>
+    <Container>
+      <StyledInfoGroup>
+        {data.map((item, index) => (
+          <StyledEntry key={index}>
+            <StyledTitle>{item.title}</StyledTitle>
+            <Input
+              title={item.title}
+              placeholder={item.placeholder}
+              entry={item.entry}
+            />
+          </StyledEntry>
+        ))}
+      </StyledInfoGroup>
+    </Container>
   );
 }

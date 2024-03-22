@@ -7,7 +7,9 @@ import { mixinFlex } from "../../mixins/mixins";
 // STYLES
 
 const StyledContainer = styled.div`
+  min-height: 2.5rem;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -17,7 +19,7 @@ const StyledInput = styled.input`
   display: inline-block;
   font-family: "Inknut-Antiqua";
   width: 100%;
-  height: 2rem;
+  height: 100%;
   color: #fff;
   background-color: transparent;
   font-size: 1rem;
@@ -34,8 +36,9 @@ const StyledInput = styled.input`
     padding: 0;
     display: inline-block;
     width: 100%;
-    font-size: 0.8rem;
-    font-family: inherit;
+    height: 100%;
+    font-size: 1rem;
+    font-family: "Inknut-Antiqua";
     box-sizing: border-box;
     outline: 0.5 solid rgba(255, 255, 255, 0.4);
     outline-offset: -0.5px;
@@ -44,11 +47,12 @@ const StyledInput = styled.input`
 
 const StyledEntry = styled.div`
   ${mixinFlex()}
+  font-family: "Inknut-Antiqua";
+  font-size: 1rem;
   color: white;
   width: 100%;
-  height: 2rem;
+  height: 100%;
   text-transform: capitalize;
-  font-size: inherit;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.4s;

@@ -10,20 +10,24 @@ import Combat from "./components/04-combat/Combat";
 import Weapons from "./components/05-weaponsEquipment/Weapons";
 import Equipment from "./components/05-weaponsEquipment/Equipment";
 import WeaponEquipmentSection from "./components/05-weaponsEquipment/WeaponEquipmentSection";
-import MeritsFlawsSection from "./components/07-meritsFlaws/MeritsFlawsSection"
+import MeritsFlawsSection from "./components/07-meritsFlaws/MeritsFlawsSection";
 import Morality from "./components/08-morality/Morality";
 
 // STYLES
 
 const MainContainer = styled.div`
-  ${m.mixinFlex("column")}
-  max-width: 1200px;
-  gap: 0.5rem;
+  ${m.mixinFlex("column", "center", "center")}
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff1d;
+  gap: 2rem;
 `;
 
-const Container = styled.div`
+const Content = styled.div`
   display: flex;
-  width: 100%;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
   gap: 0.5rem;
 `;
 
@@ -31,22 +35,15 @@ const Container = styled.div`
 
 function App() {
   return (
-    <MainContainer>
-      <img src={logoWoD} alt="" />
-      <InfoSection />
-      <Container>
-        <AttributesSection />
-        <HealthSection />
-      </Container>
-      <Container>
-        <SkillSection />
-        <Combat />
-        <Morality />
-      </Container>
-      <Container>
-        <WeaponEquipmentSection />
-        <MeritsFlawsSection />
-      </Container>
+    <MainContainer id="main">
+      <img
+        src={logoWoD}
+        alt="World of Darkness Logo"
+        style={{ width: "20rem" }}
+      />
+      <Content>
+        <InfoSection />
+      </Content>
     </MainContainer>
   );
 }

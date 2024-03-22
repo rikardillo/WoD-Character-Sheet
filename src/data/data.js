@@ -8,8 +8,6 @@ const data = [
   { title: "Chronicle", placeholder: "Chronicle", entry: "" },
   { title: "Faction", placeholder: "Faction", entry: "" },
   { title: "Group Name", placeholder: "Group Name", entry: "" },
-  // Add more objects as needed
 ];
-
 
 export default data;
