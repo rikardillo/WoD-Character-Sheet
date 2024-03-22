@@ -19,6 +19,10 @@ const HealthSectionContainer = styled.div`
   backdrop-filter: blur(6px);
   padding: 1rem;
   border-radius: 0.4rem;
+
+  @media (width <= 500px) {
+    width: 100%;
+  }
 `;
 
 const HealthContainer = styled.div`
@@ -28,19 +32,25 @@ const HealthContainer = styled.div`
 
 const Container = styled.div`
   ${mixinFlex("column", "center")};
-  gap: .6rem;
+  gap: 0.6rem;
+
+  @media (width <= 500px) {
+    flex-direction: row;
+  }
 `;
 
 export default function HealthSection() {
   return (
     <HealthSectionContainer>
-      <h4>Health</h4>
       <Container>
-        <HealthContainer>
-          {[...Array(stamina + 5)].map((_, index) => (
-            <CheckBox key={index} />
-          ))}
-        </HealthContainer>
+        <>
+          <h4>Health</h4>
+          <HealthContainer>
+            {[...Array(stamina + 5)].map((_, index) => (
+              <CheckBox key={index} />
+            ))}
+          </HealthContainer>
+        </>
         <Container>
           <h4>Willpower</h4>
           <DotRating initialRating={0} maxRating={6} />

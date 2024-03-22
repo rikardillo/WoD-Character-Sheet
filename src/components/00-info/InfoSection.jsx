@@ -11,6 +11,11 @@ const StyledInfoGroup = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-auto-flow: column;
+
+  @media (width <= 500px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const StyledEntry = styled.div`
@@ -18,6 +23,11 @@ const StyledEntry = styled.div`
   height: 100%;
   gap: .4rem;
   padding: 2px;
+
+  @media (width <= 500px) {
+    flex-direction: column;
+  }
+
 `;
 const StyledTitle = styled.div`
   ${mixinFlex('', 'flex-end','center')}
@@ -27,6 +37,10 @@ const StyledTitle = styled.div`
   text-align: right;
   text-transform: uppercase;
   line-height: 1.4;
+
+  @media (width <= 500px) {
+    flex-direction: column;
+  }
 `;
 
 export default function InfoSection() {

@@ -13,6 +13,8 @@ const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+ 
 `;
 
 const StyledInput = styled.input`
@@ -53,6 +55,7 @@ const StyledEntry = styled.div`
   color: white;
   width: 100%;
   height: 100%;
+  min-height: 2rem;
   text-transform: capitalize;
   border-radius: 4px;
   cursor: pointer;

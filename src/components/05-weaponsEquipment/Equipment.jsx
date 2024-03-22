@@ -13,6 +13,10 @@ const ContainerEquipment = styled.div`
     text-align: center;
     width: 100%;
   }
+
+  @media (width <= 500px) {
+    width: 100%;
+  }
 `;
 
 const EquipmentTitles = styled.div`

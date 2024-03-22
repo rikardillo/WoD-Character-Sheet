@@ -21,6 +21,10 @@ const MainContainer = styled.div`
   height: 100%;
   background-color: #ffffff1d;
   gap: 2rem;
+
+  @media (width <= 500px) {
+    width: 100vw;
+  }
 `;
 
 const Content = styled.div`
@@ -34,15 +38,23 @@ const Content = styled.div`
   scroll-behavior: smooth;
   scrollbar-width: none;
   border-radius: 10px;
+
+  @media (width <500px) {
+    width: 90vw;
+  }
 `;
 
 const CombatContainer = styled.div`
   ${m.mixinFlex("column")};
   height: 26rem;
-  gap: .4rem;
+  gap: 0.4rem;
   flex-grow: 0;
-`;
 
+  @media (width <= 500px) {
+    width: 100%;
+    height: fit-content;
+  }
+`;
 
 // COMPONENT
 
@@ -54,7 +66,7 @@ function App() {
         alt="World of Darkness Logo"
         style={{ width: "20rem" }}
       />
-      <Content>
+      <Content className="content">
         <InfoSection />
         <AttributesSection />
         <SkillSection />

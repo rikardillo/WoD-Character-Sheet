@@ -60,6 +60,10 @@ const StyledAttribute = styled.div`
     font-size: 0.5rem;
     text-transform: uppercase;
   }
+
+  @media (width <= 500px) {
+    flex-direction: column;
+  }
 `;
 
 // COMPONENT

@@ -7,6 +7,10 @@ const SectionContainer = styled.div`
   ${mixinFlex("row", "center", "center")};
   ${container};
   width: 49%;
+
+  @media (width <= 500px) {
+    width: 100%;
+  }
 `;
 
 export default function MeritsFlawsSection() {

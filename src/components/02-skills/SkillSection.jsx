@@ -15,6 +15,10 @@ const SkillSectionContainer = styled.div`
   padding: 1rem;
   border-radius: 0.4rem;
   flex-grow: 0;
+
+  @media (width <= 500px) {
+    width: 100%;
+  }
 `;
 
 const SkillContainer = styled.div`

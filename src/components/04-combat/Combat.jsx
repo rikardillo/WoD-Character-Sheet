@@ -17,6 +17,11 @@ const ContainerMain = styled.div`
   height: 10rem;
   flex-grow: 1;
   gap: 0.4rem;
+
+  @media (width <= 500px) {
+    width: 100%;
+    height: fit-content;
+  }
 `;
 const ContainerContent = styled.div`
   display: grid;
@@ -24,8 +29,13 @@ const ContainerContent = styled.div`
   grid-template-rows: repeat(3, 1fr);
   width: 100%;
   height: 100%;
-  flex-wrap: wrap;
   gap: 0.8rem;
+
+  @media (width <= 500px) {
+    display: flex;
+    flex-direction: row;
+    /* height: 2rem; */
+  }
 `;
 
 const CombatStatContainer = styled.div`
@@ -34,6 +44,10 @@ const CombatStatContainer = styled.div`
   p {
     font-size: 0.4rem;
     text-transform: uppercase;
+  }
+  @media (width <= 500px) {
+    width: 100%;
+    height: fit-content;
   }
 `;
 

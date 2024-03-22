@@ -9,6 +9,10 @@ const SectionContainer = styled.div`
   ${mixinFlex("column", "center", "center")};
   ${container};
   width: 50%;
+
+  @media (width <= 500px) {
+    width: 100%;
+  }
 `;
 
 // COMPONENT
