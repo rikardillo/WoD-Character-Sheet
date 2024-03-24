@@ -25,7 +25,6 @@ const StyledEntry = styled.div`
   padding: 2px;
 
   @media (width <= 500px) {
-    flex-direction: column;
   }
 
 `;

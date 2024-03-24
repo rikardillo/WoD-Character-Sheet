@@ -27,9 +27,39 @@ export const container = `
   border-radius: 0.4rem;
 `;
 
-
 export const sectionContainer = `
   ${mixinFlex("column", "center", "center")};
   ${container};
   width: 50%;
+`;
+
+export const inputStyles = `
+  display: inline-block;
+  font-family: "Inknut-Antiqua";
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background-color: transparent;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  box-sizing: border-box;
+  outline: 1px solid rgba(255, 255, 255, 0.2);
+
+  &:focus,
+  &:active {
+    display: inline-block;
+    font-family: "Inknut-Antiqua";
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    background-color: transparent;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    box-sizing: border-box;
+    outline: 1 solid rgba(255, 255, 255, 0.4);
+  }
 `;

@@ -1,6 +1,5 @@
 import "./App.css";
 import styled from "styled-components";
-import logoWoD from "./assets/Logo - WoD.svg";
 import InfoSection from "./components/00-info/InfoSection";
 import AttributesSection from "./components/01-attributes/AttributesSection";
 import SkillSection from "./components/02-skills/SkillSection";
@@ -11,27 +10,14 @@ import Equipment from "./components/05-weaponsEquipment/Equipment";
 import WeaponEquipmentSection from "./components/05-weaponsEquipment/WeaponEquipmentSection";
 import MeritsFlawsSection from "./components/07-meritsFlaws/MeritsFlawsSection";
 import Morality from "./components/08-morality/Morality";
-import * as m from "./mixins/mixins";
-
+import { mixinFlex } from "./mixins/mixins";
 // STYLES
 
-const MainContainer = styled.div`
-  ${m.mixinFlex("column", "center", "center")}
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff1d;
-  gap: 2rem;
-
-  @media (width <= 500px) {
-    width: 100vw;
-  }
-`;
-
 const Content = styled.div`
-  display: flex;
-  flex-direction: row;
+  
   flex-wrap: wrap;
-  width: 50rem;
+  width: 90vw;
+  max-width: 50rem;
   height: 80%;
   gap: 0.5rem;
   overflow: scroll;
@@ -45,7 +31,7 @@ const Content = styled.div`
 `;
 
 const CombatContainer = styled.div`
-  ${m.mixinFlex("column")};
+  ${mixinFlex("column")};
   height: 26rem;
   gap: 0.4rem;
   flex-grow: 0;
@@ -58,28 +44,21 @@ const CombatContainer = styled.div`
 
 // COMPONENT
 
-function App() {
+function CharacterSheet() {
   return (
-    <MainContainer id="main">
-      <img
-        src={logoWoD}
-        alt="World of Darkness Logo"
-        style={{ width: "20rem" }}
-      />
-      <Content className="content">
-        <InfoSection />
-        <AttributesSection />
-        <SkillSection />
-        <CombatContainer>
-          <HealthSection />
-          <Combat />
-        </CombatContainer>
-        <Morality />
-        <Equipment />
-        <MeritsFlawsSection />
-      </Content>
-    </MainContainer>
+    <Content className="content">
+      <InfoSection />
+      <AttributesSection />
+      <SkillSection />
+      <CombatContainer>
+        <HealthSection />
+        <Combat />
+      </CombatContainer>
+      <Morality />
+      <Equipment />
+      <MeritsFlawsSection />
+    </Content>
   );
 }
 
-export default App;
+export default CharacterSheet;

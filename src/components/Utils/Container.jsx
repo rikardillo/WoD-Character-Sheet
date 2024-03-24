@@ -18,3 +18,21 @@ const ContainerBox = styled.div`
 export default function Container({ children }) {
   return <ContainerBox>{children}</ContainerBox>;
 }
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 50rem;
+  height: 80%;
+  gap: 0.5rem;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  border-radius: 10px;
+
+  @media (width <500px) {
+    width: 90vw;
+  }
+`;
+
