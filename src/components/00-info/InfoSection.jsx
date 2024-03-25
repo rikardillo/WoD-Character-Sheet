@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import data from "../../data/data.js";
-import { hoverHighlight, mixinFlex } from "../../mixins/mixins.js";
+import { mixinFlex } from "../../mixins/mixins.js";
 import Input from "../inputs/Input.jsx";
 import Container from "../Utils/Container.jsx";
 
