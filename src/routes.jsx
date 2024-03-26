@@ -19,6 +19,7 @@ const MainContainer = styled.div`
   }
 
   & .content {
+    display: flex;
     justify-content: center;
     align-items: center;
   }
@@ -27,7 +28,7 @@ const MainContainer = styled.div`
 const router = createBrowserRouter([
   {
     id: "character",
-    path: "/character",
+    path: "/",
     element: <CharacterSheet />,
   },
   {

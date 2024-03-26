@@ -2,11 +2,7 @@ import DotRating from "../DotRating";
 import CheckBox from "../inputs/CheckBox";
 
 import styled from "styled-components";
-import att from "../../data/attributes";
 import { mixinFlex, hoverHighlight } from "../../mixins/mixins";
-
-const attributes = { ...att };
-const stamina = attributes[5].rating;
 
 const HealthSectionContainer = styled.div`
   ${mixinFlex}
@@ -26,20 +22,27 @@ const HealthSectionContainer = styled.div`
 `;
 
 const HealthContainer = styled.div`
-  ${mixinFlex};
+  ${mixinFlex('row', 'flex-start')};
+  width: fit-content;
+  flex-wrap: wrap;
   gap: 0.2rem;
 `;
 
 const Container = styled.div`
   ${mixinFlex("column", "center")};
   gap: 0.6rem;
+  flex-wrap: wrap;
 
   @media (width <= 500px) {
     flex-direction: row;
   }
 `;
 
-export default function HealthSection() {
+export default function HealthSection({att}) {
+  const stamina = att[5].rating;
+  const willpowerStat = att[2].rating + att[8].rating
+  console.log(`stamina is ${stamina}`)
+
   return (
     <HealthSectionContainer>
       <Container>
@@ -47,13 +50,13 @@ export default function HealthSection() {
           <h4>Health</h4>
           <HealthContainer>
             {[...Array(stamina + 5)].map((_, index) => (
-              <CheckBox key={index} />
+              <CheckBox key={index} stamina={stamina}/>
             ))}
           </HealthContainer>
         </>
         <Container>
           <h4>Willpower</h4>
-          <DotRating initialRating={0} maxRating={6} />
+          <DotRating initialRating={willpowerStat} maxRating={willpowerStat} />
         </Container>
       </Container>
     </HealthSectionContainer>

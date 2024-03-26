@@ -1,6 +1,6 @@
 //IMPORTS
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 // STYLES
@@ -13,8 +13,8 @@ const DotContainer = styled.div`
 `;
 
 const Dot = styled.div`
-  width: 0.6rem;
-  height: 0.6rem;
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 50%;
   background-color: ${({ filled }) => (filled ? "white" : "transparent")};
   border: 2px solid
@@ -30,8 +30,21 @@ const Dot = styled.div`
 
 // COMPONENT
 
-const DotRating = ({ initialRating = 0, maxRating}) => {
+const DotRating = ({ initialRating = 0, maxRating, id}) => {
   const [rating, setRating] = useState(initialRating);
+
+  useEffect(() => {
+    // Retrieve the saved rating from local storage when the component mounts
+    const savedRating = localStorage.getItem(id);
+    if (savedRating !== null) {
+      setRating(Number(savedRating));
+    }
+  }, [id]);
+
+  useEffect(() => {
+    // Save the rating to local storage whenever it changes
+    localStorage.setItem(id, rating);
+  }, [rating, id]);
 
   const handleClick = (index) => {
     let newRating = index + 1;

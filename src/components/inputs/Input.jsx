@@ -1,6 +1,6 @@
 //IMPORTS
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { mixinFlex } from "../../mixins/mixins";
 
@@ -69,9 +69,20 @@ const StyledEntry = styled.div`
 
 //COMPONENT
 
-const Input = ({ entry = "" }) => {
+const Input = ({ entry = "", id }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedEntry, setEditedEntry] = useState(entry);
+
+  useEffect(() => {
+    const savedEntry = localStorage.getItem(id);
+    if (savedEntry) {
+      setEditedEntry(savedEntry);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    localStorage.setItem(id, editedEntry);
+  }, [editedEntry, id]);
 
   const handleDoubleClick = () => {
     setIsEditing(true);

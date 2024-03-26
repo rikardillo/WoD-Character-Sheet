@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import styled from "styled-components";
 import InfoSection from "./components/00-info/InfoSection";
@@ -14,7 +15,6 @@ import { mixinFlex } from "./mixins/mixins";
 // STYLES
 
 const Content = styled.div`
-  
   flex-wrap: wrap;
   width: 90vw;
   max-width: 50rem;
@@ -45,14 +45,42 @@ const CombatContainer = styled.div`
 // COMPONENT
 
 function CharacterSheet() {
+  const [characterAttributes, setCharacterAttributes] = useState(
+    loadInitialAttributes
+  );
+
+  function loadInitialAttributes() {
+    const defaultAttributes = [
+      { title: "Intelligence", rating: 1 },
+      { title: "Wits", rating: 1 },
+      { title: "Resolve", rating: 1 },
+      { title: "Strength", rating: 1 },
+      { title: "Dexterity", rating: 1 },
+      { title: "Stamina", rating: 1 },
+      { title: "Presence", rating: 1 },
+      { title: "Manipulation", rating: 1 },
+      { title: "Composure", rating: 1 },
+    ];
+
+    
+
+    return defaultAttributes.map((attr) => {
+      const savedRating = localStorage.getItem(attr.title);
+      return {
+        title: attr.title,
+        rating: savedRating !== null ? Number(savedRating) : attr.rating,
+      };
+    });
+  }
+
   return (
     <Content className="content">
       <InfoSection />
-      <AttributesSection />
+      <AttributesSection att={characterAttributes} />
       <SkillSection />
       <CombatContainer>
-        <HealthSection />
-        <Combat />
+        <HealthSection att={characterAttributes} />
+        <Combat att={characterAttributes} />
       </CombatContainer>
       <Morality />
       <Equipment />

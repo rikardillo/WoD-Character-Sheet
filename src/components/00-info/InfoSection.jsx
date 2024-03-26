@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import data from "../../data/data.js";
-import { hoverHighlight, mixinFlex } from "../../mixins/mixins.js";
+import { mixinFlex } from "../../mixins/mixins.js";
 import Input from "../inputs/Input.jsx";
 import Container from "../Utils/Container.jsx";
-
+import { useState } from "react";
 
 const StyledInfoGroup = styled.div`
   width: 100%;
@@ -21,15 +20,14 @@ const StyledInfoGroup = styled.div`
 const StyledEntry = styled.div`
   ${mixinFlex}
   height: 100%;
-  gap: .4rem;
+  gap: 0.4rem;
   padding: 2px;
 
   @media (width <= 500px) {
   }
-
 `;
 const StyledTitle = styled.div`
-  ${mixinFlex('', 'flex-end','center')}
+  ${mixinFlex("", "flex-end", "center")}
   width: 30%;
   height: 100%;
   font-size: 8px;
@@ -43,16 +41,29 @@ const StyledTitle = styled.div`
 `;
 
 export default function InfoSection() {
+  const [characterInfo, setCharacterInfo] = useState([
+    { title: "Name", entry: "" },
+    { title: "Age", entry: "" },
+    { title: "Player", entry: "" },
+    { title: "Virtue", entry: "" },
+    { title: "Vice", entry: "" },
+    { title: "Concept", entry: "" },
+    { title: "Chronicle", entry: "" },
+    { title: "Faction", entry: "" },
+    { title: "Group Name", entry: "" },
+  ]);
+  
+
   return (
+
     <Container>
       <StyledInfoGroup>
-        {data.map((item, index) => (
+        {characterInfo.map((item, index) => (
           <StyledEntry key={index}>
             <StyledTitle>{item.title}</StyledTitle>
             <Input
-              title={item.title}
-              placeholder={item.placeholder}
               entry={item.entry}
+              id={item.title}
             />
           </StyledEntry>
         ))}

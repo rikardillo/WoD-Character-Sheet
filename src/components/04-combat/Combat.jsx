@@ -1,12 +1,7 @@
 import Input from "../inputs/Input";
 import styled from "styled-components";
 import { mixinFlex, container, hoverHighlight } from "../../mixins/mixins";
-import data from "../../data/attributes";
-
-const att = { ...data };
-
-console.log(data);
-console.log(att);
+import { useState } from "react";
 
 // STYLES
 
@@ -56,7 +51,22 @@ const CombatStatContainer = styled.div`
 const CombatStat = function ({ value, title }) {
   return (
     <CombatStatContainer>
-      <Input />
+      <div
+        style={{
+          fontSize: "16px",
+        }}
+      >
+        {value}
+      </div>
+      <p>{title}</p>
+    </CombatStatContainer>
+  );
+};
+const InputStat = function ({ value, title }) {
+
+  return (
+    <CombatStatContainer>
+      <Input entry={value}/>
       <p>{title}</p>
     </CombatStatContainer>
   );
@@ -64,17 +74,32 @@ const CombatStat = function ({ value, title }) {
 
 // COMPONENT
 
-export default function Combat() {
+export default function Combat({ att }) {
+  const int = att[0].rating;
+  const wit = att[1].rating;
+  const res = att[2].rating;
+  const str = att[3].rating;
+  const dex = att[4].rating;
+  const sta = att[5].rating;
+  const pre = att[6].rating;
+  const man = att[7].rating;
+  const com = att[8].rating;
+
+  const speed = str + dex;
+  const initiative = dex + wit;
+  const defense = dex <= wit ? dex : wit;
+
+
   return (
     <ContainerMain>
-      <h3>Combat</h3>
+      {/* <h3>Combat</h3> */}
       <ContainerContent>
-        <CombatStat value="4" title="size" />
-        <CombatStat value="6" title="speed" />
-        <CombatStat value="3" title="defense" />
-        <CombatStat value="2" title="armor" />
-        <CombatStat value="4" title="initiative" />
-        <CombatStat value="14" title="xp" />
+        <CombatStat value="5" title="size" />
+        <CombatStat value={speed} title="speed" />
+        <CombatStat value={defense} title="defense" />
+        <InputStat value={0} title="armor"/>
+        <CombatStat value={initiative} title="initiative" />
+        <InputStat value={0} title="xp"/>
       </ContainerContent>
     </ContainerMain>
   );
