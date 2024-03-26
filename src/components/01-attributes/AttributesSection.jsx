@@ -1,7 +1,7 @@
 import DotRating from "../DotRating";
-import data from "../../data/attributes";
 import styled from "styled-components";
 import { mixinFlex, hoverHighlight } from "../../mixins/mixins";
+import { useState } from "react";
 
 // STYLES
 
@@ -68,7 +68,7 @@ const StyledAttribute = styled.div`
 
 // COMPONENT
 
-export default function AttributesSection() {
+export default function AttributesSection({ att }) {
   return (
     <AttSection>
       <h4>Attributes</h4>
@@ -79,10 +79,14 @@ export default function AttributesSection() {
           <p>Resistance</p>
         </AttTitleContainer>
         <StyledAttributes>
-          {data.map((item, index) => (
+          {att.map((item, index) => (
             <StyledAttribute key={index}>
               <span>{item.title}</span>
-              <DotRating initialRating={item.rating} maxRating={5} />
+              <DotRating
+                initialRating={item.rating}
+                maxRating={5}
+                id={item.title}
+              />
             </StyledAttribute>
           ))}
         </StyledAttributes>

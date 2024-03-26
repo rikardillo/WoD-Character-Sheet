@@ -53,8 +53,6 @@ export default function InfoSection() {
     { title: "Group Name", entry: "" },
   ]);
   
-  const currentCharInfo = [...characterInfo]
-  console.log(currentCharInfo)
 
   return (
 
