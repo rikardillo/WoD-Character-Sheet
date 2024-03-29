@@ -9,7 +9,6 @@ const ContainerMain = styled.div`
   ${mixinFlex("column", "space-between")};
   ${container}
   width: 10rem;
-  height: 10rem;
   flex-grow: 1;
   gap: 0.4rem;
 
@@ -46,6 +45,40 @@ const CombatStatContainer = styled.div`
   }
 `;
 
+const StyledInfoGroup = styled.div`
+  width: 100%;
+  display: flex;
+  grid-column: 1/3;
+
+  @media (width <= 500px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const StyledEntry = styled.div`
+  ${mixinFlex('column')}
+  width: 100%;
+  height: 100%;
+  gap: 0.4rem;
+  padding: 2px;
+
+  @media (width <= 500px) {
+  }
+`;
+const StyledTitle = styled.div`
+  ${mixinFlex("", "center", "center")}
+  width: 100%;
+  height: 100%;
+  font-size: 8px;
+  text-transform: uppercase;
+  line-height: 1.4;
+
+  @media (width <= 500px) {
+    flex-direction: column;
+  }
+`;
+
 // COMPONENTS
 
 const CombatStat = function ({ value, title }) {
@@ -63,10 +96,9 @@ const CombatStat = function ({ value, title }) {
   );
 };
 const InputStat = function ({ value, title }) {
-
   return (
     <CombatStatContainer>
-      <Input entry={value}/>
+      <Input entry={value} />
       <p>{title}</p>
     </CombatStatContainer>
   );
@@ -89,17 +121,27 @@ export default function Combat({ att }) {
   const initiative = dex + wit;
   const defense = dex <= wit ? dex : wit;
 
+  const combatValues = [
+    { title: "Armor", rating: 1 },
+    { title: "XP", rating: 1 },
+  ];
 
   return (
     <ContainerMain>
-      {/* <h3>Combat</h3> */}
+      <h3>Combat</h3>
       <ContainerContent>
         <CombatStat value="5" title="size" />
         <CombatStat value={speed} title="speed" />
         <CombatStat value={defense} title="defense" />
-        <InputStat value={0} title="armor"/>
         <CombatStat value={initiative} title="initiative" />
-        <InputStat value={0} title="xp"/>
+        <StyledInfoGroup>
+          {combatValues.map((item, index) => (
+            <StyledEntry key={index}>
+              <Input entry={item.entry} id={item.title} />
+              <StyledTitle>{item.title}</StyledTitle>
+            </StyledEntry>
+          ))}
+        </StyledInfoGroup>
       </ContainerContent>
     </ContainerMain>
   );

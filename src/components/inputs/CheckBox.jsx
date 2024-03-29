@@ -1,6 +1,6 @@
 // IMPORTS
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { mixinFlex } from "../../mixins/mixins";
 
@@ -53,6 +53,7 @@ const AgravatedDmg = styled(Damage)`
 
 export default function CheckBox() {
   const [clickCount, setClickCount] = useState(0);
+
 
   const handleClick = () => {
     if (clickCount === 3) {

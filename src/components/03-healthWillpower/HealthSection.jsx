@@ -8,7 +8,7 @@ const HealthSectionContainer = styled.div`
   ${mixinFlex}
   ${hoverHighlight}
   width: 10rem;
-  height: fit-content;
+  height: 100%;
   flex-direction: column;
   gap: 0.4rem;
   background-color: rgba(0, 0, 0, 0.7);
@@ -41,16 +41,16 @@ const Container = styled.div`
 export default function HealthSection({att}) {
   const stamina = att[5].rating;
   const willpowerStat = att[2].rating + att[8].rating
-  console.log(`stamina is ${stamina}`)
 
   return (
+
     <HealthSectionContainer>
       <Container>
         <>
           <h4>Health</h4>
           <HealthContainer>
             {[...Array(stamina + 5)].map((_, index) => (
-              <CheckBox key={index} stamina={stamina}/>
+              <CheckBox key={index} id={index} />
             ))}
           </HealthContainer>
         </>

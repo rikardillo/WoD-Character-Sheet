@@ -33,6 +33,10 @@ const AttTitleContainer = styled.div`
     text-transform: uppercase;
     text-align: right;
   }
+
+  @media (width <= 500px) {
+    display: none;
+  }
 `;
 
 const StyledAttributes = styled.div`

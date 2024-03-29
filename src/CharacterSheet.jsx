@@ -12,13 +12,14 @@ import WeaponEquipmentSection from "./components/05-weaponsEquipment/WeaponEquip
 import MeritsFlawsSection from "./components/07-meritsFlaws/MeritsFlawsSection";
 import Morality from "./components/08-morality/Morality";
 import { mixinFlex } from "./mixins/mixins";
+import Container from "./components/Utils/Container";
 // STYLES
 
 const Content = styled.div`
   flex-wrap: wrap;
   width: 90vw;
   max-width: 50rem;
-  height: 80%;
+  height: 90vh;
   gap: 0.5rem;
   overflow: scroll;
   scroll-behavior: smooth;
@@ -27,14 +28,19 @@ const Content = styled.div`
 
   @media (width <500px) {
     width: 90vw;
+    height: 90vh;
   }
+`;
+const SectionContainer = styled.div`
+  ${mixinFlex("row", "center", "center")}
+  gap: .4rem;
+  height: fit-content;
 `;
 
 const CombatContainer = styled.div`
   ${mixinFlex("column")};
-  height: 26rem;
+  height: 100%;
   gap: 0.4rem;
-  flex-grow: 0;
 
   @media (width <= 500px) {
     width: 100%;
@@ -62,8 +68,6 @@ function CharacterSheet() {
       { title: "Composure", rating: 1 },
     ];
 
-    
-
     return defaultAttributes.map((attr) => {
       const savedRating = localStorage.getItem(attr.title);
       return {
@@ -73,16 +77,20 @@ function CharacterSheet() {
     });
   }
 
+  
+
   return (
     <Content className="content">
       <InfoSection />
       <AttributesSection att={characterAttributes} />
-      <SkillSection />
-      <CombatContainer>
-        <HealthSection att={characterAttributes} />
-        <Combat att={characterAttributes} />
-      </CombatContainer>
-      <Morality />
+      <SectionContainer>
+        <SkillSection />
+        <CombatContainer>
+          <HealthSection att={characterAttributes} />
+          <Combat att={characterAttributes} />
+        </CombatContainer>
+        <Morality />
+      </SectionContainer>
       <Equipment />
       <MeritsFlawsSection />
     </Content>

@@ -7,7 +7,7 @@ import { useState } from "react";
 const SkillSectionContainer = styled.div`
   ${hoverHighlight}
   width: 24rem;
-  height: 26rem;
+  height: fit-content;
   gap: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(6px);
