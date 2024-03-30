@@ -7,11 +7,16 @@ import { mixinFlex, container } from "../../mixins/mixins";
 const SectionContainer = styled.div`
   ${mixinFlex("column", "flex-start", "center")};
   ${container};
-  height: 26rem;
+  height: 100%;
   width: 20%;
   min-width: 15rem;
   gap: 1rem;
   flex-grow: 1;
+  /* align-self: stretch; */
+  @media (width <= 500px) {
+    width: 100%;
+    height: fit-content;
+  }
 `;
 
 const Container = styled.div`

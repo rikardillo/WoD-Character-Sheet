@@ -34,7 +34,13 @@ const Content = styled.div`
 const SectionContainer = styled.div`
   ${mixinFlex("row", "center", "center")}
   gap: .4rem;
-  height: fit-content;
+  align-self: stretch;
+
+  @media (width <= 500px) {
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+  }
 `;
 
 const CombatContainer = styled.div`

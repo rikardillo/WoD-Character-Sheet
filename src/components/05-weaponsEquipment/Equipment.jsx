@@ -6,7 +6,7 @@ import EquipmentEntry from "./EquipmentEntry";
 
 const ContainerEquipment = styled.div`
   ${container};
-  width: 50%;
+  width: 100%;
   gap: 0.6rem;
 
   h4 {

@@ -6,7 +6,7 @@ import { mixinFlex, container } from "../../mixins/mixins";
 const SectionContainer = styled.div`
   ${mixinFlex("row", "center", "center")};
   ${container};
-  width: 49%;
+  width: 100%;
 
   @media (width <= 500px) {
     width: 100%;
