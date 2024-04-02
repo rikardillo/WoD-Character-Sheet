@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { NativeDiv } from "./inputs/CheckBox";
 
 // STYLES
 
@@ -12,7 +13,7 @@ const DotContainer = styled.div`
   gap: 0.2rem;
 `;
 
-const Dot = styled.div`
+const Dot = styled(NativeDiv)`
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 50%;
@@ -30,21 +31,13 @@ const Dot = styled.div`
 
 // COMPONENT
 
-const DotRating = ({ initialRating = 0, maxRating, id}) => {
+const DotRating = ({
+  initialRating = 0,
+  maxRating,
+  id,
+  onChange = () => {},
+}) => {
   const [rating, setRating] = useState(initialRating);
-
-  useEffect(() => {
-    // Retrieve the saved rating from local storage when the component mounts
-    const savedRating = localStorage.getItem(id);
-    if (savedRating !== null) {
-      setRating(Number(savedRating));
-    }
-  }, [id]);
-
-  useEffect(() => {
-    // Save the rating to local storage whenever it changes
-    localStorage.setItem(id, rating);
-  }, [rating, id]);
 
   const handleClick = (index) => {
     let newRating = index + 1;
@@ -54,13 +47,14 @@ const DotRating = ({ initialRating = 0, maxRating, id}) => {
     }
 
     setRating(newRating);
+    onChange(id, newRating);
   };
 
   return (
     <DotContainer>
       {[...Array(maxRating)].map((_, index) => (
         <Dot
-          key={index}
+          key={`${id}-${index}`}
           filled={index < rating}
           onClick={() => handleClick(index)}
         />

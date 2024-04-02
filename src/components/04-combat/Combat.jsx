@@ -40,8 +40,9 @@ const CombatStatContainer = styled.div`
     text-transform: uppercase;
   }
   @media (width <= 500px) {
-    width: 100%;
+    width: 50%;
     height: fit-content;
+    flex-grow: 1;
   }
 `;
 
@@ -52,12 +53,13 @@ const StyledInfoGroup = styled.div`
 
   @media (width <= 500px) {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
 `;
 
 const StyledEntry = styled.div`
-  ${mixinFlex('column')}
+  ${mixinFlex("column")}
+  flex-grow: 1;
   width: 100%;
   height: 100%;
   gap: 0.4rem;

@@ -72,7 +72,7 @@ const StyledAttribute = styled.div`
 
 // COMPONENT
 
-export default function AttributesSection({ att }) {
+export default function AttributesSection({ att, onChange }) {
   return (
     <AttSection>
       <h4>Attributes</h4>
@@ -84,12 +84,13 @@ export default function AttributesSection({ att }) {
         </AttTitleContainer>
         <StyledAttributes>
           {att.map((item, index) => (
-            <StyledAttribute key={index}>
+            <StyledAttribute key={`${item.title}-${index}`}>
               <span>{item.title}</span>
               <DotRating
                 initialRating={item.rating}
                 maxRating={5}
                 id={item.title}
+                onChange={onChange}
               />
             </StyledAttribute>
           ))}

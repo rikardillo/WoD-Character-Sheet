@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import styled from "styled-components";
 import InfoSection from "./components/00-info/InfoSection";
@@ -56,6 +56,13 @@ const CombatContainer = styled.div`
 
 // COMPONENT
 
+const y = 1;
+const x = [];
+
+x.pop(1);
+x.push(4);
+x.slice(10);
+
 function CharacterSheet() {
   const [characterAttributes, setCharacterAttributes] = useState(
     loadInitialAttributes
@@ -83,16 +90,33 @@ function CharacterSheet() {
     });
   }
 
-  
+  const onChangeAttribute = (id, rating) => {
+    localStorage.setItem(id, rating);
+    const index = characterAttributes.findIndex(
+      (attribute) => attribute.title === id
+    );
+    setCharacterAttributes((newCharacterAttributes) => {
+      newCharacterAttributes[index].rating = rating;
+      return [...newCharacterAttributes];
+    });
+  };
 
   return (
     <Content className="content">
       <InfoSection />
-      <AttributesSection att={characterAttributes} />
+      <AttributesSection
+        att={characterAttributes}
+        onChange={onChangeAttribute}
+      />
       <SectionContainer>
         <SkillSection />
         <CombatContainer>
-          <HealthSection att={characterAttributes} />
+          <HealthSection
+            stamina={characterAttributes[5].rating}
+            willpowerStat={
+              characterAttributes[2].rating + characterAttributes[8].rating
+            }
+          />
           <Combat att={characterAttributes} />
         </CombatContainer>
         <Morality />

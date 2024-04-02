@@ -26,7 +26,11 @@ const Box = styled.div`
   }
 `;
 
-const Damage = styled.div`
+export const NativeDiv = ({ show: _, filled: _2, ...props }) => (
+  <div {...props} />
+);
+
+const Damage = styled(NativeDiv)`
   position: absolute;
   background-color: white;
   height: 2px;
@@ -51,9 +55,14 @@ const AgravatedDmg = styled(Damage)`
 
 // COMPONENT
 
-export default function CheckBox() {
-  const [clickCount, setClickCount] = useState(0);
+export default function CheckBox({ id }) {
+  const [clickCount, setClickCount] = useState(
+    Number(localStorage.getItem(id)) || 0
+  );
 
+  useEffect(() => {
+    localStorage.setItem(id, clickCount);
+  }, [clickCount]);
 
   const handleClick = () => {
     if (clickCount === 3) {
