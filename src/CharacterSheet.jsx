@@ -44,8 +44,8 @@ const SectionContainer = styled.div`
 `;
 
 const CombatContainer = styled.div`
-  ${mixinFlex("column")};
-  height: 100%;
+  ${mixinFlex("row")};
+  width: 100%;
   gap: 0.4rem;
 
   @media (width <= 500px) {
@@ -108,19 +108,17 @@ function CharacterSheet() {
         att={characterAttributes}
         onChange={onChangeAttribute}
       />
-      <SectionContainer>
-        <SkillSection />
-        <CombatContainer>
-          <HealthSection
-            stamina={characterAttributes[5].rating}
-            willpowerStat={
-              characterAttributes[2].rating + characterAttributes[8].rating
-            }
-          />
-          <Combat att={characterAttributes} />
-        </CombatContainer>
+      <SkillSection />
+      <CombatContainer>
+        <HealthSection
+          stamina={characterAttributes[5].rating}
+          willpowerStat={
+            characterAttributes[2].rating + characterAttributes[8].rating
+          }
+        />
+        <Combat att={characterAttributes} />
         <Morality />
-      </SectionContainer>
+      </CombatContainer>
       <Equipment />
       <MeritsFlawsSection />
     </Content>

@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const SkillSectionContainer = styled.div`
   ${hoverHighlight}
-  width: 24rem;
+  width: 100%;
   height: fit-content;
   gap: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
@@ -22,9 +22,11 @@ const SkillSectionContainer = styled.div`
 
 const SkillContainer = styled.div`
   ${mixinFlex("row", "center", "center")};
+  width: 100%;
 `;
 
 const StyledSkills = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -36,7 +38,6 @@ const StyledSkills = styled.div`
 const StyledSkill = styled.div`
   min-width: 7rem;
   display: flex;
-  flex-direction: column;
   gap: 0.1rem;
   justify-content: space-between;
   align-items: center;
