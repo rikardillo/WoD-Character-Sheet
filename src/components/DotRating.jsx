@@ -27,6 +27,11 @@ const Dot = styled(NativeDiv)`
     background-color: ${({ filled }) =>
       !filled ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.6)"};
   }
+
+  @media (width <= 900px) {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 `;
 
 // COMPONENT

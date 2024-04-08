@@ -35,7 +35,7 @@ const Container = styled.div`
   flex-wrap: wrap;
 
   @media (width <= 900px) {
-    flex-direction: row;
+    /* flex-direction: row; */
   }
 `;
 

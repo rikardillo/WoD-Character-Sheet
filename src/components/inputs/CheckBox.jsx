@@ -9,12 +9,17 @@ import { mixinFlex } from "../../mixins/mixins";
 const Box = styled.div`
   ${mixinFlex};
   position: relative;
-  height: 1rem;
-  width: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.4s;
   border-radius: 4px;
   cursor: pointer;
+  
+  @media (width <= 900px) {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
 
   &:hover {
     border: 1px solid red;
@@ -24,6 +29,8 @@ const Box = styled.div`
       transition: all 0.4s;
     }
   }
+
+  
 `;
 
 export const NativeDiv = ({ show: _, filled: _2, ...props }) => (
@@ -33,7 +40,7 @@ export const NativeDiv = ({ show: _, filled: _2, ...props }) => (
 const Damage = styled(NativeDiv)`
   position: absolute;
   background-color: white;
-  height: 2px;
+  height: 3px;
   width: 80%;
   border-radius: 20px;
   opacity: ${(props) => (props.show ? 1 : 0)};

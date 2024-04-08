@@ -34,7 +34,7 @@ const AttTitleContainer = styled.div`
     text-align: right;
   }
 
-  @media (width <= 500px) {
+  @media (width <= 900px) {
     display: none;
   }
 `;
@@ -48,11 +48,17 @@ const StyledAttributes = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.4rem;
+
+  @media (width <= 900px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const StyledAttribute = styled.div`
   ${mixinFlex("row", "space-between", "center")};
   ${hoverHighlight};
+  width: 100%;
   gap: 0.2rem;
   padding: 0.4rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
