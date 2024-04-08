@@ -71,8 +71,8 @@ const StyledAttribute = styled.div`
     text-transform: uppercase;
   }
 
-  @media (width <= 500px) {
-    flex-direction: column;
+  @media (width <= 900px) {
+    flex-direction: row;
   }
 `;
 
