@@ -33,6 +33,12 @@ const StyledSkills = styled.div`
   grid-auto-flow: column;
   justify-content: center;
   align-items: center;
+
+ @media (width <= 700px) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+ }
 `;
 
 const StyledSkill = styled.div`
@@ -54,6 +60,10 @@ const StyledSkill = styled.div`
   span {
     font-size: 0.5rem;
     text-transform: uppercase;
+  }
+
+  @media (width <= 900px) {
+    width: 100%;
   }
 `;
 

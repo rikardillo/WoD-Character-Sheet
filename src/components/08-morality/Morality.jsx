@@ -9,12 +9,12 @@ import { useState } from "react";
 const SectionContainer = styled.div`
   ${mixinFlex("column", "flex-start", "center")};
   ${container};
-  width: 20%;
+  width: 100%;
   min-width: 15rem;
   gap: 1rem;
   flex-grow: 1;
   align-self: stretch;
-  @media (width <= 500px) {
+  @media (width <= 900px) {
     width: 100%;
     height: fit-content;
   }

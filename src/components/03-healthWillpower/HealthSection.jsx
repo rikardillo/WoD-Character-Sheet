@@ -8,7 +8,7 @@ import { useState } from "react";
 const HealthSectionContainer = styled.div`
   ${mixinFlex}
   ${hoverHighlight}
-  width: 10rem;
+  width: 100%;
   height: 100%;
   flex-direction: column;
   gap: 0.4rem;
@@ -34,7 +34,7 @@ const Container = styled.div`
   gap: 0.6rem;
   flex-wrap: wrap;
 
-  @media (width <= 500px) {
+  @media (width <= 900px) {
     flex-direction: row;
   }
 `;

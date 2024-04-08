@@ -16,14 +16,14 @@ const EquipmentEntry = styled.div`
 
 // COMPONENT
 
-export default function () {
+export default function ({name, durability, structure, size, cost}) {
   return (
     <EquipmentEntry>
-      <Input />
-      <Input />
-      <Input />
-      <Input />
-      <Input />
+      <Input entry={name} />
+      <Input entry={durability} />
+      <Input entry={structure} />
+      <Input entry={size} />
+      <Input entry={cost} />
     </EquipmentEntry>
   );
 }

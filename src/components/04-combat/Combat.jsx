@@ -8,12 +8,12 @@ import { useState } from "react";
 const ContainerMain = styled.div`
   ${mixinFlex("column", "space-between")};
   ${container}
+  width: 100%;
   align-self: stretch;
   flex-grow: 1;
   gap: 0.4rem;
 
   @media (width <= 500px) {
-    width: 100%;
     height: fit-content;
   }
 `;

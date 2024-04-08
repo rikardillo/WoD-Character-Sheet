@@ -48,9 +48,9 @@ const CombatContainer = styled.div`
   width: 100%;
   gap: 0.4rem;
 
-  @media (width <= 500px) {
-    width: 100%;
+  @media (width <= 900px) {
     height: fit-content;
+    flex-direction: column;
   }
 `;
 
