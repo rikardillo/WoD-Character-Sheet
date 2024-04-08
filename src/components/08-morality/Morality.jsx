@@ -3,34 +3,36 @@ import DotRating from "../DotRating";
 import styled from "styled-components";
 
 import { mixinFlex, container } from "../../mixins/mixins";
+import { useBeforeUnload } from "react-router-dom";
+import { useState } from "react";
 
 const SectionContainer = styled.div`
   ${mixinFlex("column", "flex-start", "center")};
   ${container};
-  height: 100%;
-  width: 20%;
+  width: 100%;
   min-width: 15rem;
   gap: 1rem;
   flex-grow: 1;
-  /* align-self: stretch; */
-  @media (width <= 500px) {
+  align-self: stretch;
+  @media (width <= 900px) {
     width: 100%;
     height: fit-content;
   }
 `;
 
 const Container = styled.div`
-  ${mixinFlex}
-  flex-direction: column;
+  ${mixinFlex("")}
+  align-items: flex-start;
   width: 100%;
   height: 100%;
   gap: 0.2rem;
 `;
 
 const StyledEntry = styled.div`
-  ${mixinFlex("row")};
+  ${mixinFlex("column")};
   gap: 0.4rem;
   width: 100%;
+  height: 100%;
 
   span {
     width: 2rem;
@@ -38,59 +40,19 @@ const StyledEntry = styled.div`
 `;
 
 export default function Morality() {
+  const [ morality, setMorality ] = useState();
+  const [ derangments, setDerangements ] = useState();
+
   return (
     <SectionContainer className="section-container">
-      <h4>Morality</h4>
       <Container>
         <StyledEntry>
-          <span>10</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
+          <h4>Morality</h4>
+          <Input id='Morality' entry={morality} />
         </StyledEntry>
         <StyledEntry>
-          <span>9</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
-        </StyledEntry>
-        <StyledEntry>
-          <span>8</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
-        </StyledEntry>
-        <StyledEntry>
-          <span>7</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
-        </StyledEntry>
-        <StyledEntry>
-          <span>6</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
-        </StyledEntry>
-        <StyledEntry>
-          <span>5</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
-        </StyledEntry>
-        <StyledEntry>
-          <span>4</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
-        </StyledEntry>
-        <StyledEntry>
-          <span>3</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
-        </StyledEntry>
-        <StyledEntry>
-          <span>2</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
-        </StyledEntry>
-        <StyledEntry>
-          <span>1</span>
-          <Input />
-          <DotRating initialRating={0} maxRating={1} />
+          <h4>Derangement(s)</h4>
+          <Input id="Derangements" entry={derangments} />
         </StyledEntry>
       </Container>
     </SectionContainer>

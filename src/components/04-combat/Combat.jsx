@@ -8,19 +8,17 @@ import { useState } from "react";
 const ContainerMain = styled.div`
   ${mixinFlex("column", "space-between")};
   ${container}
-  width: 10rem;
+  width: 100%;
+  align-self: stretch;
   flex-grow: 1;
   gap: 0.4rem;
 
   @media (width <= 500px) {
-    width: 100%;
     height: fit-content;
   }
 `;
 const ContainerContent = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  display: flex;
   width: 100%;
   height: 100%;
   gap: 0.8rem;
@@ -28,12 +26,13 @@ const ContainerContent = styled.div`
   @media (width <= 500px) {
     display: flex;
     flex-direction: row;
-    /* height: 2rem; */
   }
 `;
 
 const CombatStatContainer = styled.div`
   ${mixinFlex("column")};
+  width: 100%;
+  flex-grow: 1;
 
   p {
     font-size: 0.4rem;
@@ -47,19 +46,17 @@ const CombatStatContainer = styled.div`
 `;
 
 const StyledInfoGroup = styled.div`
-  width: 100%;
+  width: 200%;
   display: flex;
-  grid-column: 1/3;
+  
 
   @media (width <= 500px) {
-    display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
   }
 `;
 
 const StyledEntry = styled.div`
   ${mixinFlex("column")}
-  flex-grow: 1;
   width: 100%;
   height: 100%;
   gap: 0.4rem;
@@ -97,6 +94,7 @@ const CombatStat = function ({ value, title }) {
     </CombatStatContainer>
   );
 };
+
 const InputStat = function ({ value, title }) {
   return (
     <CombatStatContainer>

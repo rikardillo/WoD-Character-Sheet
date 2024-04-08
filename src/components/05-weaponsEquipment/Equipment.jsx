@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { mixinFlex, container } from "../../mixins/mixins";
 import EquipmentEntry from "./EquipmentEntry";
+import { useState } from "react";
 
 // STYLES
 
@@ -35,6 +36,10 @@ const EquipmentTitles = styled.div`
 // COMPONENT
 
 export default function Equipment() {
+  const [equipmentList, setEquipmentList] = useState([])
+
+  
+
   return (
     <>
       <ContainerEquipment>
