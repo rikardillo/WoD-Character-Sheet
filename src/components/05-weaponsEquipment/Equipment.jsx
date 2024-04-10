@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mixinFlex, container } from "../../mixins/mixins";
-import EquipmentEntry from "./EquipmentEntry";
 import { useState } from "react";
+import Input from "../inputs/Input";
 
 // STYLES
 
@@ -33,12 +33,54 @@ const EquipmentTitles = styled.div`
   }
 `;
 
+const EquipmentEntry = styled.div`
+  ${mixinFlex};
+  width: 100%;
+  font-size: 0.4rem;
+  height: 2rem;
+  gap: 0.2rem;
+`;
+
+const StyledEntry = styled.div`
+  width: 100%;
+`;
+
 // COMPONENT
 
-export default function Equipment() {
-  const [equipmentList, setEquipmentList] = useState([])
+const AddEquipment = function ({ onAdd }) {
+  return <button onClick={onAdd}>Add Equipment</button>;
+};
 
-  
+export default function Equipment() {
+  const [equipmentList, setEquipmentList] = useState([]);
+  const equipment = [
+    { title: "Title", entry: "" },
+    { title: "Durability", entry: "" },
+    { title: "Structure", entry: "" },
+    { title: "Size", entry: "" },
+    { title: "Cost", entry: "" },
+  ];
+
+  function handleAddEquipment() {
+    let currentItemIndex = equipmentList.length + 1;
+
+    setEquipmentList([
+      ...equipmentList,
+      <EquipmentEntry key={equipmentList.length}>
+        {equipment.map((item, index) => (
+          <StyledEntry key={`${item.title}-${currentItemIndex}`}>
+            <Input
+              entry={item.entry}
+              id={`Equipment-${item.title}-${currentItemIndex}`}
+            />
+          </StyledEntry>
+        ))}
+      </EquipmentEntry>,
+    ]);
+
+
+    console.log(equipmentList);
+  }
 
   return (
     <>
@@ -51,9 +93,8 @@ export default function Equipment() {
           <div>Size</div>
           <div>Cost</div>
         </EquipmentTitles>
-        <EquipmentEntry />
-        <EquipmentEntry />
-        <EquipmentEntry />
+        {equipmentList}
+        <AddEquipment onAdd={handleAddEquipment} />
       </ContainerEquipment>
     </>
   );

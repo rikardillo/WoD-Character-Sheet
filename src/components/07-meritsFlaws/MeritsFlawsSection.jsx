@@ -8,8 +8,9 @@ const SectionContainer = styled.div`
   ${container};
   width: 100%;
 
-  @media (width <= 500px) {
+  @media (width <= 900px) {
     width: 100%;
+    flex-direction: column;
   }
 `;
 

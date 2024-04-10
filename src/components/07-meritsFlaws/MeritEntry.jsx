@@ -11,7 +11,7 @@ const MeritContainer = styled.div`
 
 const RatingContainer = styled.div`
   ${mixinFlex};
-  width: 7rem;
+  width: 12rem;
 `;
 
 export default function MeritEntry() {

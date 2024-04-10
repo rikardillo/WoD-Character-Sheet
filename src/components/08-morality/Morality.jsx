@@ -1,9 +1,7 @@
 import Input from "../inputs/Input";
-import DotRating from "../DotRating";
 import styled from "styled-components";
 
 import { mixinFlex, container } from "../../mixins/mixins";
-import { useBeforeUnload } from "react-router-dom";
 import { useState } from "react";
 
 const SectionContainer = styled.div`
@@ -12,20 +10,18 @@ const SectionContainer = styled.div`
   width: 100%;
   min-width: 15rem;
   gap: 1rem;
-  flex-grow: 1;
   align-self: stretch;
-  @media (width <= 900px) {
-    width: 100%;
-    height: fit-content;
-  }
+  flex-grow: 1;
 `;
 
 const Container = styled.div`
   ${mixinFlex("")}
   align-items: flex-start;
+  align-self: stretch;
   width: 100%;
   height: 100%;
   gap: 0.2rem;
+  flex-grow: 1;
 `;
 
 const StyledEntry = styled.div`
@@ -33,6 +29,8 @@ const StyledEntry = styled.div`
   gap: 0.4rem;
   width: 100%;
   height: 100%;
+  align-self: stretch;
+  flex-grow: 1;
 
   span {
     width: 2rem;
@@ -45,8 +43,8 @@ export default function Morality() {
 
   return (
     <SectionContainer className="section-container">
-      <Container>
-        <StyledEntry>
+      <Container className="container">
+        <StyledEntry className="styledEntry">
           <h4>Morality</h4>
           <Input id='Morality' entry={morality} />
         </StyledEntry>

@@ -33,10 +33,6 @@ const Container = styled.div`
   ${mixinFlex("column", "center")};
   gap: 0.6rem;
   flex-wrap: wrap;
-
-  @media (width <= 900px) {
-    /* flex-direction: row; */
-  }
 `;
 
 export default function HealthSection({ willpowerStat, stamina }) {
