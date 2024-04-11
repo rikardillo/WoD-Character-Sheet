@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Input from "../inputs/Input";
 import { container, mixinFlex } from "../../mixins/mixins";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import DotRating from "../DotRating";
 
 const Container = styled.div`
@@ -24,10 +24,6 @@ const StyledEntry = styled.div`
   width: 100%;
 `;
 
-const AddMerit = function ({ onAdd }) {
-  return <button onClick={onAdd}>Add Merit</button>;
-};
-
 export default function Merits() {
   const [meritList, setMeritList] = useState(() => {
     const savedList = localStorage.getItem("meritList");
@@ -37,52 +33,51 @@ export default function Merits() {
   useEffect(() => {
     localStorage.setItem("meritList", JSON.stringify(meritList));
   }, [meritList]);
-  
 
   function handleAddMerit() {
     let currentItemIndex = meritList.length + 1;
-    const newMerit = meritList.concat({
-      id: currentItemIndex,
-      merit: [{ title: `Merit ${currentItemIndex}`, entry: "", rating: 0 }],
-    });
-
+    const newMerit = meritList.concat(crypto.randomUUID());
     setMeritList(newMerit);
   }
 
   function onChangeMeritValue(id, newRating) {
     // Update the meritList with the new rating
-    setMeritList(currentMeritList =>
-      currentMeritList.map(merit =>
-        ({
-          ...merit,
-          merit: merit.merit.map(m =>
-            m.id === id ? { ...m, rating: newRating } : m // Only update the matched merit
-          ),
-        })
-      )
+    setMeritList((currentMeritList) =>
+      currentMeritList.map((merit) => ({
+        ...merit,
+        merit: merit.merit.map(
+          (m) => (m.id === id ? { ...m, rating: newRating } : m) // Only update the matched merit
+        ),
+      }))
     );
   }
-  
+
+  const onMeritRatingChange = (id, value) => {
+    localStorage.setItem(id, value);
+  };
 
   return (
     <Container>
       <h4>Merits</h4>
-      {meritList.map((meritEntry, index) => (
-        <MeritEntry key={`Merit Key - ${index}`}>
-          {meritEntry.merit.map((item, index) => (
-            <StyledEntry key={`${item.title}-${meritEntry.id}`}>
-              <Input entry={item.entry} id={`${item.title}-${meritEntry.id}`} />
+      {meritList.map((id, index) => {
+        return (
+          <MeritEntry key={id}>
+            <StyledEntry key={`Merit-${id}`}>
+              <Input
+                entry={localStorage.getItem(`Merit-Title-${id}`) ?? ""}
+                id={`Merit-Title-${id}`}
+              />
               <DotRating
-                initialRating={item.rating}
+                initialRating={localStorage.getItem(`Merit-Rating-${id}`)}
                 maxRating={5}
-                id={`${item.title}`}
-                onChange={onChangeMeritValue}
+                id={`Merit-Rating-${id}`}
+                onChange={onMeritRatingChange}
               />
             </StyledEntry>
-          ))}
-        </MeritEntry>
-      ))}
-      <AddMerit onAdd={handleAddMerit} />
+          </MeritEntry>
+        );
+      })}
+      <button onClick={handleAddMerit}>Add Merit</button>
     </Container>
   );
 }
