@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { mixinFlex, container } from "../../mixins/mixins";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Input from "../inputs/Input";
 
 // STYLES
@@ -45,6 +45,8 @@ const StyledEntry = styled.div`
   width: 100%;
 `;
 
+
+
 // COMPONENT
 
 const AddEquipment = function ({ onAdd }) {
@@ -52,34 +54,29 @@ const AddEquipment = function ({ onAdd }) {
 };
 
 export default function Equipment() {
-  const [equipmentList, setEquipmentList] = useState([]);
-  const equipment = [
-    { title: "Title", entry: "" },
-    { title: "Durability", entry: "" },
-    { title: "Structure", entry: "" },
-    { title: "Size", entry: "" },
-    { title: "Cost", entry: "" },
-  ];
+  const [equipmentList, setEquipmentList] = useState(() => {
+    const savedList = localStorage.getItem('equipmentList');
+    return savedList ? JSON.parse(savedList) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('equipmentList', JSON.stringify(equipmentList));
+  }, [equipmentList]);
 
   function handleAddEquipment() {
     let currentItemIndex = equipmentList.length + 1;
+    const newEquipment = equipmentList.concat({
+      id: currentItemIndex,
+      equipment: [
+        { title: "Title", entry: "" },
+        { title: "Durability", entry: "" },
+        { title: "Structure", entry: "" },
+        { title: "Size", entry: "" },
+        { title: "Cost", entry: "" },
+      ]
+    });
 
-    setEquipmentList([
-      ...equipmentList,
-      <EquipmentEntry key={equipmentList.length}>
-        {equipment.map((item, index) => (
-          <StyledEntry key={`${item.title}-${currentItemIndex}`}>
-            <Input
-              entry={item.entry}
-              id={`Equipment-${item.title}-${currentItemIndex}`}
-            />
-          </StyledEntry>
-        ))}
-      </EquipmentEntry>,
-    ]);
-
-
-    console.log(equipmentList);
+    setEquipmentList(newEquipment);
   }
 
   return (
@@ -93,7 +90,18 @@ export default function Equipment() {
           <div>Size</div>
           <div>Cost</div>
         </EquipmentTitles>
-        {equipmentList}
+        {equipmentList.map((equipmentEntry, index) => (
+          <EquipmentEntry key={index}>
+            {equipmentEntry.equipment.map((item) => (
+              <StyledEntry key={`${item.title}-${equipmentEntry.id}`}>
+                <Input
+                  entry={item.entry}
+                  id={`Equipment-${item.title}-${equipmentEntry.id}`}
+                />
+              </StyledEntry>
+            ))}
+          </EquipmentEntry>
+        ))}
         <AddEquipment onAdd={handleAddEquipment} />
       </ContainerEquipment>
     </>
