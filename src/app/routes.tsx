@@ -10,7 +10,7 @@ const router = createBrowserRouter([
   {
     id: "test",
     path: "/test",
-    lazy: getComponent(() => import("@/features/Legacy")),
+    lazy: getComponent(() => import("@/_old/CharacterSheet")),
   },
   {
     id: "characters",
