@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainContainer from "@/components/Layout/MainContainer";
+import Logo from "@/assets/Logo - WoD.svg";
 
 export const getComponent = (c: () => Promise<any>) => async () => {
   const result = await c();
@@ -36,7 +37,8 @@ const router = createBrowserRouter([
 
 export const Routes = () => {
   return (
-    <MainContainer id="main">
+    <MainContainer id="main" style={{ padding: "2rem" }}>
+      <img src={Logo} alt="Logo" />
       <RouterProvider router={router} />
     </MainContainer>
   );
