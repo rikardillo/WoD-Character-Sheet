@@ -9,12 +9,12 @@ export const getComponent = (c: () => Promise<any>) => async () => {
 const router = createBrowserRouter([
   {
     id: "test",
-    path: "/test",
+    path: "/",
     lazy: getComponent(() => import("@/_old/CharacterSheet")),
   },
   {
     id: "characters",
-    path: "/",
+    path: "/characters",
     lazy: getComponent(() => import("@/features/Characters/ListCharacters")),
   },
   {
