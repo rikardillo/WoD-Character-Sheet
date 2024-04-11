@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const MeritEntry = styled.div`
-  ${mixinFlex};
+  ${mixinFlex("row")};
   width: 100%;
   font-size: 0.4rem;
   height: 2rem;
@@ -20,6 +20,7 @@ const MeritEntry = styled.div`
 `;
 
 const StyledEntry = styled.div`
+  display: flex;
   width: 100%;
 `;
 
@@ -36,26 +37,47 @@ export default function Merits() {
   useEffect(() => {
     localStorage.setItem("meritList", JSON.stringify(meritList));
   }, [meritList]);
+  
 
   function handleAddMerit() {
     let currentItemIndex = meritList.length + 1;
     const newMerit = meritList.concat({
       id: currentItemIndex,
-      merit: [{ title: "Merit", entry: "", rating: "" }],
+      merit: [{ title: `Merit ${currentItemIndex}`, entry: "", rating: 0 }],
     });
 
     setMeritList(newMerit);
   }
+
+  function onChangeMeritValue(id, newRating) {
+    // Update the meritList with the new rating
+    setMeritList(currentMeritList =>
+      currentMeritList.map(merit =>
+        ({
+          ...merit,
+          merit: merit.merit.map(m =>
+            m.id === id ? { ...m, rating: newRating } : m // Only update the matched merit
+          ),
+        })
+      )
+    );
+  }
+  
 
   return (
     <Container>
       <h4>Merits</h4>
       {meritList.map((meritEntry, index) => (
         <MeritEntry key={`Merit Key - ${index}`}>
-          {meritEntry.merit.map((item) => (
+          {meritEntry.merit.map((item, index) => (
             <StyledEntry key={`${item.title}-${meritEntry.id}`}>
               <Input entry={item.entry} id={`${item.title}-${meritEntry.id}`} />
-              <DotRating initialRating={item.rating} maxRating={5} />
+              <DotRating
+                initialRating={item.rating}
+                maxRating={5}
+                id={`${item.title}`}
+                onChange={onChangeMeritValue}
+              />
             </StyledEntry>
           ))}
         </MeritEntry>

@@ -85,10 +85,10 @@ export default function Weapon() {
         <h4>Weapon</h4>
         <WeaponTitles>
           <div>Weapon</div>
-          <div>Durability</div>
-          <div>Structure</div>
+          <div>Dice Mod.</div>
+          <div>Range</div>
+          <div>Clip</div>
           <div>Size</div>
-          <div>Cost</div>
         </WeaponTitles>
         {weaponList.map((weaponEntry, index) => (
           <WeaponEntry key={index}>

@@ -146,6 +146,7 @@ function CharacterSheet() {
   }
 
   const onChangeSkill = (id, rating) => {
+    console.log(id)
     localStorage.setItem(id, rating);
     const index = characterSkills.findIndex(
       (skill) => skill.title === id
