@@ -2,13 +2,15 @@ import styled from "styled-components";
 import { mixinFlex, container } from "../../mixins/mixins";
 import { useState, useEffect } from "react";
 import Input from "../inputs/Input";
+import Button from "../Buttons/Button";
 
 // STYLES
 
 const ContainerEquipment = styled.div`
+  ${mixinFlex('column')}
   ${container};
   width: 100%;
-  gap: 0.6rem;
+  gap: 0.4rem;
 
   h4 {
     text-align: center;
@@ -22,6 +24,7 @@ const ContainerEquipment = styled.div`
 
 const EquipmentTitles = styled.div`
   ${mixinFlex};
+  text-align: center;
   text-transform: uppercase;
   width: 100%;
   font-size: 0.4rem;
@@ -38,14 +41,13 @@ const EquipmentEntry = styled.div`
   width: 100%;
   font-size: 0.4rem;
   height: 2rem;
-  gap: 0.2rem;
+  gap: 0.4rem;
 `;
 
 const StyledEntry = styled.div`
   width: 100%;
+  height: 100%;
 `;
-
-
 
 // COMPONENT
 
@@ -102,7 +104,7 @@ export default function Equipment() {
             ))}
           </EquipmentEntry>
         ))}
-        <AddEquipment onAdd={handleAddEquipment} />
+        <Button onClick={handleAddEquipment} text={`+ Add Equipment`} />
       </ContainerEquipment>
     </>
   );

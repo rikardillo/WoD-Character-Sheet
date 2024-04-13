@@ -3,6 +3,7 @@ import Input from "../inputs/Input";
 import { container, mixinFlex } from "../../mixins/mixins";
 import React, { useState, useEffect } from "react";
 import DotRating from "../DotRating";
+import Button from "../Buttons/Button"
 
 const Container = styled.div`
   ${mixinFlex("column")}
@@ -22,6 +23,8 @@ const MeritEntry = styled.div`
 const StyledEntry = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
+  gap: .4rem;
 `;
 
 export default function Merits() {
@@ -77,7 +80,7 @@ export default function Merits() {
           </MeritEntry>
         );
       })}
-      <button onClick={handleAddMerit}>Add Merit</button>
+      <Button onClick={handleAddMerit} text={`+ Add Merit`} />
     </Container>
   );
 }

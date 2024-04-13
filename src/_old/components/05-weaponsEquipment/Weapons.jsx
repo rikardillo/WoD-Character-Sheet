@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { mixinFlex, container } from "../../mixins/mixins";
 import { useState, useEffect } from "react";
 import Input from "../inputs/Input";
+import Button from "../Buttons/Button";
 
 // STYLES
 
 const ContainerWeapon = styled.div`
+  ${mixinFlex('column')}
   ${container};
   width: 100%;
   gap: 0.6rem;
@@ -42,25 +44,21 @@ const WeaponEntry = styled.div`
 `;
 
 const StyledEntry = styled.div`
+  display: flex;
   width: 100%;
+  height: 100%;
 `;
-
-
 
 // COMPONENT
 
-const AddWeapon = function ({ onAdd }) {
-  return <button onClick={onAdd}>Add Weapon</button>;
-};
-
 export default function Weapon() {
   const [weaponList, setWeaponList] = useState(() => {
-    const savedList = localStorage.getItem('weaponList');
+    const savedList = localStorage.getItem("weaponList");
     return savedList ? JSON.parse(savedList) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('weaponList', JSON.stringify(weaponList));
+    localStorage.setItem("weaponList", JSON.stringify(weaponList));
   }, [weaponList]);
 
   function handleAddWeapon() {
@@ -73,7 +71,7 @@ export default function Weapon() {
         { title: "Range", entry: "" },
         { title: "Clip", entry: "" },
         { title: "Size", entry: "" },
-      ]
+      ],
     });
 
     setWeaponList(newWeapon);
@@ -102,7 +100,7 @@ export default function Weapon() {
             ))}
           </WeaponEntry>
         ))}
-        <AddWeapon onAdd={handleAddWeapon} />
+        <Button onClick={handleAddWeapon} text={`+ Add Weapon`} />
       </ContainerWeapon>
     </>
   );

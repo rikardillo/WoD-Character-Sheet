@@ -10,7 +10,11 @@ export const MainContainer = styled.div`
   background-color: #ffffff1d;
   gap: 2rem;
 
+  
   @media (width <= 500px) {
+    img {
+      width: 80%;
+    }
     width: 100vw;
   }
 

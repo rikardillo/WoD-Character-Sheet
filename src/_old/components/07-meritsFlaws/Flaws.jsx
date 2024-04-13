@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Input from "../inputs/Input";
 import { container, mixinFlex } from "../../mixins/mixins";
 import { useState, useEffect } from "react";
-import DotRating from "../DotRating";
+import Button from "../Buttons/Button";
 
 const Container = styled.div`
   ${mixinFlex("column")};
@@ -20,12 +20,9 @@ const FlawEntry = styled.div`
 `;
 
 const StyledEntry = styled.div`
+  height: 100%;
   width: 100%;
 `;
-
-const AddFlaw = function ({ onAdd }) {
-  return <button onClick={onAdd}>Add Flaw</button>;
-};
 
 export default function Flaws() {
   const [flawList, setFlawList] = useState(() => {
@@ -59,7 +56,7 @@ export default function Flaws() {
           ))}
         </FlawEntry>
       ))}
-      <AddFlaw onAdd={handleAddFlaw} />
+      <Button onClick={handleAddFlaw} text={`+ Add Flaw`} />
     </Container>
   );
 }

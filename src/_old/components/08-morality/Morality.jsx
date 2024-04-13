@@ -5,7 +5,7 @@ import { mixinFlex, container } from "../../mixins/mixins";
 import { useState } from "react";
 
 const SectionContainer = styled.div`
-  ${mixinFlex("column", "flex-start", "center")};
+  ${mixinFlex("column", "", "center")};
   ${container};
   width: 100%;
   min-width: 15rem;
@@ -15,8 +15,7 @@ const SectionContainer = styled.div`
 `;
 
 const Container = styled.div`
-  ${mixinFlex("")}
-  align-items: flex-start;
+  ${mixinFlex};
   align-self: stretch;
   width: 100%;
   height: 100%;
@@ -31,22 +30,20 @@ const StyledEntry = styled.div`
   height: 100%;
   align-self: stretch;
   flex-grow: 1;
-
-  span {
-    width: 2rem;
-  }
 `;
 
 export default function Morality() {
-  const [ morality, setMorality ] = useState();
-  const [ derangments, setDerangements ] = useState();
+  const [morality, setMorality] = useState();
+  const [derangments, setDerangements] = useState();
 
   return (
     <SectionContainer className="section-container">
       <Container className="container">
         <StyledEntry className="styledEntry">
           <h4>Morality</h4>
-          <Input id='Morality' entry={morality} />
+          <StyledEntry>
+            <Input id="Morality" entry={morality} />
+          </StyledEntry>
         </StyledEntry>
         <StyledEntry>
           <h4>Derangement(s)</h4>

@@ -10,10 +10,10 @@ import Weapons from "./components/05-weaponsEquipment/Weapons";
 import Equipment from "./components/05-weaponsEquipment/Equipment";
 import Morality from "./components/08-morality/Morality";
 import { mixinFlex } from "./mixins/mixins";
-import Container from "./components/Utils/Container";
 import Weapon from "./components/05-weaponsEquipment/Weapons";
 import Merits from "./components/07-meritsFlaws/Merits";
 import Flaws from "./components/07-meritsFlaws/Flaws";
+import Button from "./components/Buttons/Button";
 // STYLES
 
 const Content = styled.div`
@@ -153,6 +153,10 @@ function CharacterSheet() {
     });
   };
 
+  function localStorageClear() {
+    localStorage.clear();
+  }
+
   return (
     <Content className="content">
       <InfoSection />
@@ -175,6 +179,7 @@ function CharacterSheet() {
       <Weapon />
       <Merits />
       <Flaws />
+      <Button onClick={localStorageClear} text={`Reset Character`} />
     </Content>
   );
 }
