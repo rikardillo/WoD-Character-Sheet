@@ -110,12 +110,13 @@ export default function Weapon() {
           <span></span>
         </WeaponTitles>
         {weaponList.map((weaponEntry, index) => (
-          <WeaponEntry key={index}>
+          <WeaponEntry key={weaponEntry.id}>
             {removalId === weaponEntry.id ? (
               <RemovalPrompt
                 removeFunction={removeWeapon}
                 id={weaponEntry.id}
                 entry={`weapon`}
+                setRemovalId={setRemovalId}
               />
             ) : (
               <>

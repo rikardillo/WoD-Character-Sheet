@@ -107,12 +107,13 @@ export default function Equipment() {
           <span></span>
         </EquipmentTitles>
         {equipmentList.map((equipmentEntry, index) => (
-          <EquipmentEntry key={index}>
+          <EquipmentEntry key={equipmentEntry.id}>
             {removalId === equipmentEntry.id ? (
               <RemovalPrompt
                 removeFunction={removeEquipment}
                 id={equipmentEntry.id}
                 entry={`equipment`}
+                setRemovalId={setRemovalId}
               />
             ) : (
               <>

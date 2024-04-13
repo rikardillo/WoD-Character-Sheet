@@ -69,6 +69,7 @@ export default function Merits() {
                 removeFunction={removeMerit}
                 id={merit.id}
                 entry={`merit`}
+                setRemovalId={setRemovalId}
               />
             ) : (
               <StyledEntry key={`Merit-${merit.id}`}>

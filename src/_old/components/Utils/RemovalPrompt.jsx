@@ -8,7 +8,7 @@ const StyledRemoval = styled.div`
   gap: 0.6rem;
 `;
 
-export default function RemovalPrompt({removeFunction, id,entry}) {
+export default function RemovalPrompt({removeFunction, id,entry, setRemovalId}) {
   return (
     <StyledRemoval>
       <p>Confirm removal of this {entry}?</p>

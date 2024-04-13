@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import styled from "styled-components";
 import InfoSection from "./components/00-info/InfoSection";
@@ -6,7 +6,6 @@ import AttributesSection from "./components/01-attributes/AttributesSection";
 import SkillSection from "./components/02-skills/SkillSection";
 import HealthSection from "./components/03-healthWillpower/HealthSection";
 import Combat from "./components/04-combat/Combat";
-import Weapons from "./components/05-weaponsEquipment/Weapons";
 import Equipment from "./components/05-weaponsEquipment/Equipment";
 import Morality from "./components/08-morality/Morality";
 import { mixinFlex } from "./mixins/mixins";
@@ -14,6 +13,8 @@ import Weapon from "./components/05-weaponsEquipment/Weapons";
 import Merits from "./components/07-meritsFlaws/Merits";
 import Flaws from "./components/07-meritsFlaws/Flaws";
 import Button from "./components/Buttons/Button";
+import ConfirmModal from "./components/Utils/ConfirmModal";
+
 // STYLES
 
 const Content = styled.div`
@@ -32,17 +33,6 @@ const Content = styled.div`
     height: 90vh;
   }
 `;
-const SectionContainer = styled.div`
-  ${mixinFlex("row", "center", "center")}
-  gap: .4rem;
-  align-self: stretch;
-
-  @media (width <= 500px) {
-    flex-direction: column;
-    width: 100%;
-    height: fit-content;
-  }
-`;
 
 const CombatContainer = styled.div`
   ${mixinFlex("row")};
@@ -54,6 +44,10 @@ const CombatContainer = styled.div`
     flex-direction: column;
   }
 `;
+
+// MODAL
+
+
 
 // COMPONENT
 
@@ -69,6 +63,8 @@ function CharacterSheet() {
     loadInitialAttributes
   );
   const [characterSkills, setCharacterSkills] = useState(loadInitialSkills);
+
+  const [isModalOpen, setModalOpen] = useState(false);
 
   function loadInitialAttributes() {
     const defaultAttributes = [
@@ -153,12 +149,30 @@ function CharacterSheet() {
     });
   };
 
-  function localStorageClear() {
+  function handleClearLocalStorage() {
     localStorage.clear();
+    setCharacterAttributes([...loadInitialAttributes()]);  // Ensure new array instance
+    setCharacterSkills([...loadInitialSkills()]);  // Ensure new array instance
+    setModalOpen(false);  // Close modal
+  }
+  
+
+
+  function openModal() {
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
   }
 
   return (
     <Content className="content">
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={handleClearLocalStorage}
+      />
       <InfoSection />
       <AttributesSection
         att={characterAttributes}
@@ -179,7 +193,7 @@ function CharacterSheet() {
       <Weapon />
       <Merits />
       <Flaws />
-      <Button onClick={localStorageClear} text={`Reset Character`} />
+      <Button onClick={openModal} text={`Reset Character`} />
     </Content>
   );
 }

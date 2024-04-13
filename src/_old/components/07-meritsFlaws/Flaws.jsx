@@ -38,7 +38,7 @@ export default function Flaws() {
   }, [flawList]);
 
   function handleAddFlaw() {
-    let currentItemIndex = flawList.length + 1;
+    let currentItemIndex = crypto.randomUUID();
     const newFlaw = flawList.concat({
       id: currentItemIndex,
       flaw: [{ title: "Flaw", entry: "" }],
@@ -62,17 +62,16 @@ export default function Flaws() {
               removeFunction={removeFlaw}
               id={flawEntry.id}
               entry={`flaw`}
+              setRemovalId={setRemovalId}
             />
           ) : (
             <>
-              {flawEntry.flaw.map((item) => (
-                <StyledEntry key={`${item.title}-${flawEntry.id}`}>
-                  <Input
-                    entry={item.entry}
-                    id={`${item.title}-${flawEntry.id}`}
-                  />
-                </StyledEntry>
-              ))}
+              <StyledEntry key={`${flawEntry.title}-${flawEntry.id}`}>
+                <Input
+                  entry={flawEntry.entry}
+                  id={`${flawEntry.title}-${flawEntry.id}`}
+                />
+              </StyledEntry>
               <DeleteButton
                 onClick={() => setRemovalId(flawEntry.id)}
                 text={`X`}
