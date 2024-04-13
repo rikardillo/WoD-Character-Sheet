@@ -3,11 +3,13 @@ import { mixinFlex, container } from "../../mixins/mixins";
 import { useState, useEffect } from "react";
 import Input from "../inputs/Input";
 import Button from "../Buttons/Button";
+import DeleteButton from "../Buttons/DeleteButton";
+import RemovalPrompt from "../Utils/RemovalPrompt";
 
 // STYLES
 
 const ContainerEquipment = styled.div`
-  ${mixinFlex('column')}
+  ${mixinFlex("column")}
   ${container};
   width: 100%;
   gap: 0.4rem;
@@ -34,6 +36,11 @@ const EquipmentTitles = styled.div`
   div {
     width: 100%;
   }
+
+  span {
+    min-width: 2rem;
+    aspect-ratio: 1;
+  }
 `;
 
 const EquipmentEntry = styled.div`
@@ -57,28 +64,34 @@ const AddEquipment = function ({ onAdd }) {
 
 export default function Equipment() {
   const [equipmentList, setEquipmentList] = useState(() => {
-    const savedList = localStorage.getItem('equipmentList');
+    const savedList = localStorage.getItem("equipmentList");
     return savedList ? JSON.parse(savedList) : [];
   });
+  const [removalId, setRemovalId] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem('equipmentList', JSON.stringify(equipmentList));
+    localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
   }, [equipmentList]);
 
   function handleAddEquipment() {
-    let currentItemIndex = equipmentList.length + 1;
+    let currentItemIndex = crypto.randomUUID();
     const newEquipment = equipmentList.concat({
       id: currentItemIndex,
       equipment: [
-        { title: "Title", entry: "" },
-        { title: "Durability", entry: "" },
-        { title: "Structure", entry: "" },
+        { title: "Equipment/Attack", entry: "" },
+        { title: "Dice Mod.", entry: "" },
+        { title: "Range", entry: "" },
+        { title: "Clip", entry: "" },
         { title: "Size", entry: "" },
-        { title: "Cost", entry: "" },
-      ]
+      ],
     });
 
     setEquipmentList(newEquipment);
+  }
+
+  function removeEquipment(id) {
+    const updatedEquipment = equipmentList.filter((equipment) => equipment.id !== id);
+    setEquipmentList(updatedEquipment);
   }
 
   return (
@@ -91,17 +104,32 @@ export default function Equipment() {
           <div>Structure</div>
           <div>Size</div>
           <div>Cost</div>
+          <span></span>
         </EquipmentTitles>
         {equipmentList.map((equipmentEntry, index) => (
           <EquipmentEntry key={index}>
-            {equipmentEntry.equipment.map((item) => (
-              <StyledEntry key={`${item.title}-${equipmentEntry.id}`}>
-                <Input
-                  entry={item.entry}
-                  id={`Equipment-${item.title}-${equipmentEntry.id}`}
+            {removalId === equipmentEntry.id ? (
+              <RemovalPrompt
+                removeFunction={removeEquipment}
+                id={equipmentEntry.id}
+                entry={`equipment`}
+              />
+            ) : (
+              <>
+                {equipmentEntry.equipment.map((item) => (
+                  <StyledEntry key={`${item.title}-${equipmentEntry.id}`}>
+                    <Input
+                      entry={item.entry}
+                      id={`Equipment-${item.title}-${equipmentEntry.id}`}
+                    />
+                  </StyledEntry>
+                ))}
+                <DeleteButton
+                  onClick={() => setRemovalId(equipmentEntry.id)}
+                  text={`X`}
                 />
-              </StyledEntry>
-            ))}
+              </>
+            )}
           </EquipmentEntry>
         ))}
         <Button onClick={handleAddEquipment} text={`+ Add Equipment`} />
