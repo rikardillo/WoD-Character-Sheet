@@ -3,6 +3,8 @@ import Input from "../inputs/Input";
 import { container, mixinFlex } from "../../mixins/mixins";
 import { useState, useEffect } from "react";
 import Button from "../Buttons/Button";
+import DeleteButton from "../Buttons/DeleteButton";
+import RemovalPrompt from "../Utils/RemovalPrompt";
 
 const Container = styled.div`
   ${mixinFlex("column")};
@@ -29,6 +31,7 @@ export default function Flaws() {
     const savedList = localStorage.getItem("flawList");
     return savedList ? JSON.parse(savedList) : [];
   });
+  const [removalId, setRemovalId] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("flawList", JSON.stringify(flawList));
@@ -44,16 +47,38 @@ export default function Flaws() {
     setFlawList(newFlaw);
   }
 
+  function removeFlaw(id) {
+    const updatedFlaws = flawList.filter((flaw) => flaw.id !== id);
+    setFlawList(updatedFlaws);
+  }
+
   return (
     <Container>
       <h4>Flaws</h4>
       {flawList.map((flawEntry, index) => (
         <FlawEntry key={`Flaw Key - ${index}`}>
-          {flawEntry.flaw.map((item) => (
-            <StyledEntry key={`${item.title}-${flawEntry.id}`}>
-              <Input entry={item.entry} id={`${item.title}-${flawEntry.id}`} />
-            </StyledEntry>
-          ))}
+          {removalId === flawEntry.id ? (
+            <RemovalPrompt
+              removeFunction={removeFlaw}
+              id={flawEntry.id}
+              entry={`flaw`}
+            />
+          ) : (
+            <>
+              {flawEntry.flaw.map((item) => (
+                <StyledEntry key={`${item.title}-${flawEntry.id}`}>
+                  <Input
+                    entry={item.entry}
+                    id={`${item.title}-${flawEntry.id}`}
+                  />
+                </StyledEntry>
+              ))}
+              <DeleteButton
+                onClick={() => setRemovalId(flawEntry.id)}
+                text={`X`}
+              />
+            </>
+          )}
         </FlawEntry>
       ))}
       <Button onClick={handleAddFlaw} text={`+ Add Flaw`} />

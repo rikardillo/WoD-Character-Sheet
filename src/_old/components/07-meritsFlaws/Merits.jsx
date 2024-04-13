@@ -3,7 +3,9 @@ import Input from "../inputs/Input";
 import { container, mixinFlex } from "../../mixins/mixins";
 import React, { useState, useEffect } from "react";
 import DotRating from "../DotRating";
-import Button from "../Buttons/Button"
+import Button from "../Buttons/Button";
+import DeleteButton from "../Buttons/DeleteButton";
+import RemovalPrompt from "../Utils/RemovalPrompt";
 
 const Container = styled.div`
   ${mixinFlex("column")}
@@ -24,7 +26,7 @@ const StyledEntry = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  gap: .4rem;
+  gap: 0.4rem;
 `;
 
 export default function Merits() {
@@ -32,27 +34,24 @@ export default function Merits() {
     const savedList = localStorage.getItem("meritList");
     return savedList ? JSON.parse(savedList) : [];
   });
+  const [removalId, setRemovalId] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("meritList", JSON.stringify(meritList));
   }, [meritList]);
 
   function handleAddMerit() {
-    let currentItemIndex = meritList.length + 1;
-    const newMerit = meritList.concat(crypto.randomUUID());
-    setMeritList(newMerit);
+    const newMerit = {
+      id: crypto.randomUUID(), // Ensuring each merit has a unique ID
+      title: "",
+      rating: 0, // Assuming you want to track these properties
+    };
+    setMeritList([...meritList, newMerit]);
   }
 
-  function onChangeMeritValue(id, newRating) {
-    // Update the meritList with the new rating
-    setMeritList((currentMeritList) =>
-      currentMeritList.map((merit) => ({
-        ...merit,
-        merit: merit.merit.map(
-          (m) => (m.id === id ? { ...m, rating: newRating } : m) // Only update the matched merit
-        ),
-      }))
-    );
+  function removeMerit(id) {
+    const updatedMerits = meritList.filter((merit) => merit.id !== id);
+    setMeritList(updatedMerits);
   }
 
   const onMeritRatingChange = (id, value) => {
@@ -62,24 +61,36 @@ export default function Merits() {
   return (
     <Container>
       <h4>Merits</h4>
-      {meritList.map((id, index) => {
+      {meritList.map((merit, index) => {
         return (
-          <MeritEntry key={id}>
-            <StyledEntry key={`Merit-${id}`}>
-              <Input
-                entry={localStorage.getItem(`Merit-Title-${id}`) ?? ""}
-                id={`Merit-Title-${id}`}
+          <MeritEntry key={merit.id}>
+            {removalId === merit.id ? (
+              <RemovalPrompt
+                removeFunction={removeMerit}
+                id={merit.id}
+                entry={`merit`}
               />
-              <DotRating
-                initialRating={localStorage.getItem(`Merit-Rating-${id}`)}
-                maxRating={5}
-                id={`Merit-Rating-${id}`}
-                onChange={onMeritRatingChange}
-              />
-            </StyledEntry>
+            ) : (
+              <StyledEntry key={`Merit-${merit.id}`}>
+                <Input
+                  entry={localStorage.getItem(`Merit-Title-${merit.id}`) ?? ""}
+                  id={`Merit-Title-${merit.id}`}
+                />
+                <DotRating
+                  initialRating={localStorage.getItem(
+                    `Merit-Rating-${merit.id}`
+                  )}
+                  maxRating={5}
+                  id={`Merit-Rating-${merit.id}`}
+                  onChange={(value) => onMeritRatingChange(merit.id, value)}
+                />
+              </StyledEntry>
+            )}
+            <DeleteButton onClick={() => setRemovalId(merit.id)} text={`X`} />
           </MeritEntry>
         );
       })}
+
       <Button onClick={handleAddMerit} text={`+ Add Merit`} />
     </Container>
   );
