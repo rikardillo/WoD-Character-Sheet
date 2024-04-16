@@ -1,5 +1,5 @@
 import DotRating from "../DotRating";
-import CheckBox from "../inputs/CheckBox";
+import CheckBox from "@/components/Inputs/CheckBox";
 
 import styled from "styled-components";
 import { mixinFlex, hoverHighlight } from "../../mixins/mixins";
@@ -47,7 +47,11 @@ export default function HealthSection({ willpowerStat, stamina }) {
           <h4>Health</h4>
           <HealthContainer>
             {[...Array(stamina + 5)].map((_, index) => (
-              <CheckBox key={index} id={`Health-${index}`} />
+              <CheckBox
+                key={index}
+                id={`Health-${index}`}
+                onChange={console.log}
+              />
             ))}
           </HealthContainer>
         </>

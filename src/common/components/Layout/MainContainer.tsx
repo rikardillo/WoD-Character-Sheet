@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const MainContainer = styled.div`
+export const MainContainer = styled.div<{ $bg?: string }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,8 +9,15 @@ export const MainContainer = styled.div`
   height: 100svh;
   background-color: #ffffff1d;
   gap: 2rem;
+  ${(props) =>
+    !!props.$bg &&
+    `
+    background-image: url("${props.$bg}");
+    background-size: 100svw 100svh;
+    background-position: center center;
+    transition: background-image 0.3s ease;
+  `}
 
-  
   @media (width <= 500px) {
     img {
       width: 80%;
