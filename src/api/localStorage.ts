@@ -1,116 +1,85 @@
 import { appLogger, loggerMethodsMiddleware } from "@/common/utils/logger";
 import { type Game } from "@/features/Games";
 import {
-  CharacterSheet,
   type Character,
   type CharacterSheetField,
 } from "@/features/Characters";
 import { type ApiStorage } from ".";
+import { fakeCharacters, fakeGames } from "./fakeData";
 
-import WoDLogoImageUrl from "@/assets/images/wod-logo.svg";
-import WoDBackgroundImageUrl from "@/assets/images/wod-bg.jpeg";
-import DnDLogoImageUrl from "@/assets/images/dnd-logo.png";
-import DnDBackgroundImageUrl from "@/assets/images/dnd-bg.jpeg";
+export const localStorageCrud = (
+  collection: string,
+  initialValue: any[] = []
+) => {
+  const localStorageKey = `${collection}-db`;
 
-const infoGroup = {
-  id: "wod-info",
-  name: "Information",
+  const setEntities = (data: any[]) => {
+    localStorage.setItem(localStorageKey, JSON.stringify(data));
+  };
+
+  const loadEntities = (): any[] => {
+    return JSON.parse(localStorage.getItem(localStorageKey) || "[]");
+  };
+
+  if (loadEntities().length < 1) {
+    setEntities(initialValue);
+  }
+
+  return {
+    create: (entity: any) => {
+      const data = loadEntities();
+      const result = {
+        id: crypto.randomUUID(),
+        ...entity,
+        createdAt: new Date().toISOString(),
+      };
+      setEntities(data.concat(result));
+      return result;
+    },
+    read: (id: string) => {
+      const data = loadEntities();
+      const item = data.find((i) => i.id === id);
+      return item;
+    },
+    filter: (predicate?: (value: any, index: number, array: any[]) => any) => {
+      const data = loadEntities();
+      return predicate ? data.filter(predicate) : data;
+    },
+    update: (id: string, payload: any) => {
+      const data = loadEntities();
+      const index = data.findIndex((i) => i.id === id);
+      if (index > -1) {
+        data[index] = {
+          ...data[index],
+          ...payload,
+          updatedAt: new Date().toISOString(),
+        };
+      }
+      setEntities(data);
+      return data[index];
+    },
+    delete: (id: string) => {
+      const data = loadEntities();
+      setEntities(data.filter((i) => i.id !== id));
+      return;
+    },
+  };
 };
 
-const defaultGames: Game[] = [
-  {
-    id: "6d73df39-a71a-415f-84c7-538f2613ff3b",
-    title: "WoD (World of Darkness)",
-    slug: "wod",
-    logoImageUrl: WoDLogoImageUrl,
-    backgroundImageUrl: WoDBackgroundImageUrl,
-    sheetFields: [
-      {
-        id: "wod-info-name",
-        type: "input",
-        title: "Name",
-        group: infoGroup,
-      },
-      {
-        id: "wod-info-age",
-        type: "input",
-        title: "Age",
-        group: infoGroup,
-      },
-      {
-        id: "wod-info-player",
-        type: "input",
-        title: "Player",
-        group: infoGroup,
-      },
-      {
-        id: "wod-info-vice",
-        type: "input",
-        title: "Vice",
-        group: infoGroup,
-      },
-      {
-        id: "wod-info-concept",
-        type: "input",
-        title: "Concept",
-        group: infoGroup,
-      },
-      {
-        id: "wod-info-chronical",
-        type: "input",
-        title: "Chronical",
-        group: infoGroup,
-      },
-      {
-        id: "wod-info-faction",
-        type: "input",
-        title: "Faction",
-        group: infoGroup,
-      },
-      {
-        id: "wod-info-group-name",
-        type: "input",
-        title: "Group Name",
-        group: infoGroup,
-      },
-    ],
-  },
-  {
-    id: "c40f5e59-7c11-4626-a28d-d5cae9024af8",
-    title: "D&D (Dugeons and Dragons)",
-    slug: "dnd",
-    logoImageUrl: DnDLogoImageUrl,
-    backgroundImageUrl: DnDBackgroundImageUrl,
-    sheetFields: [],
-  },
-];
-
-const defaultCharacters: Character[] = [
-  {
-    id: "02a901a2-b533-4668-8818-950fe96991ed",
-    game: defaultGames[0],
-    name: "Teta De Mango",
-  },
-  {
-    id: "e3a92126-c13d-4db7-8be0-2f4ef71f039d",
-    game: defaultGames[1],
-    name: "Teta De Mango 2",
-  },
-];
-
-// const fakeCharacterSheet: CharacterSheet = {
-//   fields: [] as CharacterSheetField[],
-// };
+const gamesCrud = localStorageCrud("games", fakeGames);
+const charactersCrud = localStorageCrud("characters", fakeCharacters);
+const getCharacterFieldsCrud = (characterId) =>
+  localStorageCrud(characterId + "-characterFields");
 
 export const createApiStoreLocalStorage = (): ApiStorage => {
   appLogger.info("Created api local storage");
 
   return loggerMethodsMiddleware<ApiStorage>({
     getGames: async () => {
-      return defaultGames;
+      return gamesCrud.filter();
     },
     getCharactersByGameId: async (gameId: string) => {
-      return defaultCharacters.filter((c) => c.game.id === gameId);
+      return charactersCrud.filter((c) => c.game.id === gameId);
     },
     createCharacter: async (gameId: string, fields: CharacterSheetField[]) => {
       throw new Error("Not implemented");
@@ -118,24 +87,28 @@ export const createApiStoreLocalStorage = (): ApiStorage => {
     removeCharacterById: async (characterId: string) => {
       throw new Error("Not implemented");
     },
-    getGameFieldsByCharacterId: async (characterId: string) => {
-      const character = defaultCharacters.find((c) => c.id === characterId);
-      return (
-        defaultGames.find((game) => game.id === character?.game.id)
-          ?.sheetFields || []
+    getGameFieldValuesByCharacterId: async (characterId: string) => {
+      return getCharacterFieldsCrud(characterId).filter(
+        (field) => field.characterId === characterId
       );
     },
-    addField: async (
+    createOrUpdateCharacterFieldValue: async (
       characterId: string,
-      field: Partial<CharacterSheetField>
+      value: any,
+      gameFieldId: string,
+      fieldId?: string
     ) => {
-      throw new Error("Not implemented");
-    },
-    updateField: async (
-      characterId: string,
-      field: Partial<CharacterSheetField>
-    ) => {
-      throw new Error("Not implemented");
+      const crud = getCharacterFieldsCrud(characterId);
+      if (!fieldId) {
+        return crud.create({ characterId, gameFieldId, value });
+      }
+      let field = crud.read(fieldId);
+      if (field) {
+        field = crud.update(field.id, { ...field, value });
+        return field;
+      }
+      field = crud.create({ characterId, fieldId, value });
+      return field;
     },
     removeField: async (fieldId: string) => {
       throw new Error("Not implemented");

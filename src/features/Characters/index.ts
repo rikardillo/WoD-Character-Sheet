@@ -1,15 +1,20 @@
 import { type Game } from "@/features/Games";
 
 export type CharacterSheetField = {
-  id: string;
+  gameFieldId: string;
   title: string;
-  value?: any;
-  characterId?: string;
-  type?: "input" | "checkbox";
+  type: "input" | "checkbox" | "rating";
   group?: {
     id: string;
     name: string;
   };
+};
+
+export type CharacterSheetFieldValue = {
+  id?: string;
+  characterId: string;
+  gameFieldId: string;
+  value: any;
 };
 
 export type Character = {
@@ -18,8 +23,4 @@ export type Character = {
   name: string;
   createdAt?: string;
   updatedAt?: string;
-};
-
-export type CharacterSheet = Character & {
-  fields: CharacterSheetField[];
 };

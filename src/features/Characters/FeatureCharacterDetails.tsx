@@ -1,35 +1,62 @@
-import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import { type CharacterSheet } from "@/features/Characters";
-import CharacterDetails from "./components/CharacterDetails";
+import store from "@/store";
 import { useLoader } from "@/store/hooks";
 
+import CharacterDetails from "./components/CharacterDetails";
+import { type CharacterSheetFieldValue } from ".";
+
+export const getValuesByFieldId = (fieldValues: CharacterSheetFieldValue[]) =>
+  fieldValues.reduce((result, field) => {
+    return {
+      ...result,
+      [field.gameFieldId]: { value: field.value, id: field.id },
+    };
+  }, {});
+
 export const FeatureCharacterDetails = () => {
-  const { currentGame, characterSheetFields } = useLoader();
-  // const [characterSheet, setCharacterSheet] = useState<CharacterSheet>({
-  //   game: {
-  //     id: "wod",
-  //     title: "WoD",
-  //     defaultFields: [] as any,
-  //     pictureUrl: "",
-  //   },
-  //   fields: [
-  //     { id: "info-name", title: "Name" },
-  //     { id: "info-age", title: "Age" },
-  //     { id: "info-player-name", title: "Player" },
-  //     { id: "info-virtue", title: "Virtue" },
-  //     { id: "info-vice", title: "Vice" },
-  //     { id: "info-concept", title: "Concept" },
-  //     { id: "info-chronicle", title: "Chronicle" },
-  //     { id: "info-faction", title: "Faction" },
-  //     { id: "info-group-name", title: "Group Name" },
-  //   ],
-  // });
+  const [fieldValues, setFieldValues] = useState({});
+
+  const {
+    currentGame,
+    characterSheetFields,
+    characterSheetFieldValues,
+    currentCharacter,
+  } = useLoader();
+
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(`/${currentGame?.slug}`);
+  };
+
+  const handleUpdateFieldValue = (
+    value: any,
+    gameFieldId: string,
+    fieldId?: string
+  ) => {
+    setFieldValues((fieldValues) => ({ ...fieldValues, [gameFieldId]: value }));
+    store.dispatch.characters.createOrUpdateCharacterFieldValue({
+      characterId: currentCharacter?.id!,
+      value,
+      gameFieldId,
+      fieldId,
+    });
+  };
+
+  useEffect(() => {
+    setFieldValues(getValuesByFieldId(characterSheetFieldValues || []));
+  }, [characterSheetFieldValues]);
+
   return (
     <>
-      <img src={currentGame?.logoImageUrl} width="256px" />
-      <CharacterDetails characterSheetFields={characterSheetFields || []} />
+      <img src={currentGame?.logoImageUrl} width="256px" onClick={goBack} />
+      <CharacterDetails
+        characterSheetFields={characterSheetFields || []}
+        fieldValues={fieldValues}
+        onUpdateField={handleUpdateFieldValue}
+      />
     </>
   );
 };

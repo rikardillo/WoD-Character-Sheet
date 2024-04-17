@@ -1,6 +1,6 @@
 import {
+  type CharacterSheetFieldValue,
   type Character,
-  type CharacterSheet,
   type CharacterSheetField,
 } from "@/features/Characters";
 import { type Game } from "@/features/Games";
@@ -15,19 +15,17 @@ export interface ApiStorage {
     gameId: string,
     fields: CharacterSheetField[]
   ) => Promise<void>;
-  getGameFieldsByCharacterId: (
+  getGameFieldValuesByCharacterId: (
     characterId: string
-  ) => Promise<CharacterSheetField[]>;
+  ) => Promise<CharacterSheetFieldValue[]>;
   removeCharacterById: (characterId: string) => Promise<void>;
-  addField: (
+  createOrUpdateCharacterFieldValue: (
     characterId: string,
-    field: Partial<CharacterSheetField>
+    value: any,
+    gameFieldId: string,
+    fieldId?: string
   ) => Promise<CharacterSheetField>;
-  updateField: (
-    characterId: string,
-    field: Partial<CharacterSheetField>
-  ) => Promise<CharacterSheetField>;
-  removeField: (fieldId: string) => Promise<void>;
+  removeField: (characterId: string, fieldId: string) => Promise<void>;
 }
 
 export const createApiStorage = () => {

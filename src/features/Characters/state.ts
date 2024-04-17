@@ -1,30 +1,30 @@
 import { createModel } from "@rematch/core";
 
 import { type RootModel } from "@/store/models";
-import { type CharacterSheet, type Character, CharacterSheetField } from ".";
+import { type Character, type CharacterSheetFieldValue } from ".";
 import apiStorage from "@/api";
 
 type State = {
   characters: Character[] | undefined;
-  characterSheetFields?: CharacterSheetField[] | null;
+  characterFieldValues?: CharacterSheetFieldValue[] | null;
 };
 
 export const state = createModel<RootModel>()({
   state: {
     characters: undefined,
-    characterSheetFields: null,
+    characterFieldValues: null,
   } as State,
   reducers: {
     setCharacters: (state, characters: Character[]) => ({
       ...state,
       characters,
     }),
-    setcharacterSheetFields: (
+    setcharacterFieldValues: (
       state,
-      characterSheetFields: CharacterSheetField[]
+      characterFieldValues: CharacterSheetFieldValue[]
     ) => ({
       ...state,
-      characterSheetFields,
+      characterFieldValues,
     }),
   },
   effects: (dispatch) => ({
@@ -32,11 +32,28 @@ export const state = createModel<RootModel>()({
       const characters = await apiStorage.getCharactersByGameId(gameId);
       dispatch.characters.setCharacters(characters);
     },
-    getGameFieldsByCharacterId: async (characterId: string) => {
-      const characterSheetFields = await apiStorage.getGameFieldsByCharacterId(
-        characterId
+    getGameFieldValuesByCharacterId: async (characterId: string) => {
+      const characterFieldValues =
+        await apiStorage.getGameFieldValuesByCharacterId(characterId);
+      dispatch.characters.setcharacterFieldValues(characterFieldValues);
+    },
+    createOrUpdateCharacterFieldValue: async ({
+      characterId,
+      value,
+      gameFieldId,
+      fieldId,
+    }: {
+      characterId: string;
+      value: any;
+      gameFieldId: string;
+      fieldId?: string;
+    }) => {
+      await apiStorage.createOrUpdateCharacterFieldValue(
+        characterId,
+        value,
+        gameFieldId,
+        fieldId
       );
-      dispatch.characters.setcharacterSheetFields(characterSheetFields);
     },
   }),
 });

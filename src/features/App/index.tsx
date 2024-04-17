@@ -16,6 +16,11 @@ const router = createBrowserRouter([
     lazy: getComponent(() => import("@/features/Games/FeatureGameList")),
   },
   {
+    id: "test",
+    path: "/test",
+    lazy: getComponent(() => import("../../_old/CharacterSheet")),
+  },
+  {
     id: "character-list",
     path: "/:gameSlug",
     lazy: getComponent(
@@ -46,11 +51,7 @@ export const App = () => {
   const bg = currentGame?.backgroundImageUrl;
 
   return (
-    <MainContainer
-      id="main"
-      style={{ padding: "2rem", position: "relative" }}
-      $bg={bg}
-    >
+    <MainContainer id="main" $bg={bg}>
       <RouterProvider router={router} />
     </MainContainer>
   );

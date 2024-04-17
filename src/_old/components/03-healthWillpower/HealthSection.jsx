@@ -1,5 +1,5 @@
 import DotRating from "../DotRating";
-import CheckBox from "@/components/Inputs/CheckBox";
+import CheckBox from "../inputs/CheckBox";
 
 import styled from "styled-components";
 import { mixinFlex, hoverHighlight } from "../../mixins/mixins";

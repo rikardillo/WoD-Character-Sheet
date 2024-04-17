@@ -13,9 +13,9 @@ export function useCurrentGame() {
   return currentGame;
 }
 
-export function useCharacterSheetFields() {
+export function useCharacterFieldValues() {
   const currentCharacterSheet = useSelector(
-    (state: RootState) => state.characters.characterSheetFields
+    (state: RootState) => state.characters.characterFieldValues
   );
   return currentCharacterSheet;
 }
@@ -45,7 +45,8 @@ export function useLoader() {
     () => characters?.find((c) => c.id === characterId),
     [characterId, characters]
   );
-  const characterSheetFields = useCharacterSheetFields();
+  const characterSheetFields = currentGame?.sheetFields || [];
+  const characterSheetFieldValues = useCharacterFieldValues();
 
   useEffect(() => {
     if (!games) store.dispatch.game.getGames();
@@ -63,7 +64,9 @@ export function useLoader() {
 
   useEffect(() => {
     if (!currentCharacter) return;
-    store.dispatch.characters.getGameFieldsByCharacterId(currentCharacter.id);
+    store.dispatch.characters.getGameFieldValuesByCharacterId(
+      currentCharacter.id
+    );
   }, [currentCharacter]);
 
   return {
@@ -71,6 +74,7 @@ export function useLoader() {
     currentGame,
     characters,
     currentCharacter,
+    characterSheetFieldValues,
     characterSheetFields,
   };
 }

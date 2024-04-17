@@ -15,18 +15,17 @@ export const createApiStoreFirebase = (): ApiStorage => {
     createCharacter: async (gameId: string, fields: CharacterSheetField[]) => {
       throw new Error("Not implemented");
     },
-    getGameFieldsByCharacterId: async (characterId: string) => {
+    removeCharacterById: (characterId) => {
       throw new Error("Not implemented");
     },
-    addField: async (
-      characterId: string,
-      field: Partial<CharacterSheetField>
-    ) => {
+    getGameFieldValuesByCharacterId: async (characterId: string) => {
       throw new Error("Not implemented");
     },
-    updateField: async (
+    createOrUpdateCharacterFieldValue: async (
       characterId: string,
-      field: Partial<CharacterSheetField>
+      value: any,
+      gameFieldId: string,
+      fieldId?: string
     ) => {
       throw new Error("Not implemented");
     },

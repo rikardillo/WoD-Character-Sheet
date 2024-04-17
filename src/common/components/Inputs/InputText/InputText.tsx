@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import {
   StyledContainer,
@@ -7,28 +7,29 @@ import {
   StyledPlaceholder,
 } from "./InputText.styles";
 
-export const InputText = ({ entry = "" }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedEntry, setEditedEntry] = useState(entry);
+export type InputTextProps = JSX.IntrinsicElements["input"] & {
+  initialValue: any;
+  onChange: (value: string) => void;
+};
+
+export const InputText = ({
+  initialValue,
+  onChange = () => {},
+  ...props
+}: InputTextProps) => {
+  const [isEditing, setIsEditing] = useState<boolean | undefined>();
+  const [value, setValue] = useState(initialValue);
+  const [editingValue, setEditingValue] = useState<any>(null);
   const [isHovering, setIsHovering] = useState(false);
-
-  // useEffect(() => {
-  //   const savedEntry = localStorage.getItem(id);
-  //   if (savedEntry) {
-  //     setEditedEntry(savedEntry);
-  //   }
-  // }, [id]);
-
-  // useEffect(() => {
-  //   localStorage.setItem(id, editedEntry);
-  // }, [editedEntry, id]);
 
   const handleDoubleClick = () => {
     setIsEditing(true);
+    setEditingValue(value);
   };
 
   const handleChange = (e) => {
-    setEditedEntry(e.target.value);
+    const newValue = e.target.value;
+    setValue(newValue);
   };
 
   const handleBlur = () => {
@@ -49,6 +50,16 @@ export const InputText = ({ entry = "" }) => {
     setIsHovering(false);
   };
 
+  useEffect(() => {
+    if (
+      typeof isEditing !== "undefined" &&
+      !isEditing &&
+      editingValue !== value
+    ) {
+      onChange(value);
+    }
+  }, [isEditing, value, editingValue]);
+
   return (
     <StyledContainer
       className="input-container"
@@ -59,18 +70,19 @@ export const InputText = ({ entry = "" }) => {
         <StyledInput
           className="input"
           type="text"
-          value={editedEntry}
+          defaultValue={value || initialValue}
           onChange={handleChange}
           onBlur={handleBlur}
           onKeyDown={handleSave}
           autoFocus
+          {...props}
         />
       ) : (
         <StyledEntry onDoubleClick={handleDoubleClick}>
-          {isHovering && editedEntry === "" ? (
+          {isHovering && value === "" ? (
             <StyledPlaceholder>Double-click to Edit</StyledPlaceholder>
           ) : (
-            editedEntry
+            value || initialValue
           )}
         </StyledEntry>
       )}
