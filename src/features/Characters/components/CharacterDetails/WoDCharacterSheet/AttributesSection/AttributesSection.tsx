@@ -6,7 +6,7 @@ import {
   StyledAttributes,
 } from "./AttributesSection.styles";
 
-import { type SectionProps } from "../WoDCharacterSheet";
+import { type SectionProps } from "@/features/Characters/components/CharacterDetails";
 import DotRating from "@/common/components/Inputs/DotRating";
 
 export const AttributesSection = ({

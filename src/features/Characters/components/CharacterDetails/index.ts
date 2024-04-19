@@ -1,1 +1,5 @@
-export { default, type CharacterDetailsProps } from "./CharacterDetails";
+export {
+  default,
+  type CharacterDetailsProps,
+  type SectionProps,
+} from "./CharacterDetails";

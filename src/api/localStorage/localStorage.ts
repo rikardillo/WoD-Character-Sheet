@@ -1,70 +1,8 @@
 import { appLogger, loggerMethodsMiddleware } from "@/common/utils/logger";
-import { type Game } from "@/features/Games";
-import {
-  type Character,
-  type CharacterSheetField,
-} from "@/features/Characters";
-import { type ApiStorage } from ".";
+import { type CharacterSheetField } from "@/features/Characters";
+import { type ApiStorage } from "@/api";
 import { fakeCharacters, fakeGames } from "./fakeData";
-
-export const localStorageCrud = (
-  collection: string,
-  initialValue: any[] = []
-) => {
-  const localStorageKey = `${collection}-db`;
-
-  const setEntities = (data: any[]) => {
-    localStorage.setItem(localStorageKey, JSON.stringify(data));
-  };
-
-  const loadEntities = (): any[] => {
-    return JSON.parse(localStorage.getItem(localStorageKey) || "[]");
-  };
-
-  if (loadEntities().length < 1) {
-    setEntities(initialValue);
-  }
-
-  return {
-    create: (entity: any) => {
-      const data = loadEntities();
-      const result = {
-        id: crypto.randomUUID(),
-        ...entity,
-        createdAt: new Date().toISOString(),
-      };
-      setEntities(data.concat(result));
-      return result;
-    },
-    read: (id: string) => {
-      const data = loadEntities();
-      const item = data.find((i) => i.id === id);
-      return item;
-    },
-    filter: (predicate?: (value: any, index: number, array: any[]) => any) => {
-      const data = loadEntities();
-      return predicate ? data.filter(predicate) : data;
-    },
-    update: (id: string, payload: any) => {
-      const data = loadEntities();
-      const index = data.findIndex((i) => i.id === id);
-      if (index > -1) {
-        data[index] = {
-          ...data[index],
-          ...payload,
-          updatedAt: new Date().toISOString(),
-        };
-      }
-      setEntities(data);
-      return data[index];
-    },
-    delete: (id: string) => {
-      const data = loadEntities();
-      setEntities(data.filter((i) => i.id !== id));
-      return;
-    },
-  };
-};
+import { localStorageCrud } from "./crud";
 
 const gamesCrud = localStorageCrud("games", fakeGames);
 const charactersCrud = localStorageCrud("characters", fakeCharacters);
@@ -76,7 +14,7 @@ export const createApiStoreLocalStorage = (): ApiStorage => {
 
   return loggerMethodsMiddleware<ApiStorage>({
     getGames: async () => {
-      return gamesCrud.filter();
+      return fakeGames;
     },
     getCharactersByGameId: async (gameId: string) => {
       return charactersCrud.filter((c) => c.game.id === gameId);
@@ -115,3 +53,5 @@ export const createApiStoreLocalStorage = (): ApiStorage => {
     },
   });
 };
+
+export default createApiStoreLocalStorage;

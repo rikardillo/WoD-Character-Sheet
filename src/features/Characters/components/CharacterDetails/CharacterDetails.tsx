@@ -17,6 +17,13 @@ export type CharacterDetailsProps = {
   ) => void;
 };
 
+export type SectionProps = Pick<
+  CharacterDetailsProps,
+  "fieldValues" | "onUpdateField"
+> & {
+  fields: CharacterSheetField[];
+};
+
 function NotFoundCharacterSheet() {
   return <></>;
 }

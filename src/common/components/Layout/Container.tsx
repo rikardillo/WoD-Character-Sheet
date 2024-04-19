@@ -16,3 +16,14 @@ export const Container = styled.div`
 `;
 
 export default Container;
+
+export const CombatContainer = styled.div`
+  ${mixinFlex("row")};
+  width: 100%;
+  gap: 0.4rem;
+
+  @media (width <= 900px) {
+    height: fit-content;
+    flex-direction: column;
+  }
+`;

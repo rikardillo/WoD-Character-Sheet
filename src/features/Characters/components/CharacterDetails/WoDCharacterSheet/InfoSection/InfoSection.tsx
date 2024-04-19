@@ -5,7 +5,7 @@ import {
   StyledTitle,
 } from "./InfoSection.styles";
 import { InputText } from "@/common/components/Inputs";
-import { type SectionProps } from "../WoDCharacterSheet";
+import { type SectionProps } from "@/features/Characters/components/CharacterDetails";
 
 export default function InfoSection({
   fields,
