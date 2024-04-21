@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AgravatedDmg, BashingDmg, Box, LethalDmg } from "./CheckBox.styles";
 
 export type CheckBoxProps = {
   id?: string;
-  onChange: (id: string | undefined, value: number) => void;
-  defaultValue?: number;
+  onChange: (value: number, id: string | undefined) => void;
+  value?: number;
 };
 
-export const CheckBox = ({ id, onChange, defaultValue }: CheckBoxProps) => {
-  const [clickCount, setClickCount] = useState(defaultValue || 0);
+export const CheckBox = ({ id, onChange, value }: CheckBoxProps) => {
+  const [clickCount, setClickCount] = useState(value || 0);
+
+  useEffect(() => {
+    setClickCount(value || 0);
+  }, [value]);
 
   const handleClick = () => {
     let newValue = clickCount === 3 ? 0 : clickCount + 1;
     setClickCount(newValue);
-    onChange(id, newValue);
+    onChange(newValue, id);
   };
 
   return (

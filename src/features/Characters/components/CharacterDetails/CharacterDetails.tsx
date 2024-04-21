@@ -9,7 +9,7 @@ import { useLoader } from "@/store/hooks";
 
 export type CharacterDetailsProps = {
   characterSheetFields: CharacterSheetField[];
-  fieldValues: { [key: string]: any };
+  fieldValues: { [key: string]: CharacterSheetFieldValue };
   onUpdateField: (
     value: string | number,
     gameFieldId: string,

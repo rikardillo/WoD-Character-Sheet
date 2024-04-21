@@ -54,10 +54,6 @@ export const WoDCharacterSheet = ({
           fields={skillsFields}
           fieldValues={fieldValues}
           onUpdateField={onUpdateField}
-          // stamina={characterAttributes[5].rating}
-          // willpowerStat={
-          //   characterAttributes[2].rating + characterAttributes[8].rating
-          // }
         />
         <Combat
           fields={skillsFields}

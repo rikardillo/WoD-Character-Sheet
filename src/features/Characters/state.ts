@@ -26,6 +26,26 @@ export const state = createModel<RootModel>()({
       ...state,
       characterFieldValues,
     }),
+    setCharacterFieldValue: (state, payload) => {
+      const newState = { ...state };
+      let characterFieldValues = state.characterFieldValues ?? [];
+      const fieldValueIndex = characterFieldValues.findIndex(
+        (f) => f.gameFieldId === payload.gameFieldId
+      );
+
+      if (fieldValueIndex > -1) {
+        characterFieldValues[fieldValueIndex] = {
+          ...characterFieldValues[fieldValueIndex],
+          ...payload,
+        };
+      } else {
+        characterFieldValues = [payload];
+      }
+
+      newState.characterFieldValues = characterFieldValues;
+
+      return newState;
+    },
   },
   effects: (dispatch) => ({
     getCharacters: async (gameId: string) => {
@@ -48,12 +68,19 @@ export const state = createModel<RootModel>()({
       gameFieldId: string;
       fieldId?: string;
     }) => {
-      await apiStorage.createOrUpdateCharacterFieldValue(
+      dispatch.characters.setCharacterFieldValue({
+        characterId,
+        gameFieldId,
+        fieldId,
+        value,
+      });
+      const result = await apiStorage.createOrUpdateCharacterFieldValue(
         characterId,
         value,
         gameFieldId,
         fieldId
       );
+      dispatch.characters.setCharacterFieldValue(result);
     },
   }),
 });

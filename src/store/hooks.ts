@@ -20,6 +20,15 @@ export function useCharacterFieldValues() {
   return currentCharacterSheet;
 }
 
+export function useCharacterFieldValueByGameFieldId(gameFieldId: string) {
+  const characterSheetFieldValue = useSelector((state: RootState) =>
+    state.characters.characterFieldValues?.find(
+      (f) => f.gameFieldId === gameFieldId
+    )
+  );
+  return characterSheetFieldValue;
+}
+
 export function useCharactersByGame(gameId?: string) {
   const characters = useSelector((state: RootState) =>
     !gameId

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import store from "@/store";
 import { useLoader } from "@/store/hooks";
@@ -16,8 +16,6 @@ export const getValuesByFieldId = (fieldValues: CharacterSheetFieldValue[]) =>
   }, {});
 
 export const FeatureCharacterDetails = () => {
-  const [fieldValues, setFieldValues] = useState({});
-
   const {
     currentGame,
     characterSheetFields,
@@ -36,7 +34,6 @@ export const FeatureCharacterDetails = () => {
     gameFieldId: string,
     fieldId?: string
   ) => {
-    setFieldValues((fieldValues) => ({ ...fieldValues, [gameFieldId]: value }));
     store.dispatch.characters.createOrUpdateCharacterFieldValue({
       characterId: currentCharacter?.id!,
       value,
@@ -45,8 +42,8 @@ export const FeatureCharacterDetails = () => {
     });
   };
 
-  useEffect(() => {
-    setFieldValues(getValuesByFieldId(characterSheetFieldValues || []));
+  const fieldValues = useMemo(() => {
+    return getValuesByFieldId(characterSheetFieldValues || []);
   }, [characterSheetFieldValues]);
 
   return (
