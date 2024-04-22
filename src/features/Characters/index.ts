@@ -10,6 +10,14 @@ export type CharacterSheetField = {
   };
 };
 
+/*
+  {
+    gameFieldId: 'dnd-abilities-saving-throws',
+    title: 'Saving Throws',
+    
+  }
+*/
+
 export type CharacterSheetFieldValue = {
   id?: string;
   characterId: string;

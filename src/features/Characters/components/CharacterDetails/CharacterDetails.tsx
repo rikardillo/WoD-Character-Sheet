@@ -1,5 +1,6 @@
 import Content from "@/common/components/Layout/Content";
 import WoDCharacterSheet from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet";
+import DnDCharacterSheet from "@/features/Characters/components/CharacterDetails/DnDCharacterSheet";
 
 import {
   type CharacterSheetFieldValue,
@@ -30,6 +31,7 @@ function NotFoundCharacterSheet() {
 
 const CharacterSheetById = {
   wod: WoDCharacterSheet,
+  dnd: DnDCharacterSheet,
   none: NotFoundCharacterSheet,
 };
 
