@@ -4,13 +4,14 @@ const proficient = (
   <div className="w-4 h-4 border-2 border-black rounded-full hover:bg-slate-600 cursor-pointer"></div>
 );
 
-export const Ability = ({ ability, ...props }) => {
+export const Ability = ({ ability, profBonus, ...props }) => {
+  console.log(profBonus);
   return (
-    <>
+    <div className={`abilitiesContainer flex-col gap-3 ${style.infoBox}`}>
       {ability.map((ability, i) => {
         return (
-          <div key={`id-${ability.title}`}>
-            <div className={`flex-col gap-3 ${style.infoBox}`}>
+          <div className="flex grow w-full p-4" key={`id-${ability.title}`}>
+            <div>
               <div key={`id-${ability.title}`} className="xl">
                 {ability.title}
               </div>
@@ -19,19 +20,31 @@ export const Ability = ({ ability, ...props }) => {
                   {ability.score}
                 </div>
                 <div>+ {ability.mod()}</div>
-                {ability.skills.map((skill, i) => {
-                  console.log(skill.val);
-                  <div key={`id-${i}`}>
-                    {/* <div>{skill.value}</div> */}
-                    <div>{skill.title}</div>
-                  </div>;
-                })}
+                <div className="containerSkills flex flex-col gap-2">
+                  {ability.skills.map((skill, i) => {
+                    return (
+                      <div
+                        className="flex gap-3 items-center w-full "
+                        key={`id-${i}`}
+                      >
+                        {proficient}
+                        <div className="hover:font-bold">
+                          +{" "}
+                          {skill.proficiency
+                            ? ability.mod() + profBonus
+                            : ability.mod()}
+                        </div>
+                        <div>{skill.title}</div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
         );
       })}
-    </>
+    </div>
 
     // <div className={`flex-col gap-3 ${style.infoBox}`}>
     //   <div className="xl">{ability.str.title}</div>
