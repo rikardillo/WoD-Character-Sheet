@@ -5,12 +5,15 @@ const proficient = (
 );
 
 export const Ability = ({ ability, profBonus, ...props }) => {
-  console.log(profBonus);
   return (
-    <div className={`abilitiesContainer flex-col gap-3 ${style.infoBox}`}>
+    <div className={`abilitiesContainer flex flex-col gap-3 `}>
+      {/* ABILITY LIST */}
       {ability.map((ability, i) => {
         return (
-          <div className="flex grow w-full p-4" key={`id-${ability.title}`}>
+          <div
+            className="flex grow w-full bg-stone-100 p-4 rounded-lg"
+            key={`id-${ability.title}`}
+          >
             <div>
               <div key={`id-${ability.title}`} className="xl">
                 {ability.title}
@@ -21,6 +24,7 @@ export const Ability = ({ ability, profBonus, ...props }) => {
                 </div>
                 <div>+ {ability.mod()}</div>
                 <div className="containerSkills flex flex-col gap-2">
+                  {/* SKILL LIST */}
                   {ability.skills.map((skill, i) => {
                     return (
                       <div
@@ -45,32 +49,6 @@ export const Ability = ({ ability, profBonus, ...props }) => {
         );
       })}
     </div>
-
-    // <div className={`flex-col gap-3 ${style.infoBox}`}>
-    //   <div className="xl">{ability.str.title}</div>
-    //   <div className="flex gap-3 justify-center items-center">
-    //     <div className="text-xl font-bold flex items-center justify-center w-10 h-10 border-2 border-black rounded-full ">
-    //       {ability.str.score}
-    //     </div>
-    //     <div>+ {ability.str.mod}</div>
-    //     <div className="flex flex-col gap-3 w-full">
-    //       <div className="flex gap-3 items-center">
-    //         {proficient}
-    //         <div>+ {ability.str.savingThrow}</div>
-    //         <div>Saving Throw</div>
-    //       </div>
-    //       {ability.str.skills.map((skill) => {
-    //         return (
-    //           <div className="flex gap-3 items-center hover:border-2">
-    //             {proficient}
-    //             <div>+ {skill.value}</div>
-    //             <div>{skill.title}</div>
-    //           </div>
-    //         );
-    //       })}
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

@@ -7,7 +7,7 @@ export const containerStyles = {
 export const style = {
   infoBox:
     "flex p-1 bg-stone-300 text-slate-600 rounded-md text-center justify-center items-center",
-  title: "text-[.5rem] uppercase ",
+  title: "text-[.7rem] uppercase ",
   healthBar: "w-1/2 bg-stone-500 ",
   healthBarBg: "flex grow bg-stone-800 rounded-md w-80",
 };

@@ -14,15 +14,17 @@ function getModifier(score) {
   }
 }
 
+
+
 export const characterData = {
   characterInfo: {
-    name: "Jigak",
+    name: "Odra",
     race: "Half-elf",
     class: "Ranger",
     archetype: "Hunter",
     level: 5,
     proficiencyBonus: 2,
-    passivePerception: 12,
+    passivePerception: 10,
     passiveInsight: 14,
     hitPointsMax: 47,
     hitPointsCurrent: 17,
@@ -35,8 +37,11 @@ export const characterData = {
       mod() {
         return getModifier(this.score);
       },
-      savingThrow: 1,
       skills: [
+        {
+          title: "Saving Throws",
+          proficiency: true,
+        },
         {
           title: "Athletics",
           proficiency: true,
@@ -45,15 +50,18 @@ export const characterData = {
     },
     {
       title: "Dexterity",
-      score: 16,
+      score: 18,
       mod() {
         return getModifier(this.score);
       },
-      savingThrow: 1,
       skills: [
         {
+          title: "Saving Throws",
+          proficiency: true,
+        },
+        {
           title: "Acrobatics",
-          proficiency: false,
+          proficiency: true,
         },
         {
           title: "Sleight of Hand",
@@ -67,11 +75,10 @@ export const characterData = {
     },
     {
       title: "Constitution",
-      score: 16,
+      score: 15,
       mod() {
         return getModifier(this.score);
       },
-      savingThrow: 1,
       skills: [
         {
           title: "Saving Throws",
@@ -81,7 +88,7 @@ export const characterData = {
     },
     {
       title: "Intelligence",
-      score: 16,
+      score: 14,
       mod() {
         return getModifier(this.score);
       },
@@ -97,11 +104,11 @@ export const characterData = {
         },
         {
           title: "History",
-          proficiency: true,
+          proficiency: false,
         },
         {
           title: "Investigation",
-          proficiency: true,
+          proficiency: false,
         },
         {
           title: "Nature",
@@ -135,7 +142,7 @@ export const characterData = {
         },
         {
           title: "Medicine",
-          proficiency: true,
+          proficiency: false,
         },
         {
           title: "Perception",
@@ -161,21 +168,24 @@ export const characterData = {
         },
         {
           title: "Deception",
-          proficiency: false,
+          proficiency: true,
         },
         {
           title: "Intimidation",
-          proficiency: true,
+          proficiency: false,
         },
         {
           title: "Performance",
-          proficiency: true,
+          proficiency: false,
         },
         {
           title: "Persuasion",
-          proficiency: true,
+          proficiency: false,
         },
       ],
     },
   ],
 };
+
+
+const passivePerception = characterData.abilities.wisdom

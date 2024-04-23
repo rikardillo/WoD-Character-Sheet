@@ -1,4 +1,5 @@
 import { style } from "../styles";
+import HealthBar from "./HealthBar";
 
 export const CharacterInfo = ({ data }) => {
   return (
@@ -14,17 +15,22 @@ export const CharacterInfo = ({ data }) => {
 
       <div className="char--extra flex  h-1/2 gap-3">
         <div className={`char--extra-1 grow p-1 ${style.infoBox}`}>
-          <div className={`profBonus flex flex-col ${style.infoBox}`}>
+          <div className={`profBonus flex flex-col grow ${style.infoBox}`}>
             <div className={style.title}>
-              Proficiency <br />
-              Bonus
+              Proficiency Bonus
             </div>
             {data.proficiencyBonus}
           </div>
-          <div className={`passivePerception ${style.infoBox}`}>
+          <div className={`passivePerception flex flex-col grow ${style.infoBox}`}>
+            <div className={style.title}>
+              Passive Perception
+            </div>
             {data.passivePerception}
           </div>
-          <div className={`passiveInsight ${style.infoBox}`}>
+          <div className={`passiveInsight flex flex-col grow ${style.infoBox}`}>
+          <div className={style.title}>
+              Passive Insight
+            </div>
             {data.passiveInsight}
           </div>
         </div>
@@ -33,13 +39,8 @@ export const CharacterInfo = ({ data }) => {
 
       <div className={`healthContainer flex-col ${style.infoBox}`}>
         <div className={style.title}>Hit Points</div>
-        <div className="hpBarContainer flex">
-          <div className={`hpCount`}>
-            {data.hitPointsCurrent}/{data.hitPointsMax}
-          </div>
-          <div className={`healthBarBg  ${style.healthBarBg}`}>
-            <div className={` ${style.healthBar}`}></div>
-          </div>
+        <div className="hpBarContainer flex w-full p-4">
+          <HealthBar />
         </div>
       </div>
     </div>
