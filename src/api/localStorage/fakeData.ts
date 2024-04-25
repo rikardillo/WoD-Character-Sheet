@@ -1,7 +1,7 @@
 import WoDLogoImageUrl from "@/assets/images/wod-logo.svg";
 import WoDBackgroundImageUrl from "@/assets/images/wod-bg.jpeg";
 import DnDLogoImageUrl from "@/assets/images/dnd-logo.png";
-import DnDBackgroundImageUrl from "@/assets/images/dnd-bg.jpeg";
+import DnDBackgroundImageUrl from "@/assets/images/dnd-bg-02.jpeg";
 
 import {
   type CharacterSheetField,

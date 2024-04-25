@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Content = styled.div`
   flex-wrap: wrap;
   width: 90vw;
-  max-width: 50rem;
+  max-width: 80rem;
   height: 90vh;
   gap: 0.5rem;
   overflow: scroll;
