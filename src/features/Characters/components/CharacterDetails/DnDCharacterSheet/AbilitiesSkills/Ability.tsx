@@ -1,10 +1,27 @@
+import { useState } from "react";
 import { style } from "../styles";
 
-const proficient = (
-  <div className="w-4 h-4 border-2 border-black rounded-full hover:bg-slate-600 cursor-pointer"></div>
-);
-
+const Proficient = ({ onClick }) => {
+  return (
+    <div
+      className={`w-4 h-4 border-2 border-black rounded-full hover:bg-slate-600 cursor-pointer`}
+      onClick={onClick}
+    ></div>
+  );
+};
 export const Ability = ({ ability, profBonus, ...props }) => {
+  const [isProficient, setIsProficient] = useState(true);
+
+  function proficiencyToggle() {
+    if (!isProficient) {
+      setIsProficient(true);
+      console.log(isProficient);
+    } else if (isProficient) {
+      setIsProficient(false);
+      console.log(isProficient);
+    }
+  }
+
   return (
     <div className={`abilitiesContainer flex flex-col gap-3 `}>
       {/* ABILITY LIST */}
@@ -31,7 +48,7 @@ export const Ability = ({ ability, profBonus, ...props }) => {
                         className="flex gap-3 items-center w-full "
                         key={`id-${i}`}
                       >
-                        {proficient}
+                        <Proficient onClick={proficiencyToggle} />
                         <div className="hover:font-bold">
                           +{" "}
                           {skill.proficiency

@@ -14,8 +14,6 @@ function getModifier(score) {
   }
 }
 
-
-
 export const characterData = {
   characterInfo: {
     name: "Odra",
@@ -185,7 +183,16 @@ export const characterData = {
       ],
     },
   ],
+
+  actions: {
+    attacks: [
+      {
+        title: String,
+        range: Number,
+        atkBonus: Number,
+        Damage: String,
+        Notes: String,
+      },
+    ],
+  },
 };
-
-
-const passivePerception = characterData.abilities.wisdom
