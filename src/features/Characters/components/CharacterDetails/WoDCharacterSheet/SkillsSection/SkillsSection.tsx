@@ -1,6 +1,6 @@
 import { type SectionProps } from "@/features/Characters/components/CharacterDetails";
 
-import DotRating from "@/common/components/Inputs/DotRating";
+import { DotRating } from "@/common/components";
 
 import {
   SkillSectionContainer,

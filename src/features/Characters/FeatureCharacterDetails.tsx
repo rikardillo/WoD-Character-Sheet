@@ -42,6 +42,13 @@ export const FeatureCharacterDetails = () => {
     });
   };
 
+  const handleRemoveField = (gameFieldId: string) => {
+    store.dispatch.characters.removeCharacterField({
+      characterId: currentCharacter?.id!,
+      gameFieldId,
+    });
+  };
+
   const fieldValues = useMemo(() => {
     return getValuesByFieldId(characterSheetFieldValues || []);
   }, [characterSheetFieldValues]);
@@ -53,6 +60,7 @@ export const FeatureCharacterDetails = () => {
         characterSheetFields={characterSheetFields || []}
         fieldValues={fieldValues}
         onUpdateField={handleUpdateFieldValue}
+        onRemoveField={handleRemoveField}
       />
     </>
   );

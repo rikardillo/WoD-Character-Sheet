@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import MainContainer from "@/common/components/Layout/MainContainer";
-import "./styles.css";
 import { useCurrentGame } from "@/store/hooks";
 
 export const getComponent = (c: () => Promise<any>) => async () => {

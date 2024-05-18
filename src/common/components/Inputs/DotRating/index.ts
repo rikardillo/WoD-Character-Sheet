@@ -1,1 +1,1 @@
-export { default } from "./DotRating";
+export { default as DotRating, type DotRatingProps } from "./DotRating";

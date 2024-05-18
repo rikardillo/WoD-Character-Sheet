@@ -1,4 +1,6 @@
-export const localStorageCrud = (
+import { type Crud } from "..";
+
+export const localStorageCrud = <T>(
   collection: string,
   initialValue: any[] = []
 ) => {
@@ -17,7 +19,7 @@ export const localStorageCrud = (
   }
 
   return {
-    create: (entity: any) => {
+    create: async (entity: any) => {
       const data = loadEntities();
       const result = {
         id: crypto.randomUUID(),
@@ -27,16 +29,18 @@ export const localStorageCrud = (
       setEntities(data.concat(result));
       return result;
     },
-    read: (id: string) => {
+    read: async (id: string) => {
       const data = loadEntities();
       const item = data.find((i) => i.id === id);
       return item;
     },
-    filter: (predicate?: (value: any, index: number, array: any[]) => any) => {
+    filter: async (
+      predicate?: (value: any, index: number, array: any[]) => Promise<T[]>
+    ) => {
       const data = loadEntities();
       return predicate ? data.filter(predicate) : data;
     },
-    update: (id: string, payload: any) => {
+    update: async (id: string, payload: any) => {
       const data = loadEntities();
       const index = data.findIndex((i) => i.id === id);
       if (index > -1) {
@@ -49,10 +53,10 @@ export const localStorageCrud = (
       setEntities(data);
       return data[index];
     },
-    delete: (id: string) => {
+    delete: async (id: string) => {
       const data = loadEntities();
       setEntities(data.filter((i) => i.id !== id));
       return;
     },
-  };
+  } as Crud<T>;
 };

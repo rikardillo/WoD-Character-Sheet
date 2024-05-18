@@ -11,11 +11,16 @@ import SkillsSection from "@/features/Characters/components/CharacterDetails/WoD
 import HealthSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/HealthSection";
 import Combat from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/CombatSection";
 import Morality from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/MoralitySection";
+import EquipmentSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/EquipmentSection";
+import WeaponSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/WeaponSection";
+import MeritsSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/MeritsSection";
+import FlawsSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/FlawsSection";
 
 export const WoDCharacterSheet = ({
   characterSheetFields,
   fieldValues,
   onUpdateField,
+  onRemoveField,
 }: CharacterDetailsProps) => {
   const infoFields = useMemo(
     () =>
@@ -33,7 +38,7 @@ export const WoDCharacterSheet = ({
     [characterSheetFields]
   );
   return (
-    <Content className="content">
+    <Content className="content max-w-screen-md m-auto">
       <InfoSection
         fields={infoFields}
         fieldValues={fieldValues}
@@ -55,17 +60,33 @@ export const WoDCharacterSheet = ({
           fieldValues={fieldValues}
           onUpdateField={onUpdateField}
         />
-        <Combat
-          fields={skillsFields}
-          fieldValues={fieldValues}
-          onUpdateField={onUpdateField}
-        />
+        <Combat fieldValues={fieldValues} onUpdateField={onUpdateField} />
         <Morality
           fields={skillsFields}
           fieldValues={fieldValues}
           onUpdateField={onUpdateField}
         />
       </CombatContainer>
+      <EquipmentSection
+        fieldValues={fieldValues}
+        onUpdateField={onUpdateField}
+        onRemoveField={onRemoveField}
+      />
+      <WeaponSection
+        fieldValues={fieldValues}
+        onUpdateField={onUpdateField}
+        onRemoveField={onRemoveField}
+      />
+      <MeritsSection
+        fieldValues={fieldValues}
+        onUpdateField={onUpdateField}
+        onRemoveField={onRemoveField}
+      />
+      <FlawsSection
+        fieldValues={fieldValues}
+        onUpdateField={onUpdateField}
+        onRemoveField={onRemoveField}
+      />
     </Content>
   );
 };

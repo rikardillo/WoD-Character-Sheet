@@ -11,16 +11,13 @@ import { useLoader } from "@/store/hooks";
 export type CharacterDetailsProps = {
   characterSheetFields: CharacterSheetField[];
   fieldValues: { [key: string]: CharacterSheetFieldValue };
-  onUpdateField: (
-    value: string | number,
-    gameFieldId: string,
-    id?: string
-  ) => void;
+  onUpdateField: (value: any, gameFieldId: string, id?: string) => void;
+  onRemoveField?: (gameFieldId: string) => void;
 };
 
-export type SectionProps = Pick<
+export type SectionProps = Omit<
   CharacterDetailsProps,
-  "fieldValues" | "onUpdateField"
+  "characterSheetFields"
 > & {
   fields: CharacterSheetField[];
 };

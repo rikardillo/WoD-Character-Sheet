@@ -6,7 +6,6 @@ export const HealthSectionContainer = styled.div`
   ${mixinFlex()}
   ${hoverHighlight}
   width: 100%;
-  height: 100%;
   flex-direction: column;
   gap: 0.4rem;
   background-color: rgba(0, 0, 0, 0.7);

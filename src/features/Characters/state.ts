@@ -39,10 +39,25 @@ export const state = createModel<RootModel>()({
           ...payload,
         };
       } else {
-        characterFieldValues = [payload];
+        characterFieldValues = characterFieldValues.concat([payload]);
       }
 
       newState.characterFieldValues = characterFieldValues;
+
+      return newState;
+    },
+    removeField: (state, gameFieldId: string) => {
+      const newState = { ...state };
+      let characterFieldValues = newState.characterFieldValues ?? [];
+      const fieldValueIndex = characterFieldValues.findIndex(
+        (f) => f.gameFieldId === gameFieldId
+      );
+
+      if (fieldValueIndex > -1) {
+        characterFieldValues.splice(fieldValueIndex, 1);
+      }
+
+      newState.characterFieldValues = [...characterFieldValues];
 
       return newState;
     },
@@ -68,12 +83,6 @@ export const state = createModel<RootModel>()({
       gameFieldId: string;
       fieldId?: string;
     }) => {
-      dispatch.characters.setCharacterFieldValue({
-        characterId,
-        gameFieldId,
-        fieldId,
-        value,
-      });
       const result = await apiStorage.createOrUpdateCharacterFieldValue(
         characterId,
         value,
@@ -81,6 +90,16 @@ export const state = createModel<RootModel>()({
         fieldId
       );
       dispatch.characters.setCharacterFieldValue(result);
+    },
+    removeCharacterField: async ({
+      characterId,
+      gameFieldId,
+    }: {
+      characterId: string;
+      gameFieldId: string;
+    }) => {
+      await apiStorage.removeField(characterId, gameFieldId);
+      dispatch.characters.removeField(gameFieldId);
     },
   }),
 });

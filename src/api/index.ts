@@ -2,11 +2,22 @@ import {
   type CharacterSheetFieldValue,
   type Character,
   type CharacterSheetField,
+  type Equipment,
 } from "@/features/Characters";
 import { type Game } from "@/features/Games";
 
 import { createApiStoreFirebase } from "./firebase";
 import { createApiStoreLocalStorage } from "./localStorage";
+
+export type Crud<T> = {
+  create: (payload: Partial<T>) => Promise<T>;
+  read: (id: string) => Promise<T>;
+  filter: (
+    predicate?: (value: any, index: number, array: any[]) => any
+  ) => Promise<T[]>;
+  update: (id: string, payload: Partial<T>) => Promise<T>;
+  delete: (id: string) => Promise<T>;
+};
 
 export interface ApiStorage {
   getGames: () => Promise<Game[]>;
@@ -24,7 +35,7 @@ export interface ApiStorage {
     value: any,
     gameFieldId: string,
     fieldId?: string
-  ) => Promise<CharacterSheetField>;
+  ) => Promise<CharacterSheetFieldValue>;
   removeField: (characterId: string, fieldId: string) => Promise<void>;
 }
 

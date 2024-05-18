@@ -47,8 +47,6 @@ const CombatContainer = styled.div`
 
 // MODAL
 
-
-
 // COMPONENT
 
 const y = 1;
@@ -151,12 +149,10 @@ function CharacterSheet() {
 
   function handleClearLocalStorage() {
     localStorage.clear();
-    setCharacterAttributes([...loadInitialAttributes()]);  // Ensure new array instance
-    setCharacterSkills([...loadInitialSkills()]);  // Ensure new array instance
-    setModalOpen(false);  // Close modal
+    setCharacterAttributes([...loadInitialAttributes()]); // Ensure new array instance
+    setCharacterSkills([...loadInitialSkills()]); // Ensure new array instance
+    setModalOpen(false); // Close modal
   }
-  
-
 
   function openModal() {
     setModalOpen(true);

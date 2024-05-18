@@ -1,13 +1,20 @@
 import { appLogger, loggerMethodsMiddleware } from "@/common/utils/logger";
-import { type CharacterSheetField } from "@/features/Characters";
+import {
+  type Character,
+  type CharacterSheetFieldValue,
+  type CharacterSheetField,
+} from "@/features/Characters";
 import { type ApiStorage } from "@/api";
 import { fakeCharacters, fakeGames } from "./fakeData";
 import { localStorageCrud } from "./crud";
 
 const gamesCrud = localStorageCrud("games", fakeGames);
-const charactersCrud = localStorageCrud("characters", fakeCharacters);
+const charactersCrud = localStorageCrud<Character>(
+  "characters",
+  fakeCharacters
+);
 const getCharacterFieldsCrud = (characterId) =>
-  localStorageCrud(characterId + "-characterFields");
+  localStorageCrud<CharacterSheetFieldValue>(characterId + "-characterFields");
 
 export const createApiStoreLocalStorage = (): ApiStorage => {
   appLogger.info("Created api local storage");
@@ -40,16 +47,21 @@ export const createApiStoreLocalStorage = (): ApiStorage => {
       if (!fieldId) {
         return crud.create({ characterId, gameFieldId, value });
       }
-      let field = crud.read(fieldId);
+      let field = await crud.read(fieldId);
       if (field) {
-        field = crud.update(field.id, { ...field, value });
+        field = await crud.update(field.id!, { ...field, value });
         return field;
       }
-      field = crud.create({ characterId, fieldId, value });
+      field = await crud.create({ characterId, id: fieldId, value });
       return field;
     },
-    removeField: async (fieldId: string) => {
-      throw new Error("Not implemented");
+    removeField: async (characterId: string, fieldId: string) => {
+      const crud = getCharacterFieldsCrud(characterId);
+      const list = await crud.filter();
+      const index = list.findIndex((f) => f.gameFieldId === fieldId);
+      if (index > -1) {
+        await crud.delete(list[index].id!);
+      }
     },
   });
 };

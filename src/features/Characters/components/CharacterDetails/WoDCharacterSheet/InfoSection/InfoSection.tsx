@@ -21,7 +21,7 @@ export default function InfoSection({
             <StyledEntry key={field.gameFieldId}>
               <StyledTitle>{field.title}</StyledTitle>
               <InputText
-                initialValue={fieldValue.value || ""}
+                defaultValue={fieldValue.value || ""}
                 onChange={(value: any) => {
                   onUpdateField(value, field.gameFieldId, fieldValue.id);
                 }}

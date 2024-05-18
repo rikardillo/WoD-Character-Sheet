@@ -6,19 +6,22 @@ import {
   StyledEntry,
   StyledPlaceholder,
 } from "./InputText.styles";
+import clsx from "clsx";
 
 export type InputTextProps = JSX.IntrinsicElements["input"] & {
-  initialValue: any;
+  defaultValue?: any;
   onChange: (value: string) => void;
+  containerProps?: JSX.IntrinsicElements["div"];
 };
 
 export const InputText = ({
-  initialValue,
+  defaultValue,
   onChange = () => {},
+  containerProps = {},
   ...props
 }: InputTextProps) => {
   const [isEditing, setIsEditing] = useState<boolean | undefined>();
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(defaultValue || "");
   const [editingValue, setEditingValue] = useState<any>(null);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -62,7 +65,8 @@ export const InputText = ({
 
   return (
     <StyledContainer
-      className="input-container"
+      {...containerProps}
+      className={clsx("input-container", containerProps.className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -70,7 +74,7 @@ export const InputText = ({
         <StyledInput
           className="input"
           type="text"
-          defaultValue={value || initialValue}
+          defaultValue={value || defaultValue}
           onChange={handleChange}
           onBlur={handleBlur}
           onKeyDown={handleSave}
@@ -82,7 +86,7 @@ export const InputText = ({
           {isHovering && value === "" ? (
             <StyledPlaceholder>Double-click to Edit</StyledPlaceholder>
           ) : (
-            value || initialValue
+            value || defaultValue
           )}
         </StyledEntry>
       )}

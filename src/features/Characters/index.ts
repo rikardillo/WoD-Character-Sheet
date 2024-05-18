@@ -10,19 +10,11 @@ export type CharacterSheetField = {
   };
 };
 
-/*
-  {
-    gameFieldId: 'dnd-abilities-saving-throws',
-    title: 'Saving Throws',
-    
-  }
-*/
-
-export type CharacterSheetFieldValue = {
-  id?: string;
+export type CharacterSheetFieldValue<T = any> = {
+  id: string;
   characterId: string;
   gameFieldId: string;
-  value: any;
+  value: T;
 };
 
 export type Character = {
@@ -31,4 +23,12 @@ export type Character = {
   name: string;
   createdAt?: string;
   updatedAt?: string;
+};
+
+export type Equipment = {
+  name: string;
+  durability: number;
+  structure: number;
+  size: number;
+  cost: number;
 };
