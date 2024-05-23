@@ -30,8 +30,10 @@ export const state = createModel<RootModel>()({
   },
   effects: (dispatch) => ({
     getGames: async () => {
+      dispatch.app.addLoading("loadingGames");
       const games = await apiStorage.getGames();
       dispatch.game.setGames(games);
+      dispatch.app.removeLoading("loadingGames");
       return games;
     },
   }),

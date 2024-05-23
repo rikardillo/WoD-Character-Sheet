@@ -33,9 +33,9 @@ const CharacterSheetById = {
 };
 
 export const CharacterDetails = (props: CharacterDetailsProps) => {
-  const { currentCharacter } = useLoader();
+  const { currentCharacter, currentGame } = useLoader();
   const CharacterSheetComponent = !!currentCharacter
-    ? CharacterSheetById[currentCharacter.game.slug] || CharacterSheetById.none
+    ? CharacterSheetById[currentGame!.slug] || CharacterSheetById.none
     : CharacterSheetById.none;
   return (
     <Content data-testid="content-character-details">

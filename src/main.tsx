@@ -8,6 +8,9 @@ import App from "@/features/App";
 
 const customTheme: CustomFlowbiteTheme = {
   modal: {
+    root: {
+      base: "",
+    },
     header: {
       title: "text-white",
       base: "border-b  p-4 border-white/20 flex items-center",

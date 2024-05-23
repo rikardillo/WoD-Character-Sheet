@@ -9,65 +9,60 @@ import {
 } from "@/features/Characters";
 import { type Game } from "@/features/Games";
 
-const infoGroup = {
-  id: "wod-info",
-  name: "Information",
-};
-
 const infoFields: CharacterSheetField[] = [
   {
     gameFieldId: "wod-info-name",
     type: "input",
     title: "Name",
-    group: infoGroup,
+    groupId: "wod-info",
   },
   {
     gameFieldId: "wod-info-age",
     type: "input",
     title: "Age",
-    group: infoGroup,
+    groupId: "wod-info",
   },
   {
     gameFieldId: "wod-info-player",
     type: "input",
     title: "Player",
-    group: infoGroup,
+    groupId: "wod-info",
   },
   {
     gameFieldId: "wod-info-virtue",
     type: "input",
     title: "Virtue",
-    group: infoGroup,
+    groupId: "wod-info",
   },
   {
     gameFieldId: "wod-info-vice",
     type: "input",
     title: "Vice",
-    group: infoGroup,
+    groupId: "wod-info",
   },
   {
     gameFieldId: "wod-info-concept",
     type: "input",
     title: "Concept",
-    group: infoGroup,
+    groupId: "wod-info",
   },
   {
     gameFieldId: "wod-info-chronical",
     type: "input",
     title: "Chronical",
-    group: infoGroup,
+    groupId: "wod-info",
   },
   {
     gameFieldId: "wod-info-faction",
     type: "input",
     title: "Faction",
-    group: infoGroup,
+    groupId: "wod-info",
   },
   {
     gameFieldId: "wod-info-group-name",
     type: "input",
     title: "Group Name",
-    group: infoGroup,
+    groupId: "wod-info",
   },
 ];
 
@@ -81,207 +76,202 @@ const attrFields: CharacterSheetField[] = [
     gameFieldId: "wod-attrs-intelligence",
     type: "rating",
     title: "Intelligence",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
   {
     gameFieldId: "wod-attrs-wits",
     type: "rating",
     title: "Wits",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
   {
     gameFieldId: "wod-attrs-resolve",
     type: "rating",
     title: "Resolve",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
   {
     gameFieldId: "wod-attrs-strength",
     type: "rating",
     title: "Strength",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
   {
     gameFieldId: "wod-attrs-dexterity",
     type: "rating",
     title: "Dexterity",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
   {
     gameFieldId: "wod-attrs-stamina",
     type: "rating",
     title: "Stamina",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
   {
     gameFieldId: "wod-attrs-presence",
     type: "rating",
     title: "Presence",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
   {
     gameFieldId: "wod-attrs-manipulation",
     type: "rating",
     title: "Manipulation",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
   {
     gameFieldId: "wod-attrs-composure",
     type: "rating",
     title: "Composure",
-    group: attrGroup,
+    groupId: "wod-attrs",
   },
 ];
-
-const skillsGroup = {
-  id: "wod-skills",
-  name: "Skills",
-};
 
 const skillsFields: CharacterSheetField[] = [
   {
     gameFieldId: "wod-info-academics",
     type: "rating",
     title: "Name",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-computer",
     type: "rating",
     title: "Computer",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-crafts",
     type: "rating",
     title: "Crafts",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-investigation",
     type: "rating",
     title: "Investigation",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-medicine",
     type: "rating",
     title: "Medicine",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-occult",
     type: "rating",
     title: "Occult",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-politics",
     type: "rating",
     title: "Politics",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-science",
     type: "rating",
     title: "Science",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-athletics",
     type: "rating",
     title: "Athletics",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-brawl",
     type: "rating",
     title: "Brawl",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-drive",
     type: "rating",
     title: "Drive",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-firearms",
     type: "rating",
     title: "Firearms",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-larceny",
     type: "rating",
     title: "Larceny",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-stealth",
     type: "rating",
     title: "Stealth",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-survival",
     type: "rating",
     title: "Survival",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-weaponary",
     type: "rating",
     title: "Weaponary",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-animal-ken",
     type: "rating",
     title: "Animal Ken",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-empathy",
     type: "rating",
     title: "Empathy",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-expression",
     type: "rating",
     title: "Expression",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-intimidation",
     type: "rating",
     title: "Intimidation",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-persuasion",
     type: "rating",
     title: "Persuasion",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-socialize",
     type: "rating",
     title: "Socialize",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-streetwise",
     type: "rating",
     title: "Streetwise",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
   {
     gameFieldId: "wod-info-subterfuge",
     type: "rating",
     title: "Subterfuge",
-    group: skillsGroup,
+    groupId: "wod-skills",
   },
 ];
 
@@ -301,18 +291,5 @@ export const fakeGames: Game[] = [
     logoImageUrl: DnDLogoImageUrl,
     backgroundImageUrl: DnDBackgroundImageUrl,
     sheetFields: [],
-  },
-];
-
-export const fakeCharacters: Character[] = [
-  {
-    id: "02a901a2-b533-4668-8818-950fe96991ed",
-    game: fakeGames[0],
-    name: "Teta De Mango",
-  },
-  {
-    id: "e3a92126-c13d-4db7-8be0-2f4ef71f039d",
-    game: fakeGames[1],
-    name: "Teta De Mango 2",
   },
 ];

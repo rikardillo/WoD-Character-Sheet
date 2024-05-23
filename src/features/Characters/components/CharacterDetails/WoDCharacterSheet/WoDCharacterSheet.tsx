@@ -23,20 +23,17 @@ export const WoDCharacterSheet = ({
   onRemoveField,
 }: CharacterDetailsProps) => {
   const infoFields = useMemo(
-    () =>
-      characterSheetFields.filter((field) =>
-        field?.gameFieldId.startsWith("wod-info")
-      ),
+    () => characterSheetFields.filter((field) => field?.groupId === "wod-info"),
     [characterSheetFields]
   );
   const attributesFields = useMemo(
     () =>
-      characterSheetFields.filter((field) => field?.group?.id === "wod-attrs"),
+      characterSheetFields.filter((field) => field?.groupId === "wod-attrs"),
     [characterSheetFields]
   );
   const skillsFields = useMemo(
     () =>
-      characterSheetFields.filter((field) => field?.group?.id === "wod-skills"),
+      characterSheetFields.filter((field) => field?.groupId === "wod-skills"),
     [characterSheetFields]
   );
   return (

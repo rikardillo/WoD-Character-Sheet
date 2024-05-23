@@ -33,7 +33,7 @@ export function useCharactersByGame(gameId?: string) {
   const characters = useSelector((state: RootState) =>
     !gameId
       ? undefined
-      : state.characters.characters?.filter((c) => c.game.id === gameId)
+      : state.characters.characters?.filter((c) => c.gameId === gameId)
   );
   return characters;
 }
@@ -87,3 +87,21 @@ export function useLoader() {
     characterSheetFields,
   };
 }
+
+export const useLoading = (identifier: string) => {
+  const loading = useSelector((state: RootState) =>
+    state.app.loadingIds.includes(identifier)
+  );
+  const setLoading = (loading: boolean) => {
+    if (loading) return store.dispatch.app.addLoading(identifier);
+    store.dispatch.app.removeLoading(identifier);
+  };
+  return [loading, setLoading];
+};
+
+export const useIsLoading = () => {
+  const loading = useSelector(
+    (state: RootState) => state.app.loadingIds.length > 0
+  );
+  return loading;
+};

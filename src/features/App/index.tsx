@@ -1,7 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import MainContainer from "@/common/components/Layout/MainContainer";
-import { useCurrentGame } from "@/store/hooks";
+import { useCurrentGame, useIsLoading } from "@/store/hooks";
+import Loading from "@/common/components/Loading";
 
 export const getComponent = (c: () => Promise<any>) => async () => {
   const result = await c();
@@ -43,10 +44,12 @@ const router = createBrowserRouter([
 export const App = () => {
   const currentGame = useCurrentGame();
   const bg = currentGame?.backgroundImageUrl;
+  const isLoading = useIsLoading();
 
   return (
     <MainContainer id="main" $bg={bg}>
       <RouterProvider router={router} />
+      {isLoading && <Loading />}
     </MainContainer>
   );
 };

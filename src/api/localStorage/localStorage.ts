@@ -5,35 +5,63 @@ import {
   type CharacterSheetField,
 } from "@/features/Characters";
 import { type ApiStorage } from "@/api";
-import { fakeCharacters, fakeGames } from "./fakeData";
+import { fakeGames } from "./fakeData";
 import { localStorageCrud } from "./crud";
+import { Game } from "@/features/Games";
 
-const gamesCrud = localStorageCrud("games", fakeGames);
-const charactersCrud = localStorageCrud<Character>(
-  "characters",
-  fakeCharacters
-);
+const gamesCrud = localStorageCrud<Game>("games", fakeGames);
+const charactersCrud = localStorageCrud<Character>("characters");
 const getCharacterFieldsCrud = (characterId) =>
   localStorageCrud<CharacterSheetFieldValue>(characterId + "-characterFields");
 
 export const createApiStoreLocalStorage = (): ApiStorage => {
   appLogger.info("Created api local storage");
 
-  return loggerMethodsMiddleware<ApiStorage>({
+  let api: ApiStorage = {} as ApiStorage;
+
+  api = loggerMethodsMiddleware<ApiStorage>({
     getGames: async () => {
-      return fakeGames;
+      return gamesCrud.filter();
     },
     getCharactersByGameId: async (gameId: string) => {
-      return charactersCrud.filter((c) => c.game.id === gameId);
+      return charactersCrud.filter((c) => c.gameId === gameId);
     },
-    createCharacter: async (
-      gameId: string,
-      fields: CharacterSheetFieldValue[]
-    ) => {
-      throw new Error("Not implemented");
+    createCharacter: async (gameId: string, characterName: string) => {
+      if (!gameId) {
+        return Promise.reject({ detail: "Game id is required" });
+      }
+      if (!characterName) {
+        return Promise.reject({ detail: "Character name is required" });
+      }
+      const game = await gamesCrud.read(gameId);
+
+      if (!game) {
+        return Promise.reject({ detail: "Game not found" });
+      }
+
+      const exists = !!(
+        await charactersCrud.filter(
+          (c) => c.gameId === gameId && c.name === characterName
+        )
+      ).length;
+
+      if (exists) {
+        return Promise.reject({ detail: "Character name already exists" });
+      }
+
+      const character = await charactersCrud.create({
+        gameId,
+        name: characterName,
+      });
+      await api.createOrUpdateCharacterFieldValue(
+        character.id!,
+        characterName,
+        `${game.slug}-info-name`
+      );
+      return character;
     },
     removeCharacterById: async (characterId: string) => {
-      throw new Error("Not implemented");
+      await charactersCrud.delete(characterId);
     },
     getGameFieldValuesByCharacterId: async (characterId: string) => {
       return getCharacterFieldsCrud(characterId).filter(
@@ -53,9 +81,15 @@ export const createApiStoreLocalStorage = (): ApiStorage => {
       let field = await crud.read(fieldId);
       if (field) {
         field = await crud.update(field.id!, { ...field, value });
+
+        if (gameFieldId.endsWith("-info-name")) {
+          await charactersCrud.update(characterId, { name: value });
+        }
+
         return field;
       }
       field = await crud.create({ characterId, id: fieldId, value });
+
       return field;
     },
     removeField: async (characterId: string, fieldId: string) => {
@@ -67,6 +101,8 @@ export const createApiStoreLocalStorage = (): ApiStorage => {
       }
     },
   });
+
+  return api;
 };
 
 export default createApiStoreLocalStorage;

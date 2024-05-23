@@ -68,23 +68,29 @@ export const state = createModel<RootModel>()({
   },
   effects: (dispatch) => ({
     getCharacters: async (gameId: string) => {
+      dispatch.app.addLoading("characterList");
       const characters = await apiStorage.getCharactersByGameId(gameId);
       dispatch.characters.setCharacters(characters);
+      dispatch.app.removeLoading("characterList");
     },
     createCharacter: async ({
       gameId,
-      fieldValues,
+      characterName,
     }: {
       gameId: string;
-      fieldValues: CharacterSheetFieldValue[];
+      characterName: string;
     }) => {
-      const character = await apiStorage.createCharacter(gameId, fieldValues);
+      dispatch.app.addLoading("createCharacter");
+      const character = await apiStorage.createCharacter(gameId, characterName);
       dispatch.characters.addCharacter(character);
+      dispatch.app.removeLoading("createCharacter");
     },
     getGameFieldValuesByCharacterId: async (characterId: string) => {
+      dispatch.app.addLoading("getCharacterFieldValues");
       const characterFieldValues =
         await apiStorage.getGameFieldValuesByCharacterId(characterId);
       dispatch.characters.setcharacterFieldValues(characterFieldValues);
+      dispatch.app.removeLoading("getCharacterFieldValues");
     },
     createOrUpdateCharacterFieldValue: async ({
       characterId,
@@ -97,6 +103,7 @@ export const state = createModel<RootModel>()({
       gameFieldId: string;
       fieldId?: string;
     }) => {
+      dispatch.app.addLoading(`updateCharacterField-${gameFieldId}`);
       const result = await apiStorage.createOrUpdateCharacterFieldValue(
         characterId,
         value,
@@ -104,6 +111,7 @@ export const state = createModel<RootModel>()({
         fieldId
       );
       dispatch.characters.setCharacterFieldValue(result);
+      dispatch.app.removeLoading(`updateCharacterField-${gameFieldId}`);
     },
     removeCharacterField: async ({
       characterId,
@@ -112,8 +120,10 @@ export const state = createModel<RootModel>()({
       characterId: string;
       gameFieldId: string;
     }) => {
+      dispatch.app.addLoading(`removeCharacterField-${gameFieldId}`);
       await apiStorage.removeField(characterId, gameFieldId);
       dispatch.characters.removeField(gameFieldId);
+      dispatch.app.removeLoading(`removeCharacterField-${gameFieldId}`);
     },
   }),
 });

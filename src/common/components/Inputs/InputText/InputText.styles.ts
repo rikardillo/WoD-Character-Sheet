@@ -7,6 +7,7 @@ export const StyledContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 0.5rem;
 `;
 
@@ -23,7 +24,6 @@ export const StyledInput = styled.input`
   border-radius: 4px;
   text-align: center;
   box-sizing: border-box;
-  outline: 1px solid rgba(255, 255, 255, 0.2);
   align-self: stretch;
 
   &:focus,
@@ -40,7 +40,6 @@ export const StyledInput = styled.input`
     border-radius: 4px;
     text-align: center;
     box-sizing: border-box;
-    outline: 1 solid rgba(255, 255, 255, 0.4);
   }
 `;
 

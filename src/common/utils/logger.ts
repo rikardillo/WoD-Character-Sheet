@@ -2,7 +2,7 @@ import debug from "debug";
 
 export const APP_NAME = "character-sheet";
 
-if (!import.meta.VITE_DEBUG) {
+if (!(import.meta as any).VITE_DEBUG) {
   debug.enable("*");
 }
 
@@ -15,6 +15,10 @@ export const loggerMethodsMiddleware = <T>(methods: Partial<T>): T => {
           console.groupCollapsed(`action - ${fnKey}`);
           appLogger.debug(
             `${fnKey}: call params - ${JSON.stringify(params, null, 2)}`
+          );
+          const delay = (import.meta as any).FAKE_API_DELAY;
+          await new Promise((resolve) =>
+            setTimeout(resolve, delay ? parseInt(delay, 10) : 100)
           );
           const result = await methods[fnKey](...params);
           appLogger.debug(

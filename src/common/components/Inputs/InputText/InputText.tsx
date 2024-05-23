@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import {
   StyledContainer,
@@ -13,6 +13,7 @@ export type InputTextProps = JSX.IntrinsicElements["input"] & {
   onChange: (value: string) => void;
   containerProps?: JSX.IntrinsicElements["div"];
   edit?: boolean;
+  error?: string;
 };
 
 export const InputText = ({
@@ -20,11 +21,12 @@ export const InputText = ({
   onChange = () => {},
   containerProps = {},
   edit,
+  error,
   ...props
 }: InputTextProps) => {
-  const [isEditing, setIsEditing] = useState<boolean | undefined>(!!edit);
+  const [isEditing, setIsEditing] = useState<boolean | undefined>();
   const [value, setValue] = useState(defaultValue || "");
-  const [editingValue, setEditingValue] = useState<any>(null);
+  const [editingValue, setEditingValue] = useState<any>(false);
   const [isHovering, setIsHovering] = useState(false);
 
   const handleDoubleClick = () => {
@@ -70,8 +72,10 @@ export const InputText = ({
       editingValue !== value
     ) {
       onChange(value);
+    } else if (edit) {
+      setIsEditing(true);
     }
-  }, [isEditing, value, editingValue]);
+  }, [isEditing, value, editingValue, edit]);
 
   return (
     <StyledContainer
@@ -82,7 +86,10 @@ export const InputText = ({
     >
       {isEditing ? (
         <StyledInput
-          className="input"
+          className={clsx(
+            "input outline-none ring-0 focus:ring-0 outline-[1px] focus:outline-[1px] outline-white/10 focus:outline-white/20",
+            !!error && "!outline-red-900 focus:!outline-red-800 focus:ring-0"
+          )}
           type="text"
           defaultValue={value || defaultValue}
           onChange={handleChange}
@@ -100,6 +107,7 @@ export const InputText = ({
           )}
         </StyledEntry>
       )}
+      <label className="text-xs">{error}</label>
     </StyledContainer>
   );
 };

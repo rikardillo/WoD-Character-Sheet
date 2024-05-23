@@ -54,15 +54,20 @@ export const FeatureCharacterDetails = () => {
   }, [characterSheetFieldValues]);
 
   return (
-    <>
-      <img src={currentGame?.logoImageUrl} width="256px" onClick={goBack} />
+    <div className="mt-12 w-full m-auto flex flex-col items-center justify-center gap-10">
+      <img
+        src={currentGame?.logoImageUrl}
+        width="256px"
+        onClick={goBack}
+        className="cursor-pointer"
+      />
       <CharacterDetails
         characterSheetFields={characterSheetFields || []}
         fieldValues={fieldValues}
         onUpdateField={handleUpdateFieldValue}
         onRemoveField={handleRemoveField}
       />
-    </>
+    </div>
   );
 };
 

@@ -17,10 +17,7 @@ export const createApiStoreFirebase = (): ApiStorage => {
     getCharactersByGameId: async (gameId: string) => {
       throw new Error("Not implemented");
     },
-    createCharacter: async (
-      gameId: string,
-      fields: CharacterSheetFieldValue[]
-    ) => {
+    createCharacter: async (gameId: string, characterName: string) => {
       const id = crypto.randomUUID();
       return { id } as any;
     },
