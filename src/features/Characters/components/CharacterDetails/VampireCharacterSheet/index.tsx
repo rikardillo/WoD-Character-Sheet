@@ -1,10 +1,5 @@
-import { useMemo } from "react";
-
-import Content from "@/common/components/Layout/Content";
 import { CombatContainer } from "@/common/components/Layout/Container";
-
-import { type CharacterDetailsProps } from "@/features/Characters/components/CharacterDetails";
-
+import Content from "@/common/components/Layout/Content";
 import InfoSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/InfoSection";
 import AttributesSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/AttributesSection";
 import SkillsSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/SkillsSection";
@@ -16,29 +11,15 @@ import WeaponSection from "@/features/Characters/components/CharacterDetails/WoD
 import MeritsSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/MeritsSection";
 import FlawsSection from "@/features/Characters/components/CharacterDetails/WoDCharacterSheet/FlawsSection";
 
-export const WoDCharacterSheet = ({
-  characterSheetFields,
+export const VampireCharacterSheet = ({
   fieldValues,
   onUpdateField,
   onRemoveField,
-}: CharacterDetailsProps) => {
-  const infoFields = useMemo(
-    () =>
-      characterSheetFields.filter((field) =>
-        field?.gameFieldId.startsWith("wod-info")
-      ),
-    [characterSheetFields]
-  );
-  const attributesFields = useMemo(
-    () =>
-      characterSheetFields.filter((field) => field?.group?.id === "wod-attrs"),
-    [characterSheetFields]
-  );
-  const skillsFields = useMemo(
-    () =>
-      characterSheetFields.filter((field) => field?.group?.id === "wod-skills"),
-    [characterSheetFields]
-  );
+}) => {
+  const infoFields = [];
+  const attributesFields = [];
+  const skillsFields = [];
+
   return (
     <Content className="content max-w-screen-md m-auto">
       <InfoSection
@@ -92,5 +73,3 @@ export const WoDCharacterSheet = ({
     </Content>
   );
 };
-
-export default WoDCharacterSheet;

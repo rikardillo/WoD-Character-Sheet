@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-
-import store from "@/store";
-import { GameCard, GameListContainer } from "./components";
 import { useNavigate } from "react-router-dom";
 
-import { type Game } from ".";
+import CardListContainer from "@/common/components/CardSelector/CardListContainer";
+import Card from "@/common/components/CardSelector/Card";
+import store from "@/store";
 import { useLoader } from "@/store/hooks";
+
+import { type Game } from ".";
 
 export const FeatureGameList = () => {
   const { games } = useLoader();
@@ -28,16 +29,17 @@ export const FeatureGameList = () => {
   return (
     <>
       <h1 style={{ position: "absolute", top: "8rem" }}>Choose your destiny</h1>
-      <GameListContainer>
+      <CardListContainer>
         {games.map((game) => (
-          <GameCard
+          <Card
             key={game.id}
-            game={game}
             onClick={handleSelectGame(game, true)}
             onMouseEnter={handleSelectGame(game, false)}
-          />
+          >
+            <img src={game.logoImageUrl} width="100%" />
+          </Card>
         ))}
-      </GameListContainer>
+      </CardListContainer>
     </>
   );
 };

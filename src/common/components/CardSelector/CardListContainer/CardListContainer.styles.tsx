@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const GameListContainer = styled.div`
+export const StyledCardListContainer = styled.div`
   padding-top: 2rem;
   display: flex;
   gap: 2rem;
   align-items: center;
 `;
 
-export default GameListContainer;
+export default StyledCardListContainer;

@@ -26,7 +26,10 @@ export const createApiStoreLocalStorage = (): ApiStorage => {
     getCharactersByGameId: async (gameId: string) => {
       return charactersCrud.filter((c) => c.game.id === gameId);
     },
-    createCharacter: async (gameId: string, fields: CharacterSheetField[]) => {
+    createCharacter: async (
+      gameId: string,
+      fields: CharacterSheetFieldValue[]
+    ) => {
       throw new Error("Not implemented");
     },
     removeCharacterById: async (characterId: string) => {

@@ -19,6 +19,10 @@ export const state = createModel<RootModel>()({
       ...state,
       characters,
     }),
+    addCharacter: (state, character: Character) => ({
+      ...state,
+      characters: [...(state.characters ?? []), character],
+    }),
     setcharacterFieldValues: (
       state,
       characterFieldValues: CharacterSheetFieldValue[]
@@ -66,6 +70,16 @@ export const state = createModel<RootModel>()({
     getCharacters: async (gameId: string) => {
       const characters = await apiStorage.getCharactersByGameId(gameId);
       dispatch.characters.setCharacters(characters);
+    },
+    createCharacter: async ({
+      gameId,
+      fieldValues,
+    }: {
+      gameId: string;
+      fieldValues: CharacterSheetFieldValue[];
+    }) => {
+      const character = await apiStorage.createCharacter(gameId, fieldValues);
+      dispatch.characters.addCharacter(character);
     },
     getGameFieldValuesByCharacterId: async (characterId: string) => {
       const characterFieldValues =

@@ -15,7 +15,7 @@ export const MainContainer = styled.div<{ $bg?: string }>`
     background-image: url("${props.$bg}");
     background-size: 100svw 100svh;
     background-position: center center;
-    transition: background-image 0.3s ease;
+    transition: background-image 1s ease;
   `}
 
   @media (width <= 500px) {

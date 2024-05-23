@@ -15,11 +15,6 @@ const router = createBrowserRouter([
     lazy: getComponent(() => import("@/features/Games/FeatureGameList")),
   },
   {
-    id: "test",
-    path: "/test",
-    lazy: getComponent(() => import("../../_old/CharacterSheet")),
-  },
-  {
     id: "character-list",
     path: "/:gameSlug",
     lazy: getComponent(

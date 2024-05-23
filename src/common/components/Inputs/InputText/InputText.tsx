@@ -12,15 +12,17 @@ export type InputTextProps = JSX.IntrinsicElements["input"] & {
   defaultValue?: any;
   onChange: (value: string) => void;
   containerProps?: JSX.IntrinsicElements["div"];
+  edit?: boolean;
 };
 
 export const InputText = ({
   defaultValue,
   onChange = () => {},
   containerProps = {},
+  edit,
   ...props
 }: InputTextProps) => {
-  const [isEditing, setIsEditing] = useState<boolean | undefined>();
+  const [isEditing, setIsEditing] = useState<boolean | undefined>(!!edit);
   const [value, setValue] = useState(defaultValue || "");
   const [editingValue, setEditingValue] = useState<any>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -36,12 +38,20 @@ export const InputText = ({
   };
 
   const handleBlur = () => {
-    setIsEditing(false);
+    if (!edit) {
+      return setIsEditing(false);
+    } else {
+      onChange(value);
+    }
   };
 
   const handleSave = (e) => {
     if (e.key == "Enter" || e.key == "Escape") {
-      setIsEditing(false);
+      if (!edit) {
+        return setIsEditing(false);
+      } else {
+        onChange(value);
+      }
     }
   };
 

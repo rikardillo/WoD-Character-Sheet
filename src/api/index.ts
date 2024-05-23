@@ -24,8 +24,8 @@ export interface ApiStorage {
   getCharactersByGameId: (gameId: string) => Promise<Character[]>;
   createCharacter: (
     gameId: string,
-    fields: CharacterSheetField[]
-  ) => Promise<void>;
+    fields: CharacterSheetFieldValue[]
+  ) => Promise<Character>;
   getGameFieldValuesByCharacterId: (
     characterId: string
   ) => Promise<CharacterSheetFieldValue[]>;
