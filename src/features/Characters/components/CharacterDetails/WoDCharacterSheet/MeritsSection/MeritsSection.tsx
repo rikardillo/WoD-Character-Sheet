@@ -7,8 +7,8 @@ import { SectionProps } from "../../CharacterDetails";
 
 export const MeritsSection = ({
   fieldValues = {},
-  onUpdateField = () => {},
-  onRemoveField = () => {},
+  onUpdateField = async () => {},
+  onRemoveField = async () => {},
 }: Omit<SectionProps, "fields">) => {
   const equipmentList = useMemo(
     () =>
@@ -19,10 +19,15 @@ export const MeritsSection = ({
   );
 
   const handleOnCreate = (id: string, fieldValueId?: string) => {
-    onUpdateField({ referenceId: id }, `wod-merit-${id}`, fieldValueId);
+    return onUpdateField(
+      { referenceId: id },
+      `wod-merit-${id}`,
+      fieldValueId,
+      true
+    );
   };
   const handleOnDelete = (gameFieldId: string) => {
-    onRemoveField && onRemoveField(gameFieldId);
+    return onRemoveField(gameFieldId);
   };
   return (
     <>
@@ -31,7 +36,7 @@ export const MeritsSection = ({
           hideTitles
           rows={equipmentList}
           renderRow={(gameFieldId, row, column) => {
-            const fieldId = `${gameFieldId}-${row.value.referenceId}`;
+            const fieldId = `${gameFieldId}-${row.value?.referenceId}`;
             const fieldValue = fieldValues[fieldId] ?? { value: {} };
             return (
               <div
@@ -41,6 +46,9 @@ export const MeritsSection = ({
               >
                 {column === "Merit" && (
                   <InputText
+                    key={`${fieldId}-${fieldValue?.value}-${
+                      fieldValue.updatedAt || ""
+                    }`}
                     defaultValue={fieldValue.value[column.toLowerCase()]}
                     onChange={(value) => {
                       onUpdateField(
@@ -56,6 +64,9 @@ export const MeritsSection = ({
                 )}
                 {column === "Rating" && (
                   <DotRating
+                    key={`${fieldId}-${fieldValue?.value}-${
+                      fieldValue.updatedAt || ""
+                    }`}
                     id={fieldId}
                     value={fieldValue.value[column.toLowerCase()]}
                     maxRating={5}

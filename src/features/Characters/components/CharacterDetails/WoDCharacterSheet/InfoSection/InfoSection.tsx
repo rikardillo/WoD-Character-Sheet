@@ -6,6 +6,7 @@ import {
 } from "./InfoSection.styles";
 import { InputText } from "@/common/components/Inputs";
 import { type SectionProps } from "@/features/Characters/components/CharacterDetails";
+import { useMemo } from "react";
 
 export default function InfoSection({
   fields,
@@ -21,6 +22,9 @@ export default function InfoSection({
             <StyledEntry key={field.gameFieldId}>
               <StyledTitle>{field.title}</StyledTitle>
               <InputText
+                key={`${field.gameFieldId}-${fieldValue.value}-${
+                  fieldValue.updatedAt || ""
+                }`}
                 defaultValue={fieldValue.value || ""}
                 onChange={(value: any) => {
                   onUpdateField(value, field.gameFieldId, fieldValue.id);

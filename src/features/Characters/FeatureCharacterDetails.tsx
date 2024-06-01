@@ -11,17 +11,17 @@ export const getValuesByFieldId = (fieldValues: CharacterSheetFieldValue[]) =>
   fieldValues.reduce((result, field) => {
     return {
       ...result,
-      [field.gameFieldId]: { value: field.value, id: field.id },
+      [field.gameFieldId]: {
+        value: field.value,
+        id: field.id,
+        updatedAt: field.updatedAt,
+      },
     };
   }, {});
 
 export const FeatureCharacterDetails = () => {
-  const {
-    currentGame,
-    characterSheetFields,
-    characterSheetFieldValues,
-    currentCharacter,
-  } = useLoader();
+  const { currentGame, characterSheetFieldValues, currentCharacter } =
+    useLoader();
 
   const navigate = useNavigate();
 
@@ -32,18 +32,20 @@ export const FeatureCharacterDetails = () => {
   const handleUpdateFieldValue = (
     value: any,
     gameFieldId: string,
-    fieldId?: string
+    fieldId?: string,
+    isCreate?: boolean
   ) => {
-    store.dispatch.characters.createOrUpdateCharacterFieldValue({
+    return store.dispatch.characters.createOrUpdateCharacterFieldValue({
       characterId: currentCharacter?.id!,
       value,
       gameFieldId,
       fieldId,
+      isCreate,
     });
   };
 
-  const handleRemoveField = (gameFieldId: string) => {
-    store.dispatch.characters.removeCharacterField({
+  const handleRemoveField = async (gameFieldId: string) => {
+    return store.dispatch.characters.removeCharacterField({
       characterId: currentCharacter?.id!,
       gameFieldId,
     });
@@ -62,7 +64,6 @@ export const FeatureCharacterDetails = () => {
         className="cursor-pointer"
       />
       <CharacterDetails
-        characterSheetFields={characterSheetFields || []}
         fieldValues={fieldValues}
         onUpdateField={handleUpdateFieldValue}
         onRemoveField={handleRemoveField}

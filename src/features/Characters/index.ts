@@ -5,6 +5,7 @@ export type CharacterSheetField = {
   title: string;
   type: "input" | "checkbox" | "rating";
   groupId?: string;
+  updatedAt?: string;
 };
 
 export type CharacterSheetFieldValue<T = any> = {
@@ -12,6 +13,7 @@ export type CharacterSheetFieldValue<T = any> = {
   characterId: string;
   gameFieldId: string;
   value: T;
+  updatedAt?: string;
 };
 
 export type Character = {

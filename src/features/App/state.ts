@@ -1,9 +1,11 @@
 import { createModel } from "@rematch/core";
 
 import { type RootModel } from "@/store/models";
+import { CustomError } from "@/common/errors";
 
 type State = {
   loadingIds: string[];
+  error?: CustomError | null;
 };
 
 export const state = createModel<RootModel>()({
@@ -26,6 +28,13 @@ export const state = createModel<RootModel>()({
         loadingIds: state.loadingIds.filter((id) => id !== identifier),
       };
     },
+    setError: (state, error: CustomError | string | null | undefined) => ({
+      ...state,
+      error:
+        typeof error === "string"
+          ? { title: "Unexpected error", detail: error }
+          : error,
+    }),
   },
   effects: {},
 });

@@ -3,6 +3,7 @@ import { createModel } from "@rematch/core";
 import { type RootModel } from "@/store/models";
 import { type Character, type CharacterSheetFieldValue } from ".";
 import apiStorage from "@/api";
+import store from "@/store";
 
 type State = {
   characters: Character[] | undefined;
@@ -28,10 +29,9 @@ export const state = createModel<RootModel>()({
       characterFieldValues: CharacterSheetFieldValue[]
     ) => ({
       ...state,
-      characterFieldValues,
+      characterFieldValues: [...characterFieldValues],
     }),
     setCharacterFieldValue: (state, payload) => {
-      const newState = { ...state };
       let characterFieldValues = state.characterFieldValues ?? [];
       const fieldValueIndex = characterFieldValues.findIndex(
         (f) => f.gameFieldId === payload.gameFieldId
@@ -42,13 +42,14 @@ export const state = createModel<RootModel>()({
           ...characterFieldValues[fieldValueIndex],
           ...payload,
         };
+        console.log(characterFieldValues[fieldValueIndex]);
       } else {
         characterFieldValues = characterFieldValues.concat([payload]);
       }
 
-      newState.characterFieldValues = characterFieldValues;
+      state.characterFieldValues = [...characterFieldValues];
 
-      return newState;
+      return state;
     },
     removeField: (state, gameFieldId: string) => {
       const newState = { ...state };
@@ -92,26 +93,41 @@ export const state = createModel<RootModel>()({
       dispatch.characters.setcharacterFieldValues(characterFieldValues);
       dispatch.app.removeLoading("getCharacterFieldValues");
     },
-    createOrUpdateCharacterFieldValue: async ({
-      characterId,
-      value,
-      gameFieldId,
-      fieldId,
-    }: {
+    createOrUpdateCharacterFieldValue: async (payload: {
       characterId: string;
       value: any;
       gameFieldId: string;
       fieldId?: string;
+      isCreate?: boolean;
     }) => {
-      dispatch.app.addLoading(`updateCharacterField-${gameFieldId}`);
-      const result = await apiStorage.createOrUpdateCharacterFieldValue(
-        characterId,
-        value,
-        gameFieldId,
-        fieldId
-      );
-      dispatch.characters.setCharacterFieldValue(result);
-      dispatch.app.removeLoading(`updateCharacterField-${gameFieldId}`);
+      const oldValue = store
+        .getState()
+        .characters.characterFieldValues?.find(
+          (fieldValue) => fieldValue.gameFieldId === payload.gameFieldId
+        )?.value;
+      dispatch.app.addLoading(`updateCharacterField-${payload.gameFieldId}`);
+      try {
+        const result = await apiStorage.createOrUpdateCharacterFieldValue(
+          payload.characterId,
+          payload.value,
+          payload.gameFieldId,
+          payload.fieldId
+        );
+        dispatch.characters.setCharacterFieldValue(result);
+      } catch (err: any) {
+        dispatch.app.setError({
+          title: "Error updating field",
+          detail: err.detail || err.message || "Internal server error",
+        });
+        if (!payload.isCreate) {
+          dispatch.characters.setCharacterFieldValue({
+            ...payload,
+            value: oldValue,
+            updatedAt: new Date().toISOString(),
+          });
+        }
+      }
+      dispatch.app.removeLoading(`updateCharacterField-${payload.gameFieldId}`);
     },
     removeCharacterField: async ({
       characterId,
@@ -121,9 +137,17 @@ export const state = createModel<RootModel>()({
       gameFieldId: string;
     }) => {
       dispatch.app.addLoading(`removeCharacterField-${gameFieldId}`);
-      await apiStorage.removeField(characterId, gameFieldId);
-      dispatch.characters.removeField(gameFieldId);
-      dispatch.app.removeLoading(`removeCharacterField-${gameFieldId}`);
+      try {
+        await apiStorage.removeField(characterId, gameFieldId);
+        dispatch.characters.removeField(gameFieldId);
+      } catch (err: any) {
+        dispatch.app.setError({
+          title: "Error updating field",
+          detail: err.detail || err.message || "Internal server error",
+        });
+      } finally {
+        dispatch.app.removeLoading(`removeCharacterField-${gameFieldId}`);
+      }
     },
   }),
 });

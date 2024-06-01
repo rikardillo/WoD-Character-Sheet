@@ -60,10 +60,14 @@ export const CombatSection = ({
             label="Armor"
             onChange={handleChangeCounter("wod-combat-armor", armor?.id)}
             value={armor?.value}
+            key={`wod-combat-armor-${armor?.value}-${armor.updatedAt || ""}`}
           />
           <Counter
             label="XP"
             onChange={handleChangeCounter("wod-combat-xp", experience?.id)}
+            key={`wod-combat-xp-${experience?.value}-${
+              experience.updatedAt || ""
+            }`}
             value={experience?.value}
           />
         </StyledInfoGroup>

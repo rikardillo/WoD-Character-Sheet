@@ -2,7 +2,6 @@ import { appLogger, loggerMethodsMiddleware } from "@/common/utils/logger";
 import {
   type Character,
   type CharacterSheetFieldValue,
-  type CharacterSheetField,
 } from "@/features/Characters";
 import { type ApiStorage } from "@/api";
 import { fakeGames } from "./fakeData";
@@ -80,11 +79,20 @@ export const createApiStoreLocalStorage = (): ApiStorage => {
       }
       let field = await crud.read(fieldId);
       if (field) {
-        field = await crud.update(field.id!, { ...field, value });
-
         if (gameFieldId.endsWith("-info-name")) {
+          const character = await charactersCrud.read(characterId);
+          const characterExists = await charactersCrud.filter(
+            (c) => c.name === value && c.gameId === character?.gameId
+          );
+
+          if (characterExists.length > 0) {
+            return Promise.reject({ detail: "Character name already created" });
+          }
+
           await charactersCrud.update(characterId, { name: value });
         }
+
+        field = await crud.update(field.id!, { ...field, value });
 
         return field;
       }

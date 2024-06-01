@@ -13,7 +13,10 @@ const customTheme: CustomFlowbiteTheme = {
     },
     header: {
       title: "text-white",
-      base: "border-b  p-4 border-white/20 flex items-center",
+      base: "bg-black/70 border-b  p-4 border-white/20 flex items-center",
+    },
+    body: {
+      base: "bg-black/70 border-b  p-4 border-white/20 flex items-center",
     },
     footer: {
       base: "bg-black/90 border-white/20 p-4 flex items-center",

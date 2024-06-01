@@ -27,6 +27,7 @@ export const MoralitySection = ({
         <StyledEntry className="styledEntry !flex-row items-center justify-center">
           <h4>Morality</h4>
           <Counter
+            key={`wod-morality-${morality?.value}-${morality.updatedAt || ""}`}
             className="!mt-2"
             value={morality.value}
             onChange={handleChangeValue("wod-morality", morality.id)}
@@ -35,6 +36,9 @@ export const MoralitySection = ({
         <StyledEntry>
           <h4>Derangement(s)</h4>
           <InputText
+            key={`wod-derangements-${derangements?.value}-${
+              derangements.updatedAt || ""
+            }`}
             containerProps={{
               className: "!h-[12px]",
             }}

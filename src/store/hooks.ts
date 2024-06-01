@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import store, { RootState } from ".";
 import { useParams } from "react-router-dom";
 import { useEffect, useMemo } from "react";
+import { CustomError } from "@/common/errors";
 
 export function useGames() {
   const games = useSelector((state: RootState) => state.game.games);
@@ -54,7 +55,6 @@ export function useLoader() {
     () => characters?.find((c) => c.id === characterId),
     [characterId, characters]
   );
-  const characterSheetFields = currentGame?.sheetFields || [];
   const characterSheetFieldValues = useCharacterFieldValues();
 
   useEffect(() => {
@@ -84,7 +84,6 @@ export function useLoader() {
     characters,
     currentCharacter,
     characterSheetFieldValues,
-    characterSheetFields,
   };
 }
 
@@ -104,4 +103,15 @@ export const useIsLoading = () => {
     (state: RootState) => state.app.loadingIds.length > 0
   );
   return loading;
+};
+
+export const useError = (): [
+  CustomError | undefined | null,
+  (error?: CustomError | null) => void
+] => {
+  const error = useSelector((state: RootState) => state.app.error);
+  const setError = (error?: CustomError | null) => {
+    return store.dispatch.app.setError(error);
+  };
+  return [error, setError];
 };

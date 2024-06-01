@@ -9,8 +9,8 @@ import { CharacterSheetFieldValue } from "@/features/Characters";
 
 export const EquipmentSection = ({
   fieldValues = {},
-  onUpdateField = () => {},
-  onRemoveField = () => {},
+  onUpdateField = async () => {},
+  onRemoveField = async () => {},
 }: Omit<SectionProps, "fields">) => {
   const equipmentList = useMemo(
     () =>
@@ -21,10 +21,15 @@ export const EquipmentSection = ({
   );
 
   const handleOnCreate = (id: string, fieldValueId?: string) => {
-    onUpdateField({ referenceId: id }, `wod-equipment-${id}`, fieldValueId);
+    return onUpdateField(
+      { referenceId: id },
+      `wod-equipment-${id}`,
+      fieldValueId,
+      true
+    );
   };
   const handleOnDelete = (gameFieldId: string) => {
-    onRemoveField && onRemoveField(gameFieldId);
+    return onRemoveField(gameFieldId);
   };
   return (
     <>
@@ -32,11 +37,14 @@ export const EquipmentSection = ({
         <EntityList<CharacterSheetFieldValue>
           rows={equipmentList}
           renderRow={(gameFieldId, row, column) => {
-            const fieldId = `${gameFieldId}-${row.value.referenceId}`;
+            const fieldId = `${gameFieldId}-${row.value?.referenceId}`;
             const fieldValue = fieldValues[fieldId] ?? { value: {} };
             return (
               <div className="w-full p-2 flex">
                 <InputText
+                  key={`${fieldId}-${fieldValue?.value}-${
+                    fieldValue.updatedAt || ""
+                  }`}
                   defaultValue={fieldValue.value[column.toLowerCase()]}
                   onChange={(value) => {
                     onUpdateField(

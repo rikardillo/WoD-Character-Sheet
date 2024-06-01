@@ -30,6 +30,9 @@ export const AttributesSection = ({
               <StyledAttribute key={field.gameFieldId}>
                 <span>{field.title}</span>
                 <DotRating
+                  key={`${field.gameFieldId}-${fieldValue.value}-${
+                    fieldValue.updatedAt || ""
+                  }`}
                   id={field.gameFieldId}
                   value={fieldValue.value || 1}
                   maxRating={5}

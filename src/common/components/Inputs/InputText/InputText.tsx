@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import {
   StyledContainer,
@@ -24,6 +24,7 @@ export const InputText = ({
   error,
   ...props
 }: InputTextProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState<boolean | undefined>();
   const [value, setValue] = useState(defaultValue || "");
   const [editingValue, setEditingValue] = useState<any>(false);
@@ -77,6 +78,10 @@ export const InputText = ({
     }
   }, [isEditing, value, editingValue, edit]);
 
+  useEffect(() => {
+    console.log("input", defaultValue);
+  }, [defaultValue]);
+
   return (
     <StyledContainer
       {...containerProps}
@@ -86,6 +91,7 @@ export const InputText = ({
     >
       {isEditing ? (
         <StyledInput
+          ref={inputRef}
           className={clsx(
             "input outline-none ring-0 focus:ring-0 outline-[1px] focus:outline-[1px] outline-white/10 focus:outline-white/20",
             !!error && "!outline-red-900 focus:!outline-red-800 focus:ring-0"

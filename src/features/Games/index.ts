@@ -6,5 +6,4 @@ export type Game = {
   title: string;
   logoImageUrl: string;
   backgroundImageUrl?: string;
-  sheetFields: CharacterSheetField[];
 };

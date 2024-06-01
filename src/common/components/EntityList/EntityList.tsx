@@ -8,8 +8,8 @@ export type EntityListProps<T> = {
   renderRow: (gameFieldId: string, row: T, column: string) => JSX.Element;
   columns: string[];
   rows: T[];
-  onCreate: (referenceId: string) => void;
-  onDelete: (fieldId: string) => void;
+  onCreate: (referenceId: string) => Promise<void>;
+  onDelete: (fieldId: string) => Promise<void>;
   title: string;
   titlePlural: string;
   hideTitles?: boolean;
@@ -27,7 +27,7 @@ export const EntityList = <T extends { id: string; value: any }>({
   hideTitles,
 }: EntityListProps<T>) => {
   const [removalId, setRemovalId] = useState<string | null>(null);
-  const handleAddEquipment = () => {
+  const handleOnCreate = () => {
     onCreate(crypto.randomUUID());
   };
   return (
@@ -58,6 +58,7 @@ export const EntityList = <T extends { id: string; value: any }>({
                 removeFunction={() => {
                   const fieldId = `${fieldIdentifier}-${entry.value.referenceId}`;
                   onDelete(fieldId);
+                  setRemovalId(null);
                 }}
                 id={entry.id}
                 entry={`equipment`}
@@ -81,7 +82,7 @@ export const EntityList = <T extends { id: string; value: any }>({
           </div>
         </div>
       ))}
-      <Button onClick={handleAddEquipment} text={`+ Add ${title}`} />
+      <Button onClick={handleOnCreate} text={`+ Add ${title}`} />
     </>
   );
 };

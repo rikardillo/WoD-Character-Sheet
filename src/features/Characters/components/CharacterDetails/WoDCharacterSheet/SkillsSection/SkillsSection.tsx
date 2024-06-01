@@ -25,6 +25,9 @@ export const SkillsSection = ({
               <StyledSkill key={field.gameFieldId}>
                 <span>{field.title}</span>
                 <DotRating
+                  key={`${field.gameFieldId}-${fieldValue.value}-${
+                    fieldValue.updatedAt || ""
+                  }`}
                   value={fieldValue.value || 1}
                   maxRating={5}
                   id={field.gameFieldId}

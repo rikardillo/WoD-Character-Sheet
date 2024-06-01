@@ -7,8 +7,8 @@ import { SectionProps } from "../../CharacterDetails";
 
 export const MeritsSection = ({
   fieldValues = {},
-  onUpdateField = () => {},
-  onRemoveField = () => {},
+  onUpdateField = async () => {},
+  onRemoveField = async () => {},
 }: Omit<SectionProps, "fields">) => {
   const equipmentList = useMemo(
     () =>
@@ -19,10 +19,15 @@ export const MeritsSection = ({
   );
 
   const handleOnCreate = (id: string, fieldValueId?: string) => {
-    onUpdateField({ referenceId: id }, `wod-flaw-${id}`, fieldValueId);
+    return onUpdateField(
+      { referenceId: id },
+      `wod-flaw-${id}`,
+      fieldValueId,
+      true
+    );
   };
   const handleOnDelete = (gameFieldId: string) => {
-    onRemoveField && onRemoveField(gameFieldId);
+    return onRemoveField(gameFieldId);
   };
   return (
     <>
@@ -31,11 +36,14 @@ export const MeritsSection = ({
           hideTitles
           rows={equipmentList}
           renderRow={(gameFieldId, row, column) => {
-            const fieldId = `${gameFieldId}-${row.value.referenceId}`;
+            const fieldId = `${gameFieldId}-${row.value?.referenceId}`;
             const fieldValue = fieldValues[fieldId] ?? { value: {} };
             return (
               <div className="w-full p-2 flex items-center justify-center">
                 <InputText
+                  key={`${fieldId}-${fieldValue?.value}-${
+                    fieldValue.updatedAt || ""
+                  }`}
                   defaultValue={fieldValue.value[column.toLowerCase()]}
                   onChange={(value) => {
                     onUpdateField(

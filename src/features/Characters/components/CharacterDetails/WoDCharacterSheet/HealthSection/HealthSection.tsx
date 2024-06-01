@@ -22,10 +22,15 @@ export const HealthSection = ({ onUpdateField, fieldValues }: SectionProps) => {
   const healthInputs = useMemo(() => {
     return new Array(stamina + 5).fill(null).map((_, index) => {
       const gameFieldId = `wod-health-${index}`;
-      const fieldValue = fieldValues[gameFieldId];
+      const fieldValue = fieldValues[gameFieldId] ?? {
+        value: 0,
+        updatedAt: "",
+      };
       return (
         <CheckBox
-          key={index}
+          key={`${gameFieldId}-${fieldValue.value}-${
+            fieldValue.updatedAt || ""
+          }`}
           id={gameFieldId}
           value={fieldValue?.value}
           onChange={(value) => {
@@ -37,7 +42,10 @@ export const HealthSection = ({ onUpdateField, fieldValues }: SectionProps) => {
   }, [stamina, fieldValues]);
 
   const willpowerId = `wod-health-willpower`;
-  const willpowerFieldValue = fieldValues[willpowerId] ?? { value: 0 };
+  const willpowerFieldValue = fieldValues[willpowerId] ?? {
+    value: 0,
+    updatedAt: "",
+  };
 
   return (
     <HealthSectionContainer>
@@ -49,6 +57,9 @@ export const HealthSection = ({ onUpdateField, fieldValues }: SectionProps) => {
         <Container>
           <h4>Willpower</h4>
           <DotRating
+            key={`${willpowerId}-${willpowerFieldValue.value}-${
+              willpowerFieldValue.updatedAt || ""
+            }`}
             value={willpowerFieldValue.value}
             maxRating={resolve + composure}
             id={willpowerId}

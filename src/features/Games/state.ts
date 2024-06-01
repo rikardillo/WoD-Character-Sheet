@@ -3,7 +3,6 @@ import { createModel } from "@rematch/core";
 import { type RootModel } from "@/store/models";
 import { type Game } from ".";
 
-import appLogger from "@/common/utils/logger";
 import apiStorage from "@/api";
 
 type State = {
@@ -31,10 +30,19 @@ export const state = createModel<RootModel>()({
   effects: (dispatch) => ({
     getGames: async () => {
       dispatch.app.addLoading("loadingGames");
-      const games = await apiStorage.getGames();
-      dispatch.game.setGames(games);
-      dispatch.app.removeLoading("loadingGames");
-      return games;
+      try {
+        const games = await apiStorage.getGames();
+        dispatch.game.setGames(games);
+        return games;
+      } catch (err: any) {
+        dispatch.app.setError({
+          title: "Error getting games list",
+          detail: err.detail || err.message || "Internal server error",
+        });
+        return [];
+      } finally {
+        dispatch.app.removeLoading("loadingGames");
+      }
     },
   }),
 });

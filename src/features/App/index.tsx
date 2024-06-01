@@ -1,8 +1,10 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Modal } from "flowbite-react";
 
 import MainContainer from "@/common/components/Layout/MainContainer";
-import { useCurrentGame, useIsLoading } from "@/store/hooks";
 import Loading from "@/common/components/Loading";
+
+import { useCurrentGame, useError, useIsLoading } from "@/store/hooks";
 
 export const getComponent = (c: () => Promise<any>) => async () => {
   const result = await c();
@@ -45,11 +47,18 @@ export const App = () => {
   const currentGame = useCurrentGame();
   const bg = currentGame?.backgroundImageUrl;
   const isLoading = useIsLoading();
+  const [error, setError] = useError();
 
   return (
     <MainContainer id="main" $bg={bg}>
       <RouterProvider router={router} />
       {isLoading && <Loading />}
+      {error && (
+        <Modal show onClose={() => setError(null)}>
+          <Modal.Header>{error.title}</Modal.Header>
+          <Modal.Body>{error.detail}</Modal.Body>
+        </Modal>
+      )}
     </MainContainer>
   );
 };

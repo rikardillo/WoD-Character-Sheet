@@ -11,7 +11,7 @@ import { createApiStoreLocalStorage } from "./localStorage";
 
 export type Crud<T> = {
   create: (payload: Partial<T>) => Promise<T>;
-  read: (id: string) => Promise<T>;
+  read: (id: string) => Promise<T | undefined>;
   filter: (
     predicate?: (value: any, index: number, array: any[]) => any
   ) => Promise<T[]>;
@@ -37,6 +37,7 @@ export interface ApiStorage {
     fieldId?: string
   ) => Promise<CharacterSheetFieldValue>;
   removeField: (characterId: string, fieldId: string) => Promise<void>;
+  removeAllFields: (characterId: string) => Promise<void>;
 }
 
 export const createApiStorage = () => {
